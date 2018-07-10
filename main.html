@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><!-- header -->
+
+    <title>Old Hangul IME</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Use this to write Old Hangul text."/>
+
+<body id="body">
+
+<div id="header">
+
+	<div id="header_inner" class="fixed">
+
+		<div id="logo">
+			<h1>Old Hangul IME</h1>
+		</div>
+
+	</div>
+    <!-- <div id="printlogo"><img src="/css/logo.gif" alt="DeGraeve.com" width="181" height="25" /></div> -->
+</div>
+
+
+<!-- /header -->
+
+<div id="main">
+
+<script language="JavaScript">//<![CDATA[
+<!--
+var last="";
+var rot13map;
+
+function initValues()
+{
+	var map = new Array();
+	var s = "abcdefghijklmnopqrstuvwxyz";
+
+	for (i = 0; i < s.length; i++)
+		map[s.charAt(i)] = s.charAt((i+1)%26);
+	for (i = 0; i < s.length; i++)
+		map[s.charAt(i).toUpperCase()]	= s.charAt((i+1)%26).toUpperCase();
+	return map;
+}
+
+// Converts a char into its encrypted version
+function endecrypt(chr, val) {
+    //console.log("chr=" + chr + " chr=" + chr.charCodeAt() + " val=" + val);
+
+    var x = chr.charCodeAt() ^ val;
+    return String.fromCharCode(x);
+}
+
+function calculateOld(a)
+{
+	if (!rot13map)
+		rot13map = initValues();
+	s = "";
+	for (i=0; i < a.length; i++)
+	{
+		// Get current char
+		var b = a.charAt(i);
+
+        s += endecrypt(b, 129);
+		//s += (b >= 'A' && b <= 'Z' || b >= 'a' && b <= 'z'
+        //        ? endecrypt(b, 4869) : b);
+                //? rot13map[b] : b);
+	}
+	return s;
+}
+
+function upd()
+{
+	if (document.forms[0].text.value==last)
+	return;
+
+	last = document.forms[0].text.value;
+	document.forms[0].rot13.value = calculateOld(last);
+}
+// -->
+//]]></script>
+
+<script src="hangulime.js" type="text/javascript"></script>
+
+<form>
+	<p><strong>Type your inappropiate joke or ROTidk encoded silliness here:</strong><br/>
+	<textarea name="text" rows="5" cols="40" onchange="upd()" onkeydown="upd()" onkeypress="upd()" onkeyup="upd()"></textarea></p>
+	<p><strong>ROT13 encoded / decoded text appears here:</strong><br/>
+	<textarea name="rot13" rows="5" cols="40"></textarea></p>
+    <p><strong>No seriously! The Old Hangul IME:</strong><br/>
+	<textarea name="hangulime" rows="5" cols="40" onchange="update(event)" onkeydown="update(event)" onkeypress="update(event)" onkeyup="update(event)"></textarea></p>
+	<p>(JavaScript required, you noob.)</p>
+</form>
+
+<!--
+<script src="ROT13%20Cipher_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-427894-1";
+urchinTracker();
+</script>-->
+
+</div>
+
+</body></html>
