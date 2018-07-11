@@ -81,13 +81,41 @@ var finals = new Map([
 	["g",  'ᇂ']
 ]);
 
+// Enum for storing current state
+var state = {
+	"INITIAL": 1,
+	"MEDIAL": 2,
+	"FINAL": 3,
+	"NONE": 4,
+};
+Object.freeze(state);
+
+var currentStatus = state.INITIAL;
+console.log("STATUS = " + currentStatus);
+
+// Change the state for every new character inputted
+function changeStatus(cs) {
+	if (cs === state.INITIAL) {
+		cs = state.MEDIAL;
+	} else if (cs === state.MEDIAL) {
+		cs = state.INITIAL;
+	} else if (cs === state.FINAL) {
+		cs = state.INITIAL;
+	} else {
+		cs = state.NONE;
+	}
+
+	return cs;
+}
+
 function calculate(a) {
 	s = "";
 	for (i=0; i < a.length; i++) {
 		// Get current char
 		var b = a.substring(i, i+1);
-		var character = initials.get(b);
-		//console.log(character);
+		var character = (currentStatus === state.INITIAL)
+				? initials.get(b) : medials.get(b);
+		console.log("CHAR = " + character + " STATUS = " + currentStatus);
 		if (character === undefined) {
 			character = b;
 		}
@@ -97,6 +125,8 @@ function calculate(a) {
 }
 
 function update(e) {
+	console.log("=================");
+
 	// Get keycode of pressed key
 	var keynum;
 	if (window.event) { // IE
@@ -106,9 +136,11 @@ function update(e) {
 	}
 	console.log(String.fromCharCode(keynum));
 
-	if (document.forms[0].hangulime.value==input)
-		return;
+	//if (document.forms[0].hangulime.value==input)
+	//	return;
 
 	input = document.forms[0].hangulime.value;
 	document.forms[0].hangulime.value = calculate(input);
+
+	currentStatus = changeStatus(currentStatus);
 }
