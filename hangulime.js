@@ -107,13 +107,13 @@ var currentStatus = state.INITIAL;
 console.log("STATUS = " + currentStatus);
 
 // Change the state for every new character inputted
-function changeStatus(cs) {
-	if (cs === state.INITIAL) {
-		cs = state.MEDIAL;
-	} else if (cs === state.MEDIAL) {
-		cs = state.FINAL;
-	} else if (cs === state.FINAL) {
+function changeStatus(cs, prevChar) {
+	if (isFinal(prevChar) || prevChar === undefined) {
 		cs = state.INITIAL;
+	} else if (isInitial(prevChar)) {
+		cs = state.MEDIAL;
+	} else if (isMedial(prevChar)) {
+		cs = state.FINAL;
 	} else {
 		cs = state.NONE;
 	}
@@ -126,6 +126,8 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			? input.substring(0, selStart)
 			: input.substring(selStart-3, selStart);
 	var lastChar = last3chars.charAt(last3chars.length-1);
+
+	currentStatus = changeStatus(currentStatus, lastChar);
 
 	// Get current char
 	var b = pressedKey;
@@ -149,8 +151,6 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	var output = input.slice(0, selStart) + character + input.slice(selStart);
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
-	
-	currentStatus = changeStatus(currentStatus);
 
 	return output;
 }
