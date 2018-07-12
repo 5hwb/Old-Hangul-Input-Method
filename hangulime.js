@@ -130,6 +130,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	currentStatus = changeStatus(currentStatus, lastChar);
 
 	// Get current char
+	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
 	var b = pressedKey;
 	var character = (currentStatus === state.INITIAL)
 			? initials.get(b)
