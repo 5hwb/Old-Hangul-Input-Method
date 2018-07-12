@@ -134,7 +134,7 @@ function calculate(input, pressedKey, selStart) {
 	return output;
 }
 
-function update(e) {
+function doSomething(e) {
 	console.log("=================");
 
 	// Get keycode of pressed key
