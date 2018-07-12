@@ -108,8 +108,9 @@ function changeStatus(cs) {
 	return cs;
 }
 
-function calculate(input, pressedKey, selStart) {
+function calculate(input, pressedKey, selStart, thisObject) {
 	var last3chars = input.substring(selStart-3, selStart);
+	var position = selStart;
 
 	// Get current char
 	var b = pressedKey;
@@ -131,10 +132,12 @@ function calculate(input, pressedKey, selStart) {
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 
+	thisObject.selectionStart = position;
+
 	return output;
 }
 
-function doSomething(e) {
+function doSomething(e, thisObject) {
 	console.log("=================");
 
 	// Get keycode of pressed key
@@ -150,8 +153,8 @@ function doSomething(e) {
 
 	// TODO for some reason, the selectionStart value (cursor position) is delayed by 1 keypress!
 	// TODO find out why!
-	var selStart = document.forms[0].hangulime.selectionStart;
-	var selEnd = document.forms[0].hangulime.selectionEnd;
+	var selStart = thisObject.selectionStart;
+	var selEnd = thisObject.selectionEnd;
 	console.log("START=" + selStart + " END=" + selEnd);
 
 	// Disable inserting the char if it's an ASCII char
@@ -162,8 +165,9 @@ function doSomething(e) {
 
 	// Do not calculate if backspace is pressed
 	if (keynum != 8 && keynum != undefined) {
-		input = document.forms[0].hangulime.value;
-		document.forms[0].hangulime.value = calculate(input, pressedKey, selStart);
+		input = thisObject.value;
+		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
+		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
 	}
 
 	currentStatus = changeStatus(currentStatus);
