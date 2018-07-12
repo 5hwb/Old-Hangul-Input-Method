@@ -109,6 +109,8 @@ function changeStatus(cs) {
 }
 
 function calculate(input, pressedKey, selStart) {
+	var last3chars = input.substring(selStart-3, selStart);
+
 	// Get current char
 	var b = pressedKey;
 	var character = (currentStatus === state.INITIAL)
@@ -116,8 +118,9 @@ function calculate(input, pressedKey, selStart) {
 			: (currentStatus === state.MEDIAL) ? medials.get(b)
 			: (currentStatus === state.FINAL) ? finals.get(b)
 			: initials.get(b);
-	console.log(/*"[" + i + "] '" +*/ b + " CHAR = " + character
-			+ " STATUS = " + currentStatus);
+	console.log("last3chars=" + last3chars + " PressedKey=" + b
+			+ " CHAR=" + character
+			+ " STATUS=" + currentStatus);
 	// If no hangul letter in the maps were found, add original char
 	if (character === undefined) {
 		character = b;
@@ -145,7 +148,8 @@ function update(e) {
 	var pressedKey = String.fromCharCode(keynum);
 	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
 
-
+	// TODO for some reason, the selectionStart value (cursor position) is delayed by 1 keypress!
+	// TODO find out why!
 	var selStart = document.forms[0].hangulime.selectionStart;
 	var selEnd = document.forms[0].hangulime.selectionEnd;
 	console.log("START=" + selStart + " END=" + selEnd);
