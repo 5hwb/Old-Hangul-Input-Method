@@ -98,7 +98,7 @@ function changeStatus(cs) {
 	if (cs === state.INITIAL) {
 		cs = state.MEDIAL;
 	} else if (cs === state.MEDIAL) {
-		cs = state.INITIAL;
+		cs = state.FINAL;
 	} else if (cs === state.FINAL) {
 		cs = state.INITIAL;
 	} else {
@@ -114,8 +114,12 @@ function calculate(a) {
 		// Get current char
 		var b = a.substring(i, i+1);
 		var character = (currentStatus === state.INITIAL)
-				? initials.get(b) : medials.get(b);
-		console.log("CHAR = " + character + " STATUS = " + currentStatus);
+				? initials.get(b)
+				: (currentStatus === state.MEDIAL) ? medials.get(b)
+				: (currentStatus === state.FINAL) ? finals.get(b)
+				: initials.get(b);
+		console.log("[" + i + "] '" + b + "' CHAR = " + character
+				+ " STATUS = " + currentStatus);
 		if (character === undefined) {
 			character = b;
 		}
@@ -134,13 +138,16 @@ function update(e) {
 	} else if (e.which) { // Netscape/Firefox/Opera
 		keynum = e.which;
 	}
-	console.log(String.fromCharCode(keynum));
+	console.log("-" + keynum + "- " + String.fromCharCode(keynum));
 
 	//if (document.forms[0].hangulime.value==input)
 	//	return;
 
-	input = document.forms[0].hangulime.value;
-	document.forms[0].hangulime.value = calculate(input);
+	// Do not calculate if backspace is pressed
+	if (keynum != 8) {
+		input = document.forms[0].hangulime.value;
+		document.forms[0].hangulime.value = calculate(input);
+	}
 
 	currentStatus = changeStatus(currentStatus);
 }
