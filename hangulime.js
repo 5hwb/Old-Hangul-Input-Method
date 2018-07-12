@@ -108,24 +108,27 @@ function changeStatus(cs) {
 	return cs;
 }
 
-function calculate(a) {
-	s = "";
-	for (i=0; i < a.length; i++) {
-		// Get current char
-		var b = a.substring(i, i+1);
-		var character = (currentStatus === state.INITIAL)
-				? initials.get(b)
-				: (currentStatus === state.MEDIAL) ? medials.get(b)
-				: (currentStatus === state.FINAL) ? finals.get(b)
-				: initials.get(b);
-		console.log("[" + i + "] '" + b + "' CHAR = " + character
-				+ " STATUS = " + currentStatus);
-		if (character === undefined) {
-			character = b;
-		}
-		s += (character);
+function calculate(input, pressedKey, selStart) {
+	// Get current char
+	var b = pressedKey;
+	var character = (currentStatus === state.INITIAL)
+			? initials.get(b)
+			: (currentStatus === state.MEDIAL) ? medials.get(b)
+			: (currentStatus === state.FINAL) ? finals.get(b)
+			: initials.get(b);
+	console.log(/*"[" + i + "] '" +*/ b + " CHAR = " + character
+			+ " STATUS = " + currentStatus);
+	// If no hangul letter in the maps were found, add original char
+	if (character === undefined) {
+		character = b;
 	}
-	return s;
+
+	// Insert character at cursor position
+	var output = input.slice(0, selStart) + character + input.slice(selStart);
+	console.log("INPUT =  '" + input + "'");
+	console.log("OUTPUT = '" + output + "'");
+
+	return output;
 }
 
 function update(e) {
@@ -138,15 +141,25 @@ function update(e) {
 	} else if (e.which) { // Netscape/Firefox/Opera
 		keynum = e.which;
 	}
-	console.log("-" + keynum + "- " + String.fromCharCode(keynum));
+
+	var pressedKey = String.fromCharCode(keynum);
+	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
+
+
+	var selStart = document.forms[0].hangulime.selectionStart;
+	var selEnd = document.forms[0].hangulime.selectionEnd;
+	console.log("START=" + selStart + " END=" + selEnd);
+
+	// Disable inserting the char if it's an ASCII char
+	if (keynum >= 32 && keynum <= 126) e.preventDefault();
 
 	//if (document.forms[0].hangulime.value==input)
 	//	return;
 
 	// Do not calculate if backspace is pressed
-	if (keynum != 8) {
+	if (keynum != 8 && keynum != undefined) {
 		input = document.forms[0].hangulime.value;
-		document.forms[0].hangulime.value = calculate(input);
+		document.forms[0].hangulime.value = calculate(input, pressedKey, selStart);
 	}
 
 	currentStatus = changeStatus(currentStatus);
