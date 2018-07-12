@@ -81,6 +81,19 @@ var finals = new Map([
 	["g",  'ᇂ']
 ]);
 
+// Check if this char is a Hangul Jamo initial
+function isInitial(c) {
+	return ('\u1100' <= c && c <= '\u1112');
+}
+// Check if this char is a Hangul Jamo medial
+function isMedial(c) {
+	return ('\u1161' <= c && c <= '\u1175');
+}
+// Check if this char is a Hangul Jamo final
+function isFinal(c) {
+	return ('\u11A8' <= c && c <= '\u11C2');
+}
+
 // Enum for storing current state
 var state = {
 	"INITIAL": 1,
@@ -109,8 +122,10 @@ function changeStatus(cs) {
 }
 
 function calculate(input, pressedKey, selStart, thisObject) {
-	var last3chars = input.substring(selStart-3, selStart);
-	var position = selStart;
+	var last3chars = (input.length < 3)
+			? input.substring(0, selStart)
+			: input.substring(selStart-3, selStart);
+	var lastChar = last3chars.charAt(last3chars.length-1);
 
 	// Get current char
 	var b = pressedKey;
@@ -119,8 +134,11 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			: (currentStatus === state.MEDIAL) ? medials.get(b)
 			: (currentStatus === state.FINAL) ? finals.get(b)
 			: initials.get(b);
-	console.log("last3chars=" + last3chars + " PressedKey=" + b
+	console.log("lastChar" + lastChar + " PressedKey=" + b
 			+ " CHAR=" + character
+			+ " isIni()=" + isInitial(character)
+			+ " isMed()=" + isMedial(character)
+			+ " isFin()=" + isFinal(character)
 			+ " STATUS=" + currentStatus);
 	// If no hangul letter in the maps were found, add original char
 	if (character === undefined) {
@@ -131,8 +149,8 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	var output = input.slice(0, selStart) + character + input.slice(selStart);
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
-
-	thisObject.selectionStart = position;
+	
+	currentStatus = changeStatus(currentStatus);
 
 	return output;
 }
@@ -169,6 +187,4 @@ function doSomething(e, thisObject) {
 		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
 		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
 	}
-
-	currentStatus = changeStatus(currentStatus);
 }
