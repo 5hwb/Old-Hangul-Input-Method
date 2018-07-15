@@ -1,6 +1,49 @@
 // HANGUL IME BY PERRY H
 // TODO make the input of initial, medial and finals complete (currently only works with initials)
 
+/**
+ * A stack data structure containing a fixed amount of elements.
+ * If the stack is full, the oldest elements are overwritten by newly added elements
+ */
+function FixedStack(stackSize) {
+	this.size = stackSize;
+	this.top = -1;
+	this.stack = new Array(stackSize);
+}
+
+// Push an item onto the top of the stack
+FixedStack.prototype.push = function(item) {
+	this.top = (this.top + 1) % this.size;
+	this.stack[this.top] = item;
+	return false;
+}
+
+// Get the 1st element (top) in the stack
+FixedStack.prototype.top = function() {
+	return this.stack[this.top];
+}
+
+// Get the nth added element in the stack
+FixedStack.prototype.nthTop = function(n) {
+	if (n >= 0 && n < this.size) {
+		var nIndex = this.top - n;
+		return this.stack[(nIndex % this.size + this.size) % this.size];
+	}
+	return undefined;
+}
+
+// DEBUGGING ONLY: Print the contents of the stack starting with the most recently pushed one
+FixedStack.prototype.showContents = function() {
+	var res = "[";
+	for (var i = 0; i > (-this.size); i--) {
+		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
+		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "null";
+		res += (disp + ",");
+	}
+	res += "]";
+	return res;
+}
+
 var input = "";
 
 var initials = new Map([
@@ -122,10 +165,10 @@ function changeStatus(cs, prevChar) {
 }
 
 function calculate(input, pressedKey, selStart, thisObject) {
-	var last3chars = (input.length < 3)
+	var lastNchars = (input.length < 2)
 			? input.substring(0, selStart)
-			: input.substring(selStart-3, selStart);
-	var lastChar = last3chars.charAt(last3chars.length-1);
+			: input.substring(selStart-2, selStart);
+	var lastChar = lastNchars.charAt(lastNchars.length-1);
 
 	currentStatus = changeStatus(currentStatus, lastChar);
 
@@ -156,6 +199,42 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	return output;
 }
 
+function fixedStackTest() {
+	var stacko = new FixedStack(5);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(1);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(2);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(3);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(4);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(5);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(6);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	stacko.push(7);
+	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+
+	var stacka = new FixedStack(9);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(1);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(2);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(3);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(4);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(5);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(6);
+	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	stacka.push(7);
+	console.log("STACKA TOP = " + stacka.top + " " + stacka.showContents());
+}
+
 function doSomething(e, thisObject) {
 	console.log("=================");
 
@@ -176,8 +255,8 @@ function doSomething(e, thisObject) {
 	var selEnd = thisObject.selectionEnd;
 	console.log("START=" + selStart + " END=" + selEnd);
 
-	// Disable inserting the char if it's an ASCII char
-	if (keynum >= 32 && keynum <= 126) e.preventDefault();
+	// Disable inserting the char if it's an ASCII char or the Enter key
+	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) e.preventDefault();
 
 	//if (document.forms[0].hangulime.value==input)
 	//	return;
@@ -188,4 +267,6 @@ function doSomething(e, thisObject) {
 		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
 		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
 	}
+
+	fixedStackTest();
 }
