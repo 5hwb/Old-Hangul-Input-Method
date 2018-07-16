@@ -177,21 +177,28 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
 	var b = pressedKey;
-	var character = (currentStatus === state.NO_SYLLABLE)
-			? initials.get(b)
-			: (currentStatus === state.CV_SYLLABLE) ? medials.get(b)
-			: (currentStatus === state.CVC_SYLLABLE) ? finals.get(b)
-			: initials.get(b);
+	var character = undefined;
+	if (currentStatus === state.NONE) {
+		character = initials.get(b);
+	}
+	else if (currentStatus === state.NO_SYLLABLE) {
+		character = initials.get(b);
+	} else if (currentStatus === state.CV_SYLLABLE)  {
+		character = medials.get(b);
+	} else if (currentStatus === state.CVC_SYLLABLE) {
+		character = finals.get(b);
+	} else {
+		character = b;
+	}
+	if (character === undefined) {
+		character = b;
+	}
 	console.log("lastChar" + lastChar + " PressedKey=" + b
 			+ " CHAR=" + character
 			+ " isIni()=" + isInitial(character)
 			+ " isMed()=" + isMedial(character)
 			+ " isFin()=" + isFinal(character)
 			+ " STATUS=" + currentStatus);
-	// If no hangul letter in the maps were found, add original char
-	if (character === undefined) {
-		character = b;
-	}
 
 	// Insert character at cursor position
 	var output = input.slice(0, selStart) + character + input.slice(selStart);
