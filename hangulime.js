@@ -56,19 +56,35 @@ FixedStack.prototype.showContents = function() {
 	return res;
 }
 
-function Jamo(letter) {
-	this.letter = letter;
-	this.parent = undefined;
+/*
+ * Jamo information
+ */
+function Jamo(letter, parent) {
+	this.initial = undefined; // Initial form
+	this.medial = letter;     // Medial form
+	this.final = undefined;   // Final form
+	this.parent = parent;     // The parent of this jamo (if it's composed of multiple jamos)
 }
 
-function Jamo(letter, parent) {
-	this.letter = letter;
+function Jamo(initLetter, finLetter, parent) {
+	this.initial = initLetter;
+	this.medial = undefined;
+	this.final = finLetter;
 	this.parent = parent;
 }
 
-var dada = new Jamo("7777");
-var sotomie = new Jamo("dkjkdajda", dada);
-console.log("SOTOMIE=" + sotomie.letter + sotomie.parent.letter);
+Jamo.prototype.hasMultipleJamo = function() {
+	return (this.parent != undefined);
+}
+
+var jamo_o = new Jamo('ᅩ', undefined);
+var jamo_oi = new Jamo('ᅬ', jamo_o);
+var jamo_oa = new Jamo('ᅪ', jamo_o);
+
+// TODO jamo_oa.parent.medial doesn't work! Find out why!
+console.log("JAMOTEST! " + jamo_oa.medial /*+ jamo_oa.parent.medial*/);
+console.log("OA is composed of Multiple Jamos? " + jamo_oa.hasMultipleJamo());
+console.log("O is composed of Multiple Jamos? " + jamo_o.hasMultipleJamo());
 
 var initials = new Map([
 	["r", 'ᄀ'],
