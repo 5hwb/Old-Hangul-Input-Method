@@ -44,8 +44,6 @@ FixedStack.prototype.showContents = function() {
 	return res;
 }
 
-var input = "";
-
 var initials = new Map([
 	["r", 'ᄀ'],
 	["R", 'ᄁ'],
@@ -139,24 +137,28 @@ function isFinal(c) {
 
 // Enum for storing current state
 var state = {
-	"INITIAL": 1,
-	"MEDIAL": 2,
-	"FINAL": 3,
+	"NO_SYLLABLE": 1,
+	"CV_SYLLABLE": 2,
+	"CVC_SYLLABLE": 3,
 	"NONE": 4,
 };
 Object.freeze(state);
 
-var currentStatus = state.INITIAL;
+var currentStatus = state.NO_SYLLABLE;
 console.log("STATUS = " + currentStatus);
+
+var input = "";
+
+var lastChar = ' ';
 
 // Change the state for every new character inputted
 function changeStatus(cs, prevChar) {
 	if (isFinal(prevChar) || prevChar === undefined) {
-		cs = state.INITIAL;
+		cs = state.NO_SYLLABLE;
 	} else if (isInitial(prevChar)) {
-		cs = state.MEDIAL;
+		cs = state.CV_SYLLABLE;
 	} else if (isMedial(prevChar)) {
-		cs = state.FINAL;
+		cs = state.CVC_SYLLABLE;
 	} else {
 		cs = state.NONE;
 	}
@@ -175,10 +177,10 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
 	var b = pressedKey;
-	var character = (currentStatus === state.INITIAL)
+	var character = (currentStatus === state.NO_SYLLABLE)
 			? initials.get(b)
-			: (currentStatus === state.MEDIAL) ? medials.get(b)
-			: (currentStatus === state.FINAL) ? finals.get(b)
+			: (currentStatus === state.CV_SYLLABLE) ? medials.get(b)
+			: (currentStatus === state.CVC_SYLLABLE) ? finals.get(b)
 			: initials.get(b);
 	console.log("lastChar" + lastChar + " PressedKey=" + b
 			+ " CHAR=" + character
@@ -193,6 +195,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 
 	// Insert character at cursor position
 	var output = input.slice(0, selStart) + character + input.slice(selStart);
+	console.log("LAST CHAR = " + input.charAt(selStart-1));
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 
@@ -268,5 +271,5 @@ function doSomething(e, thisObject) {
 		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
 	}
 
-	fixedStackTest();
+	//fixedStackTest();
 }
