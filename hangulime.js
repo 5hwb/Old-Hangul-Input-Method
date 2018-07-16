@@ -19,7 +19,7 @@ FixedStack.prototype.push = function(item) {
 }
 
 // Get the 1st element (top) in the stack
-FixedStack.prototype.top = function() {
+FixedStack.prototype.getTop = function() {
 	return this.stack[this.top];
 }
 
@@ -32,9 +32,21 @@ FixedStack.prototype.nthTop = function(n) {
 	return undefined;
 }
 
+// Print the contents of the stack, starting with the oldest elements and ending with the last
+FixedStack.prototype.toString = function() {
+	var res = "";
+	for (var i = 0; i > (-this.size); i--) {
+		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
+		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "";
+		res = disp + res;
+	}
+	//res += "]";
+	return res;
+}
+
 // DEBUGGING ONLY: Print the contents of the stack starting with the most recently pushed one
 FixedStack.prototype.showContents = function() {
-	var res = "[";
+	var res = "";
 	for (var i = 0; i > (-this.size); i--) {
 		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
 		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "null";
@@ -43,6 +55,20 @@ FixedStack.prototype.showContents = function() {
 	res += "]";
 	return res;
 }
+
+function Jamo(letter) {
+	this.letter = letter;
+	this.parent = undefined;
+}
+
+function Jamo(letter, parent) {
+	this.letter = letter;
+	this.parent = parent;
+}
+
+var dada = new Jamo("7777");
+var sotomie = new Jamo("dkjkdajda", dada);
+console.log("SOTOMIE=" + sotomie.letter + sotomie.parent.letter);
 
 var initials = new Map([
 	["r", 'ᄀ'],
@@ -147,9 +173,14 @@ Object.freeze(state);
 var currentStatus = state.NO_SYLLABLE;
 console.log("STATUS = " + currentStatus);
 
+// IME input string
 var input = "";
 
-var lastChar = ' ';
+// The last 2 pressed keys (in ASCII format)
+var last2PressedKeys = new FixedStack(2);
+
+// The last char before the cursor
+var lastChar = undefined;
 
 // Change the state for every new character inputted
 function changeStatus(cs, prevChar) {
@@ -166,13 +197,16 @@ function changeStatus(cs, prevChar) {
 	return cs;
 }
 
+// Calculate the next Hangul jamo to insert/remove
 function calculate(input, pressedKey, selStart, thisObject) {
 	var lastNchars = (input.length < 2)
 			? input.substring(0, selStart)
 			: input.substring(selStart-2, selStart);
-	var lastChar = lastNchars.charAt(lastNchars.length-1);
+	lastChar = lastNchars.charAt(lastNchars.length-1);
 
 	currentStatus = changeStatus(currentStatus, lastChar);
+
+	last2PressedKeys.push(pressedKey);
 
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
@@ -195,6 +229,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	}
 	console.log("lastChar" + lastChar + " PressedKey=" + b
 			+ " CHAR=" + character
+			+ " last2PressedKeys=" + last2PressedKeys.toString()
 			+ " isIni()=" + isInitial(character)
 			+ " isMed()=" + isMedial(character)
 			+ " isFin()=" + isFinal(character)
@@ -211,39 +246,41 @@ function calculate(input, pressedKey, selStart, thisObject) {
 
 function fixedStackTest() {
 	var stacko = new FixedStack(5);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(1);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(2);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(3);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(4);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(5);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(6);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
-	stacko.push(7);
-	console.log("STACKO TOP = " + stacko.top + " " + stacko.showContents());
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("p");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("a");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("e");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("s");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("t");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("m");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("a");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 
 	var stacka = new FixedStack(9);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(1);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(2);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(3);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(4);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(5);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(6);
-	console.log("stacka TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
 	stacka.push(7);
-	console.log("STACKA TOP = " + stacka.top + " " + stacka.showContents());
+	console.log("STACKA TOP = " + stacka.getTop() + " " + stacka.toString());
 }
+
+fixedStackTest();
 
 function doSomething(e, thisObject) {
 	console.log("=================");
@@ -256,11 +293,11 @@ function doSomething(e, thisObject) {
 		keynum = e.which;
 	}
 
+	// Get the pressed key
 	var pressedKey = String.fromCharCode(keynum);
 	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
 
-	// TODO for some reason, the selectionStart value (cursor position) is delayed by 1 keypress!
-	// TODO find out why!
+	// Get the current cursor position
 	var selStart = thisObject.selectionStart;
 	var selEnd = thisObject.selectionEnd;
 	console.log("START=" + selStart + " END=" + selEnd);
@@ -268,15 +305,10 @@ function doSomething(e, thisObject) {
 	// Disable inserting the char if it's an ASCII char or the Enter key
 	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) e.preventDefault();
 
-	//if (document.forms[0].hangulime.value==input)
-	//	return;
-
-	// Do not calculate if backspace is pressed
+	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
 	if (keynum != 8 && keynum != undefined) {
 		input = thisObject.value;
 		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
 		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
 	}
-
-	//fixedStackTest();
 }
