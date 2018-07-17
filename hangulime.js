@@ -79,6 +79,10 @@ function Jamo(parent, letter1, letter2) {
 	this.decomposed = ""; // The decomposed form of this jamo
 }
 
+Jamo.prototype.setDecomposed = function(decomposed) {
+	this.decomposed = decomposed;
+}
+
 Jamo.prototype.hasMultipleJamo = function() {
 	return (this.parent != undefined);
 }
@@ -130,6 +134,116 @@ jamoTest();
 /*======================================
 ========MAP OF ALL HANGUL JAMOS=========
 ======================================*/
+
+var jamo_nil = undefined;
+var jamo_g = new Jamo(jamo_nil, 'ᄀ', 'ᆨ');
+var jamo_gs = new Jamo(jamo_g, undefined, 'ᆪ');
+var jamo_kk = new Jamo(jamo_nil, 'ᄁ', 'ᆩ');
+var jamo_n = new Jamo(jamo_nil, 'ᄂ', 'ᆫ');
+var jamo_nj = new Jamo(jamo_n, undefined, 'ᆬ');
+var jamo_nh = new Jamo(jamo_n, undefined, 'ᆭ');
+var jamo_d = new Jamo(jamo_nil, 'ᄃ', 'ᆮ');
+var jamo_tt = new Jamo(jamo_nil, 'ᄄ', undefined);
+var jamo_r = new Jamo(jamo_nil, 'ᄅ', 'ᆯ');
+var jamo_rg = new Jamo(jamo_r, undefined, 'ᆰ');
+var jamo_rm = new Jamo(jamo_r, undefined, 'ᆱ');
+var jamo_rb = new Jamo(jamo_r, undefined, 'ᆲ');
+var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ');
+var jamo_rt = new Jamo(jamo_r, undefined, 'ᆴ');
+var jamo_rp = new Jamo(jamo_r, undefined, 'ᆵ');
+var jamo_rh = new Jamo(jamo_r, undefined, 'ᆶ');
+var jamo_m = new Jamo(jamo_nil, 'ᄆ', 'ᆷ');
+var jamo_b = new Jamo(jamo_nil, 'ᄇ', 'ᆸ');
+var jamo_bs = new Jamo(jamo_b, undefined, 'ᆹ');
+var jamo_pp = new Jamo(jamo_nil, 'ᄈ', undefined);
+var jamo_s = new Jamo(jamo_nil, 'ᄉ', 'ᆺ');
+var jamo_ss = new Jamo(jamo_nil, 'ᄊ', 'ᆻ');
+var jamo_ng = new Jamo(jamo_nil, 'ᄋ', 'ᆼ');
+var jamo_j = new Jamo(jamo_nil, 'ᄌ', 'ᆽ');
+var jamo_jj = new Jamo(jamo_nil, 'ᄍ', undefined);
+var jamo_c = new Jamo(jamo_nil, 'ᄎ', 'ᆾ');
+var jamo_k = new Jamo(jamo_nil, 'ᄏ', 'ᆿ');
+var jamo_t = new Jamo(jamo_nil, 'ᄐ', 'ᇀ');
+var jamo_p = new Jamo(jamo_nil, 'ᄑ', 'ᇁ');
+var jamo_h = new Jamo(jamo_nil, 'ᄒ', 'ᇂ');
+
+var jamo_a = new Jamo(jamo_nil, 'ᅡ');
+var jamo_ae = new Jamo(jamo_nil, 'ᅢ');
+var jamo_ya = new Jamo(jamo_nil, 'ᅣ');
+var jamo_yae = new Jamo(jamo_nil, 'ᅤ');
+var jamo_eo = new Jamo(jamo_nil, 'ᅥ');
+var jamo_e = new Jamo(jamo_nil, 'ᅦ');
+var jamo_yeo = new Jamo(jamo_nil, 'ᅧ');
+var jamo_ye = new Jamo(jamo_nil, 'ᅨ');
+var jamo_o = new Jamo(jamo_nil, 'ᅩ');
+var jamo_oa = new Jamo(jamo_o, 'ᅪ');
+var jamo_oae = new Jamo(jamo_o, 'ᅫ');
+var jamo_oi = new Jamo(jamo_o, 'ᅬ');
+var jamo_yo = new Jamo(jamo_nil, 'ᅭ');
+var jamo_u = new Jamo(jamo_nil, 'ᅮ');
+var jamo_ueo = new Jamo(jamo_u, 'ᅯ');
+var jamo_ue = new Jamo(jamo_u, 'ᅰ');
+var jamo_ui = new Jamo(jamo_u, 'ᅱ');
+var jamo_yu = new Jamo(jamo_nil, 'ᅲ');
+var jamo_eu = new Jamo(jamo_nil, 'ᅳ');
+var jamo_eui = new Jamo(jamo_eu, 'ᅴ');
+var jamo_i = new Jamo(jamo_nil, 'ᅵ');
+
+var keypressesToJamos = new Map([
+    ["r", jamo_g ],
+    ["R", jamo_kk],
+    ["s", jamo_n ],
+    ["e", jamo_d ],
+    ["E", jamo_tt],
+    ["f", jamo_r ],
+    ["a", jamo_m ],
+    ["q", jamo_b ],
+    ["Q", jamo_pp],
+    ["t", jamo_s ],
+    ["T", jamo_ss],
+    ["d", jamo_ng],
+    ["w", jamo_j ],
+    ["W", jamo_jj],
+    ["c", jamo_c ],
+    ["z", jamo_k ],
+    ["x", jamo_t ],
+    ["v", jamo_p ],
+    ["g", jamo_h ],
+
+    ["k",  jamo_a  ],
+    ["o",  jamo_ae ],
+    ["i",  jamo_ya ],
+    ["O",  jamo_yae],
+    ["j",  jamo_eo ],
+    ["p",  jamo_e  ],
+    ["u",  jamo_yeo],
+    ["P",  jamo_ye ],
+    ["h",  jamo_o  ],
+    ["hk", jamo_oa ],
+    ["ho", jamo_oae],
+    ["hl", jamo_oi ],
+    ["y",  jamo_yo ],
+    ["n",  jamo_u  ],
+    ["nj", jamo_ueo],
+    ["np", jamo_ue ],
+    ["nl", jamo_ui ],
+    ["b",  jamo_yu ],
+    ["m",  jamo_eu ],
+    ["ml", jamo_eui],
+    ["l",  jamo_i  ],
+
+    ["rt", jamo_gs],
+    ["sw", jamo_nj],
+    ["sg", jamo_nh],
+    ["fr", jamo_rg],
+    ["fa", jamo_rm],
+    ["fq", jamo_rb],
+    ["ft", jamo_rs],
+    ["fx", jamo_rt],
+    ["fv", jamo_rp],
+    ["fg", jamo_rh],
+    ["qt", jamo_bs],
+]);
 
 var initials = new Map([
 	["r", 'ᄀ'],
@@ -271,6 +385,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
+	// TODO Use the new Jamo prototypes!
 	var b = pressedKey;
 	var character = undefined;
 	if (currentStatus === state.NONE) {
