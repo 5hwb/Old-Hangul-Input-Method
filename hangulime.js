@@ -1,6 +1,10 @@
 // HANGUL IME BY PERRY H
 // TODO make the input of initial, medial and finals complete (currently only works with initials)
 
+/*======================================
+=======FIXED STACK IMPLEMENTATION=======
+======================================*/
+
 /**
  * A stack data structure containing a fixed amount of elements.
  * If the stack is full, the oldest elements are overwritten by newly added elements
@@ -56,6 +60,10 @@ FixedStack.prototype.showContents = function() {
 	return res;
 }
 
+/*======================================
+===========JAMO INFORMATION=============
+======================================*/
+
 /*
  * A prototype that contains important jamo information
  */
@@ -79,9 +87,68 @@ var jamo_o = new Jamo(undefined, 'ᅩ');
 var jamo_oi = new Jamo(jamo_o, 'ᅬ');
 var jamo_oa = new Jamo(jamo_o, 'ᅪ');
 
-console.log("JAMOTEST! " + jamo_oa.medial + jamo_oa.parent.medial);
-console.log("OA is composed of Multiple Jamos? " + jamo_oa.hasMultipleJamo());
-console.log("O is composed of Multiple Jamos? " + jamo_o.hasMultipleJamo());
+var jamo_r = new Jamo(undefined, 'ᄅ', 'ᆯ');
+var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ');
+var jamo_rp = new Jamo(jamo_r, undefined, 'ᆲ');
+
+/*======================================
+========TESTING THE PROTOTYPES==========
+======================================*/
+
+// Test the FixedStack
+function fixedStackTest() {
+	var stacko = new FixedStack(5);
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("p");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("a");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("e");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("s");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("t");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("m");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("a");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+
+	var stacka = new FixedStack(9);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(1);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(2);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(3);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(4);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(5);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(6);
+	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
+	stacka.push(7);
+	console.log("STACKA TOP = " + stacka.getTop() + " " + stacka.toString());
+}
+
+function jamoTest() {
+	console.log("JAMOTEST1! " + jamo_oa.medial + jamo_oa.parent.medial);
+	console.log("OA is composed of Multiple Jamos? " + jamo_oa.hasMultipleJamo());
+	console.log("O is composed of Multiple Jamos? " + jamo_o.hasMultipleJamo());
+	console.log("JAMOTEST2! " + jamo_r.initial + jamo_r.final);
+	console.log("JAMOTEST2! " + jamo_rs.final + jamo_rs.parent.final);
+	console.log("RS is composed of Multiple Jamos? " + jamo_rs.hasMultipleJamo());
+	console.log("RP is composed of Multiple Jamos? " + jamo_rp.hasMultipleJamo());
+	console.log("R is composed of Multiple Jamos? " + jamo_r.hasMultipleJamo());
+}
+
+fixedStackTest();
+jamoTest();
+
+/*======================================
+========MAP OF ALL HANGUL JAMOS=========
+======================================*/
 
 var initials = new Map([
 	["r", 'ᄀ'],
@@ -256,44 +323,6 @@ function calculate(input, pressedKey, selStart, thisObject) {
 
 	return output;
 }
-
-function fixedStackTest() {
-	var stacko = new FixedStack(5);
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("p");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("a");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("e");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("s");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("t");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("m");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("a");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-
-	var stacka = new FixedStack(9);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(1);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(2);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(3);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(4);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(5);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(6);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(7);
-	console.log("STACKA TOP = " + stacka.getTop() + " " + stacka.toString());
-}
-
-fixedStackTest();
 
 function doSomething(e, thisObject) {
 	console.log("=================");
