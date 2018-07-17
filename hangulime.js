@@ -83,14 +83,6 @@ Jamo.prototype.hasMultipleJamo = function() {
 	return (this.parent != undefined);
 }
 
-var jamo_o = new Jamo(undefined, 'ᅩ');
-var jamo_oi = new Jamo(jamo_o, 'ᅬ');
-var jamo_oa = new Jamo(jamo_o, 'ᅪ');
-
-var jamo_r = new Jamo(undefined, 'ᄅ', 'ᆯ');
-var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ');
-var jamo_rp = new Jamo(jamo_r, undefined, 'ᆲ');
-
 /*======================================
 ========TESTING THE PROTOTYPES==========
 ======================================*/
@@ -113,26 +105,15 @@ function fixedStackTest() {
 	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 	stacko.push("a");
 	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-
-	var stacka = new FixedStack(9);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(1);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(2);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(3);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(4);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(5);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(6);
-	console.log("stacka TOP = " + stacka.getTop() + " " + stacka.toString());
-	stacka.push(7);
-	console.log("STACKA TOP = " + stacka.getTop() + " " + stacka.toString());
 }
 
 function jamoTest() {
+	var jamo_o = new Jamo(undefined, 'ᅩ');
+	var jamo_oi = new Jamo(jamo_o, 'ᅬ');
+	var jamo_oa = new Jamo(jamo_o, 'ᅪ');
+	var jamo_r = new Jamo(undefined, 'ᄅ', 'ᆯ');
+	var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ');
+	var jamo_rp = new Jamo(jamo_r, undefined, 'ᆲ');
 	console.log("JAMOTEST1! " + jamo_oa.medial + jamo_oa.parent.medial);
 	console.log("OA is composed of Multiple Jamos? " + jamo_oa.hasMultipleJamo());
 	console.log("O is composed of Multiple Jamos? " + jamo_o.hasMultipleJamo());
