@@ -57,32 +57,29 @@ FixedStack.prototype.showContents = function() {
 }
 
 /*
- * Jamo information
+ * A prototype that contains important jamo information
  */
-function Jamo(letter, parent) {
-	this.initial = undefined; // Initial form
-	this.medial = letter;     // Medial form
-	this.final = undefined;   // Final form
-	this.parent = parent;     // The parent of this jamo (if it's composed of multiple jamos)
-}
-
-function Jamo(initLetter, finLetter, parent) {
-	this.initial = initLetter;
-	this.medial = undefined;
-	this.final = finLetter;
-	this.parent = parent;
+function Jamo(parent, letter1, letter2) {
+	// Mechanism: if letter2 is not defined, the jamo being defined is a medial vowel.
+	// If the last argument is defined, the jamo being defined is a consonant:
+	// letter1 is the initial form and letter2 is the final form (if present).
+	l2isDefined = (typeof letter2 !== "undefined");
+	this.initial = (l2isDefined) ? letter1 : undefined; // Initial form
+	this.medial = (!l2isDefined) ? letter1 : undefined; // Medial form
+	this.final   = (l2isDefined) ? letter2 : undefined; // Final form
+	this.parent = parent; // The parent of this jamo (if it's composed of multiple jamos)
+	this.decomposed = ""; // The decomposed form of this jamo
 }
 
 Jamo.prototype.hasMultipleJamo = function() {
 	return (this.parent != undefined);
 }
 
-var jamo_o = new Jamo('ᅩ', undefined);
-var jamo_oi = new Jamo('ᅬ', jamo_o);
-var jamo_oa = new Jamo('ᅪ', jamo_o);
+var jamo_o = new Jamo(undefined, 'ᅩ');
+var jamo_oi = new Jamo(jamo_o, 'ᅬ');
+var jamo_oa = new Jamo(jamo_o, 'ᅪ');
 
-// TODO jamo_oa.parent.medial doesn't work! Find out why!
-console.log("JAMOTEST! " + jamo_oa.medial /*+ jamo_oa.parent.medial*/);
+console.log("JAMOTEST! " + jamo_oa.medial + jamo_oa.parent.medial);
 console.log("OA is composed of Multiple Jamos? " + jamo_oa.hasMultipleJamo());
 console.log("O is composed of Multiple Jamos? " + jamo_o.hasMultipleJamo());
 
