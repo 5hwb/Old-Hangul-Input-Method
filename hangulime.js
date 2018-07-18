@@ -286,8 +286,11 @@ var lastChar = undefined;
 var overrideCurrChar = false;
 
 // Change the state for every new character inputted
+// TODO fix logic for changing status
 function changeStatus(cs, prevJamo, currJamo) {
-	if (isFinal(currJamo) || currJamo === undefined) {
+	if (isFinal(prevJamo) && isFinal(currJamo)) {
+		cs = state.CVC_SYLLABLE;
+	} else if (isFinal(currJamo) || currJamo === undefined) {
 		cs = state.NO_SYLLABLE;
 	} else if (isInitial(currJamo)) {
 		cs = state.CV_SYLLABLE;
