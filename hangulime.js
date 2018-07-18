@@ -379,6 +379,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			? input.substring(0, selStart)
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
+	var overrideCurrChar = false;
 
 	//currentStatus = changeStatus(currentStatus, lastChar);
 
@@ -413,13 +414,20 @@ function calculate(input, pressedKey, selStart, thisObject) {
 				+ " isMed()=" + isMedial(character)
 				+ " isFin()=" + isFinal(character)
 				+ " STATUS=" + currentStatus);
-		if (character !== undefined) break;
+		// Exit the loop if a valid Jamo object is found
+		if (character !== undefined) {
+			overrideCurrChar = jamoMapValue.hasMultipleJamo();
+			console.log(" OVERRIDE=" + overrideCurrChar);
+			break;
+		}
 	}
 
 	if (character === undefined) character = pressedKey;
 
 	// Insert character at cursor position
-	var output = input.slice(0, selStart) + character + input.slice(selStart);
+	var output = (overrideCurrChar)
+			? input.slice(0, selStart-1) + character + input.slice(selStart)
+			: input.slice(0, selStart) + character + input.slice(selStart);
 	console.log("LAST CHAR = " + input.charAt(selStart-1));
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
