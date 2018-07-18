@@ -245,6 +245,7 @@ var jamoMap = new Map([
     ["qt", jamo_bs],
 ]);
 
+/*
 var initials = new Map([
 	["r", 'ᄀ'],
 	["R", 'ᄁ'],
@@ -321,7 +322,7 @@ var finals = new Map([
 	["x",  'ᇀ'],
 	["v",  'ᇁ'],
 	["g",  'ᇂ']
-]);
+]);*/
 
 // Check if this char is a Hangul Jamo initial
 function isInitial(c) {
@@ -345,7 +346,7 @@ var state = {
 };
 Object.freeze(state);
 
-var currentStatus = state.NO_SYLLABLE;
+var currentStatus = state.CV_SYLLABLE;
 console.log("STATUS = " + currentStatus);
 
 // IME input string
@@ -379,37 +380,43 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
 
-	currentStatus = changeStatus(currentStatus, lastChar);
+	//currentStatus = changeStatus(currentStatus, lastChar);
 
 	last2PressedKeys.push(pressedKey);
 
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
 	// TODO Use the new Jamo prototypes!
-	var b = pressedKey;
-	var character = undefined;
-	if (currentStatus === state.NONE) {
-		character = initials.get(b);
+	for (var c = 2; c > 0; c--) {
+		var b = last2PressedKeys.toString().substring(2-c, 2);
+		var jamoMapValue = jamoMap.get(b);
+		var character = undefined;
+
+		console.log("b=" + b + " jamoMapValue=" + jamoMapValue);
+		if (jamoMapValue === undefined) {
+			continue;
+		}
+		else if (currentStatus === state.NONE) {
+			character = jamoMapValue.initial;
+		}
+		else if (currentStatus === state.NO_SYLLABLE) {
+			character = jamoMapValue.initial;
+		} else if (currentStatus === state.CV_SYLLABLE)  {
+			character = jamoMapValue.medial;
+		} else if (currentStatus === state.CVC_SYLLABLE) {
+			character = jamoMapValue.final;
+		}
+		console.log("lastChar" + lastChar + " PressedKey=" + b
+				+ " CHAR=" + character
+				+ " last2PressedKeys=" + last2PressedKeys.toString()
+				+ " isIni()=" + isInitial(character)
+				+ " isMed()=" + isMedial(character)
+				+ " isFin()=" + isFinal(character)
+				+ " STATUS=" + currentStatus);
+		if (character !== undefined) break;
 	}
-	else if (currentStatus === state.NO_SYLLABLE) {
-		character = initials.get(b);
-	} else if (currentStatus === state.CV_SYLLABLE)  {
-		character = medials.get(b);
-	} else if (currentStatus === state.CVC_SYLLABLE) {
-		character = finals.get(b);
-	} else {
-		character = b;
-	}
-	if (character === undefined) {
-		character = b;
-	}
-	console.log("lastChar" + lastChar + " PressedKey=" + b
-			+ " CHAR=" + character
-			+ " last2PressedKeys=" + last2PressedKeys.toString()
-			+ " isIni()=" + isInitial(character)
-			+ " isMed()=" + isMedial(character)
-			+ " isFin()=" + isFinal(character)
-			+ " STATUS=" + currentStatus);
+
+	if (character === undefined) character = pressedKey;
 
 	// Insert character at cursor position
 	var output = input.slice(0, selStart) + character + input.slice(selStart);
