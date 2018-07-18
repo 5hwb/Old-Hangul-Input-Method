@@ -189,7 +189,7 @@ var jamo_eu = new Jamo(jamo_nil, 'ᅳ');
 var jamo_eui = new Jamo(jamo_eu, 'ᅴ');
 var jamo_i = new Jamo(jamo_nil, 'ᅵ');
 
-var keypressesToJamos = new Map([
+var jamoMap = new Map([
     ["r", jamo_g ],
     ["R", jamo_kk],
     ["s", jamo_n ],
