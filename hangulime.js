@@ -358,6 +358,9 @@ var last2PressedKeys = new FixedStack(2);
 // The last char before the cursor
 var lastChar = undefined;
 
+// Indicate if current character should be overridden (for inserting composite Hangul jamo)
+var overrideCurrChar = false;
+
 // Change the state for every new character inputted
 function changeStatus(cs, prevChar) {
 	if (isFinal(prevChar) || prevChar === undefined) {
@@ -379,7 +382,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			? input.substring(0, selStart)
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
-	var overrideCurrChar = false;
+	overrideCurrChar = false;
 
 	//currentStatus = changeStatus(currentStatus, lastChar);
 
@@ -414,6 +417,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 				+ " isMed()=" + isMedial(character)
 				+ " isFin()=" + isFinal(character)
 				+ " STATUS=" + currentStatus);
+		console.log("jamoMapValue = " + jamoMapValue);
 		// Exit the loop if a valid Jamo object is found
 		if (character !== undefined) {
 			overrideCurrChar = jamoMapValue.hasMultipleJamo();
@@ -462,6 +466,9 @@ function doSomething(e, thisObject) {
 	if (keynum != 8 && keynum != undefined) {
 		input = thisObject.value;
 		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
-		thisObject.selectionEnd = selStart + 1; // resets cursor to previously known position
+
+		// Reset cursor to previously known position
+		var incrementAmount = (overrideCurrChar) ? 0 : 1;
+		thisObject.selectionEnd = selStart + incrementAmount;
 	}
 }
