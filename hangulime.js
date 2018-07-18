@@ -267,7 +267,7 @@ var state = {
 };
 Object.freeze(state);
 
-var currentStatus = state.CV_SYLLABLE;
+var currentStatus = state.NO_SYLLABLE;
 console.log("STATUS = " + currentStatus);
 
 // IME input string
@@ -276,6 +276,9 @@ var input = "";
 // The last 2 pressed keys (in ASCII format)
 var last2PressedKeys = new FixedStack(2);
 
+// The last 2 inserted jamos
+var last2Jamos = new FixedStack(2);
+
 // The last char before the cursor
 var lastChar = undefined;
 
@@ -283,12 +286,12 @@ var lastChar = undefined;
 var overrideCurrChar = false;
 
 // Change the state for every new character inputted
-function changeStatus(cs, prevChar) {
-	if (isFinal(prevChar) || prevChar === undefined) {
+function changeStatus(cs, prevJamo, currJamo) {
+	if (isFinal(currJamo) || currJamo === undefined) {
 		cs = state.NO_SYLLABLE;
-	} else if (isInitial(prevChar)) {
+	} else if (isInitial(currJamo)) {
 		cs = state.CV_SYLLABLE;
-	} else if (isMedial(prevChar)) {
+	} else if (isMedial(currJamo)) {
 		cs = state.CVC_SYLLABLE;
 	} else {
 		cs = state.NONE;
@@ -304,14 +307,10 @@ function calculate(input, pressedKey, selStart, thisObject) {
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
 	overrideCurrChar = false;
-
-	//currentStatus = changeStatus(currentStatus, lastChar);
-
 	last2PressedKeys.push(pressedKey);
 
 	// Get current char
 	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
-	// TODO Use the new Jamo prototypes!
 	for (var c = 2; c > 0; c--) {
 		var b = last2PressedKeys.toString().substring(2-c, 2);
 		var jamoMapValue = jamoMap.get(b);
@@ -338,7 +337,6 @@ function calculate(input, pressedKey, selStart, thisObject) {
 				+ " isMed()=" + isMedial(character)
 				+ " isFin()=" + isFinal(character)
 				+ " STATUS=" + currentStatus);
-		console.log("jamoMapValue = " + jamoMapValue);
 		// Exit the loop if a valid Jamo object is found
 		if (character !== undefined) {
 			overrideCurrChar = jamoMapValue.hasMultipleJamo();
@@ -348,6 +346,12 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	}
 
 	if (character === undefined) character = pressedKey;
+
+	last2Jamos.push(character);
+	console.log("Last 2 Jamos = " + last2Jamos.toString());
+	console.log(last2Jamos.nthTop(1) + " " + last2Jamos.getTop());
+
+	currentStatus = changeStatus(currentStatus, last2Jamos.nthTop(1), last2Jamos.getTop());
 
 	// Insert character at cursor position
 	var output = (overrideCurrChar)
