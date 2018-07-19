@@ -264,9 +264,6 @@ var input = "";
 // The last 2 pressed keys (in ASCII format)
 var last2PressedKeys = new FixedStack(2);
 
-// The last 2 inserted jamos
-var last2Jamos = new FixedStack(2);
-
 // The last char before the cursor
 var lastChar = undefined;
 
@@ -274,15 +271,31 @@ var lastChar = undefined;
 var overrideCurrChar = false;
 
 // TODO fix logic for changing status
-function getNextJamo(jamoMapValue) {
-	if (jamoMapValue.initial !== undefined)
+function getNextJamo(jamoMapValue, lastChar) {
+	// INITIAL
+	if (jamoMapValue.initial !== undefined) {
+		// Return final form if vowel precedes it
+		if (isMedial(lastChar) && jamoMapValue.final !== undefined) {
+			return jamoMapValue.final;
+		}
 		return jamoMapValue.initial;
-	else if (jamoMapValue.medial !== undefined)
+	}
+	// MEDIAL
+	else if (jamoMapValue.medial !== undefined) {
+		if (isFinal(lastChar)) {
+			// TODO implement replacement of final consonant with initial consonant
+			console.log("this fincon needs to be replaced with initcon NOW!");
+		}
+
 		return jamoMapValue.medial;
-	else if (jamoMapValue.final !== undefined)
+	}
+	// FINAL
+	else if (jamoMapValue.final !== undefined) {
 		return jamoMapValue.final;
-	else
+	}
+	else {
 		return undefined;
+	}
 }
 
 // Calculate the next Hangul jamo to insert/remove
@@ -307,7 +320,7 @@ function calculate(input, pressedKey, selStart, thisObject) {
 		}
 
 		// Get the next jamo to be inserted
-		character = getNextJamo(jamoMapValue);
+		character = getNextJamo(jamoMapValue, lastChar);
 
 		console.log("lastChar" + lastChar + " PressedKey=" + b
 				+ " CHAR=" + character
@@ -323,11 +336,8 @@ function calculate(input, pressedKey, selStart, thisObject) {
 		}
 	}
 
+	// Set as originally pressed key if no valid Jamo entry was found
 	if (character === undefined) character = pressedKey;
-
-	last2Jamos.push(character);
-	console.log("Last 2 Jamos = " + last2Jamos.toString());
-	console.log(last2Jamos.nthTop(1) + " " + last2Jamos.getTop());
 
 	// Insert character at cursor position
 	var output = (overrideCurrChar)
