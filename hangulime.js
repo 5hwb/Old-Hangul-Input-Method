@@ -258,18 +258,6 @@ function isFinal(c) {
 	return ('\u11A8' <= c && c <= '\u11C2');
 }
 
-// Enum for storing current state
-var state = {
-	"NO_SYLLABLE": 1,
-	"CV_SYLLABLE": 2,
-	"CVC_SYLLABLE": 3,
-	"NONE": 4,
-};
-Object.freeze(state);
-
-var currentStatus = state.NO_SYLLABLE;
-console.log("STATUS = " + currentStatus);
-
 // IME input string
 var input = "";
 
@@ -285,22 +273,16 @@ var lastChar = undefined;
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
 
-// Change the state for every new character inputted
 // TODO fix logic for changing status
-function changeStatus(cs, prevJamo, currJamo) {
-	if (isFinal(prevJamo) && isFinal(currJamo)) {
-		cs = state.CVC_SYLLABLE;
-	} else if (isFinal(currJamo) || currJamo === undefined) {
-		cs = state.NO_SYLLABLE;
-	} else if (isInitial(currJamo)) {
-		cs = state.CV_SYLLABLE;
-	} else if (isMedial(currJamo)) {
-		cs = state.CVC_SYLLABLE;
-	} else {
-		cs = state.NONE;
-	}
-
-	return cs;
+function getNextJamo(jamoMapValue) {
+	if (jamoMapValue.initial !== undefined)
+		return jamoMapValue.initial;
+	else if (jamoMapValue.medial !== undefined)
+		return jamoMapValue.medial;
+	else if (jamoMapValue.final !== undefined)
+		return jamoMapValue.final;
+	else
+		return undefined;
 }
 
 // Calculate the next Hangul jamo to insert/remove
@@ -323,23 +305,16 @@ function calculate(input, pressedKey, selStart, thisObject) {
 		if (jamoMapValue === undefined) {
 			continue;
 		}
-		else if (currentStatus === state.NONE) {
-			character = jamoMapValue.initial;
-		}
-		else if (currentStatus === state.NO_SYLLABLE) {
-			character = jamoMapValue.initial;
-		} else if (currentStatus === state.CV_SYLLABLE)  {
-			character = jamoMapValue.medial;
-		} else if (currentStatus === state.CVC_SYLLABLE) {
-			character = jamoMapValue.final;
-		}
+
+		// Get the next jamo to be inserted
+		character = getNextJamo(jamoMapValue);
+
 		console.log("lastChar" + lastChar + " PressedKey=" + b
 				+ " CHAR=" + character
 				+ " last2PressedKeys=" + last2PressedKeys.toString()
 				+ " isIni()=" + isInitial(character)
 				+ " isMed()=" + isMedial(character)
-				+ " isFin()=" + isFinal(character)
-				+ " STATUS=" + currentStatus);
+				+ " isFin()=" + isFinal(character));
 		// Exit the loop if a valid Jamo object is found
 		if (character !== undefined) {
 			overrideCurrChar = jamoMapValue.hasMultipleJamo();
@@ -353,8 +328,6 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	last2Jamos.push(character);
 	console.log("Last 2 Jamos = " + last2Jamos.toString());
 	console.log(last2Jamos.nthTop(1) + " " + last2Jamos.getTop());
-
-	currentStatus = changeStatus(currentStatus, last2Jamos.nthTop(1), last2Jamos.getTop());
 
 	// Insert character at cursor position
 	var output = (overrideCurrChar)
