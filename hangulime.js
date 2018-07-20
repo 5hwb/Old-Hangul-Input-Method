@@ -6,7 +6,7 @@
 ======================================*/
 
 /**
- * A stack data structure containing a fixed amount of elements.
+ * A stack data structure contains a fixed amount of elements.
  * If the stack is full, the oldest elements are overwritten by newly added elements
  */
 function FixedStack(stackSize) {
@@ -50,7 +50,7 @@ FixedStack.prototype.toString = function() {
 
 // DEBUGGING ONLY: Print the contents of the stack starting with the most recently pushed one
 FixedStack.prototype.showContents = function() {
-	var res = "";
+	var res = "[";
 	for (var i = 0; i > (-this.size); i--) {
 		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
 		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "null";
@@ -61,22 +61,22 @@ FixedStack.prototype.showContents = function() {
 }
 
 /*======================================
-===========JAMO INFORMATION=============
+==========JAMO IMPLEMENTATION===========
 ======================================*/
 
 /*
- * A prototype that contains important jamo information
+ * A prototype that represents a Hangul letter (jamo) and its variant forms
  */
 function Jamo(parent, letter1, letter2) {
 	// Mechanism: if letter2 is not defined, the jamo being defined is a medial vowel.
 	// If the last argument is defined, the jamo being defined is a consonant:
-	// letter1 is the initial form and letter2 is the final form (if present).
+	// letter1 is the initial form and letter2 is the final form
 	l2isDefined = (typeof letter2 !== "undefined");
 	this.initial = (l2isDefined) ? letter1 : undefined; // Initial form
 	this.medial = (!l2isDefined) ? letter1 : undefined; // Medial form
 	this.final   = (l2isDefined) ? letter2 : undefined; // Final form
 	this.parent = parent; // The parent of this jamo (if it's composed of multiple jamos)
-	this.decomposed = ""; // The decomposed form of this jamo
+	this.decomposed = undefined; // The decomposed form of this jamo
 }
 
 Jamo.prototype.setDecomposed = function(decomposed) {
@@ -85,6 +85,18 @@ Jamo.prototype.setDecomposed = function(decomposed) {
 
 Jamo.prototype.hasMultipleJamo = function() {
 	return (this.parent != undefined);
+}
+
+Jamo.prototype.toString = function() {
+	var result = [];
+	result.push(
+		"{ini=" + this.initial,
+		",med=" + this.medial,
+		",fin=" + this.final,
+		",decomp=" + this.decomposed,
+		"}"
+	);
+	return result.join("");
 }
 
 /*======================================
@@ -137,24 +149,24 @@ jamoTest();
 
 var jamo_nil = undefined;
 var jamo_g = new Jamo(jamo_nil, 'ᄀ', 'ᆨ');
-var jamo_gs = new Jamo(jamo_g, undefined, 'ᆪ');
+var jamo_gs = new Jamo(jamo_g, undefined, 'ᆪ'); jamo_gs.setDecomposed("ᆨᄉ");
 var jamo_kk = new Jamo(jamo_nil, 'ᄁ', 'ᆩ');
 var jamo_n = new Jamo(jamo_nil, 'ᄂ', 'ᆫ');
-var jamo_nj = new Jamo(jamo_n, undefined, 'ᆬ');
-var jamo_nh = new Jamo(jamo_n, undefined, 'ᆭ');
+var jamo_nj = new Jamo(jamo_n, undefined, 'ᆬ'); jamo_nj.setDecomposed("ᆫᄌ");
+var jamo_nh = new Jamo(jamo_n, undefined, 'ᆭ'); jamo_nh.setDecomposed("ᆫᄒ");
 var jamo_d = new Jamo(jamo_nil, 'ᄃ', 'ᆮ');
 var jamo_tt = new Jamo(jamo_nil, 'ᄄ', undefined);
 var jamo_r = new Jamo(jamo_nil, 'ᄅ', 'ᆯ');
 var jamo_rg = new Jamo(jamo_r, undefined, 'ᆰ');
 var jamo_rm = new Jamo(jamo_r, undefined, 'ᆱ');
-var jamo_rb = new Jamo(jamo_r, undefined, 'ᆲ');
-var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ');
-var jamo_rt = new Jamo(jamo_r, undefined, 'ᆴ');
-var jamo_rp = new Jamo(jamo_r, undefined, 'ᆵ');
-var jamo_rh = new Jamo(jamo_r, undefined, 'ᆶ');
+var jamo_rb = new Jamo(jamo_r, undefined, 'ᆲ'); jamo_rb.setDecomposed("ᆯᄇ");
+var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ'); jamo_rs.setDecomposed("ᆯᄉ");
+var jamo_rt = new Jamo(jamo_r, undefined, 'ᆴ'); jamo_rt.setDecomposed("ᆯᄐ");
+var jamo_rp = new Jamo(jamo_r, undefined, 'ᆵ'); jamo_rp.setDecomposed("ᆯᄑ");
+var jamo_rh = new Jamo(jamo_r, undefined, 'ᆶ'); jamo_rh.setDecomposed("ᆯᄒ");
 var jamo_m = new Jamo(jamo_nil, 'ᄆ', 'ᆷ');
 var jamo_b = new Jamo(jamo_nil, 'ᄇ', 'ᆸ');
-var jamo_bs = new Jamo(jamo_b, undefined, 'ᆹ');
+var jamo_bs = new Jamo(jamo_b, undefined, 'ᆹ'); jamo_bs.setDecomposed("ᆸᄉ");
 var jamo_pp = new Jamo(jamo_nil, 'ᄈ', undefined);
 var jamo_s = new Jamo(jamo_nil, 'ᄉ', 'ᆺ');
 var jamo_ss = new Jamo(jamo_nil, 'ᄊ', 'ᆻ');
@@ -262,7 +274,9 @@ function isFinal(c) {
 var input = "";
 
 // The last 2 pressed keys (in ASCII format)
-var last2PressedKeys = new FixedStack(2);
+var num = 4;
+var lastNPressedKeys = new FixedStack(num);
+var lastNValidJamoKeypresses = new FixedStack(num);
 
 // The last char before the cursor
 var lastChar = undefined;
@@ -270,13 +284,24 @@ var lastChar = undefined;
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
 
-function convertFinToInit(previousKeyPress) {
+// The current selection positions
+var selStart;
+var selEnd;
+
+function convertFinToInit(previousJamoKeypress) {
 	// TODO: handle splitting up final consonant clusters!
-	var jamoMapValue = jamoMap.get(previousKeyPress);
-	if (jamoMapValue !== undefined)
+	var jamoMapValue = jamoMap.get(previousJamoKeypress);
+
+	if (jamoMapValue !== undefined) {
+		console.log("FIN->INIT: All good. " + jamoMapValue.toString());
+		if (jamoMapValue.decomposed !== undefined) {
+			return jamoMapValue.decomposed;
+		}
 		return jamoMapValue.initial;
-	else
+	} else {
+		console.log("FIN->INIT: nothing was found FOR REAL");
 		return undefined;
+	}
 }
 
 function getNextJamo(jamoMapValue, lastChar) {
@@ -302,18 +327,19 @@ function getNextJamo(jamoMapValue, lastChar) {
 }
 
 // Calculate the next Hangul jamo to insert/remove
-function calculate(input, pressedKey, selStart, thisObject) {
+function calculate(input, pressedKey, thisObject) {
 	var output = "";
 	var lastNchars = (input.length < 2)
 			? input.substring(0, selStart)
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
 	overrideCurrChar = false;
-	last2PressedKeys.push(pressedKey);
+	var moveForward = false;
+	lastNPressedKeys.push(pressedKey);
 
 	// Get current char
-	for (var c = 2; c > 0; c--) {
-		var b = last2PressedKeys.toString().substring(2-c, 2);
+	for (var c = num; c > 0; c--) {
+		var b = lastNPressedKeys.toString().substring(num-c, num);
 		var jamoMapValue = jamoMap.get(b);
 		var character = undefined;
 
@@ -324,31 +350,41 @@ function calculate(input, pressedKey, selStart, thisObject) {
 
 		// Get the next jamo to be inserted
 		character = getNextJamo(jamoMapValue, lastChar);
-
 		console.log("lastChar" + lastChar + " PressedKey=" + b
 				+ " CHAR=" + character
-				+ " last2PressedKeys=" + last2PressedKeys.toString()
+				+ " lastNPressedKeys=" + lastNPressedKeys.toString()
+				+ " lastNValidJamoKeypresses=" + lastNValidJamoKeypresses.showContents()
 				+ " isIni()=" + isInitial(character)
 				+ " isMed()=" + isMedial(character)
 				+ " isFin()=" + isFinal(character));
+
 		// Exit the loop if a valid Jamo object is found
 		if (character !== undefined) {
 			overrideCurrChar = jamoMapValue.hasMultipleJamo();
+			lastNValidJamoKeypresses.push(b);
 			console.log(" OVERRIDE=" + overrideCurrChar);
 			break;
 		}
 	}
 
-	// Check if the last jamo is a final consonant
+	// Check if the last jamo needs to change from final to initial form
 	if (isFinal(lastChar) && isMedial(character)) {
-		// TODO implement replacement of final consonant with initial consonant
-		var newChar = convertFinToInit(last2PressedKeys.nthTop(1));
+		var newChar = convertFinToInit(lastNValidJamoKeypresses.nthTop(1));
 		console.log("this fincon needs to be replaced with initcon NOW! " + newChar);
+
+		if (newChar.length > 1) {
+			moveForward = true;
+		}
+
+		// If so, replace it with the initial variant of the last jamo
 		input = input.slice(0, selStart-1) + newChar + input.slice(selStart);
 	}
 
 	// Set as originally pressed key if no valid Jamo entry was found
-	if (character === undefined) character = pressedKey;
+	if (character === undefined) {
+		character = pressedKey;
+		lastNValidJamoKeypresses.push(undefined);
+	}
 
 	// Insert character at cursor position
 	output = (overrideCurrChar)
@@ -377,8 +413,8 @@ function doSomething(e, thisObject) {
 	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
 
 	// Get the current cursor position
-	var selStart = thisObject.selectionStart;
-	var selEnd = thisObject.selectionEnd;
+	selStart = thisObject.selectionStart;
+	selEnd = thisObject.selectionEnd;
 	console.log("START=" + selStart + " END=" + selEnd);
 
 	// Disable inserting the char if it's an ASCII char or the Enter key
@@ -387,7 +423,7 @@ function doSomething(e, thisObject) {
 	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
 	if (keynum != 8 && keynum != undefined) {
 		input = thisObject.value;
-		thisObject.value = calculate(input, pressedKey, selStart, thisObject);
+		thisObject.value = calculate(input, pressedKey, thisObject);
 
 		// Reset cursor to previously known position
 		var incrementAmount = (overrideCurrChar) ? 0 : 1;
