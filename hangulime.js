@@ -1,5 +1,10 @@
-// HANGUL IME BY PERRY H
-// TODO make the input of initial, medial and finals complete (currently only works with initials)
+/**
+ * Old Hangul IME
+ * by Perry Hartono, 2018
+ *
+ * This is a script that turns a HTML Textarea into a Korean Hangul IME
+ * capable of inserting archaic Hangul letters.
+ */
 
 /*======================================
 =======FIXED STACK IMPLEMENTATION=======
@@ -79,14 +84,17 @@ function Jamo(parent, letter1, letter2) {
 	this.decomposed = undefined; // The decomposed form of this jamo
 }
 
+// Set the decomposed form of this Jamo
 Jamo.prototype.setDecomposed = function(decomposed) {
 	this.decomposed = decomposed;
 }
 
+// Check if this Jamo is composed of multiple Jamos
 Jamo.prototype.hasMultipleJamo = function() {
 	return (this.parent != undefined);
 }
 
+// (DEBUGGING ONLY) Display the contents of this Jamo
 Jamo.prototype.toString = function() {
 	var result = [];
 	result.push(
@@ -123,6 +131,7 @@ function fixedStackTest() {
 	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 }
 
+// Test the Jamo
 function jamoTest() {
 	var jamo_o = new Jamo(undefined, 'ᅩ');
 	var jamo_oi = new Jamo(jamo_o, 'ᅬ');
@@ -140,8 +149,8 @@ function jamoTest() {
 	console.log("R is composed of Multiple Jamos? " + jamo_r.hasMultipleJamo());
 }
 
-fixedStackTest();
-jamoTest();
+//fixedStackTest();
+//jamoTest();
 
 /*======================================
 ========MAP OF ALL HANGUL JAMOS=========
@@ -273,7 +282,7 @@ function isFinal(c) {
 // IME input string
 var input = "";
 
-// The last 2 pressed keys (in ASCII format)
+// The last 2 keypresses (in ASCII format)
 var num = 4;
 var lastNPressedKeys = new FixedStack(num);
 var lastNValidJamoKeypresses = new FixedStack(num);
@@ -288,6 +297,7 @@ var overrideCurrChar = false;
 var selStart;
 var selEnd;
 
+// Convert the given final consonant input into an initial consonant
 function convertFinToInit(previousJamoKeypress) {
 	var jamoMapValue = jamoMap.get(previousJamoKeypress);
 
@@ -303,6 +313,7 @@ function convertFinToInit(previousJamoKeypress) {
 	}
 }
 
+// Get the next jamo to be inserted
 function getNextJamo(jamoMapValue, lastChar) {
 	// INITIAL
 	if (jamoMapValue.initial !== undefined) {
@@ -328,20 +339,22 @@ function getNextJamo(jamoMapValue, lastChar) {
 // Calculate the next Hangul jamo to insert/remove
 function calculate(input, pressedKey, thisObject) {
 	var output = "";
-	var lastNchars = (input.length < 2)
-			? input.substring(0, selStart)
-			: input.substring(selStart-2, selStart);
-	lastChar = lastNchars.charAt(lastNchars.length-1);
 	overrideCurrChar = false;
+
+	// Add the pressed key to the fixed stack of previous keypresses
 	lastNPressedKeys.push(pressedKey);
 
-	// Get current char
+	// Last character before the cursor in the input string
+	lastChar = input.substring(0, selStart).charAt(selStart-1);
+
+	// Get current char, scanning for trigraphs first before
+	// narrowing down the search
 	for (var c = num; c > 0; c--) {
 		var b = lastNPressedKeys.toString().substring(num-c, num);
 		var jamoMapValue = jamoMap.get(b);
 		var character = undefined;
-
 		console.log("b=" + b + " jamoMapValue=" + jamoMapValue);
+
 		if (jamoMapValue === undefined) {
 			continue;
 		}
@@ -380,7 +393,7 @@ function calculate(input, pressedKey, thisObject) {
 		}
 	}
 
-	// Set character as originally pressed key if no valid Jamo entry was found
+	// Set character as the original keypress if no valid Jamo entry was found
 	if (character === undefined) {
 		character = pressedKey;
 		lastNValidJamoKeypresses.push(undefined);
@@ -397,7 +410,8 @@ function calculate(input, pressedKey, thisObject) {
 	return output;
 }
 
-function doSomething(e, thisObject) {
+// Get all input keypresses
+function receiveKeypress(e, thisObject) {
 	console.log("=================");
 
 	// Get keycode of pressed key
