@@ -270,7 +270,15 @@ var lastChar = undefined;
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
 
-// TODO fix logic for changing status
+function convertFinToInit(previousKeyPress) {
+	// TODO: handle splitting up final consonant clusters!
+	var jamoMapValue = jamoMap.get(previousKeyPress);
+	if (jamoMapValue !== undefined)
+		return jamoMapValue.initial;
+	else
+		return undefined;
+}
+
 function getNextJamo(jamoMapValue, lastChar) {
 	// INITIAL
 	if (jamoMapValue.initial !== undefined) {
@@ -282,11 +290,6 @@ function getNextJamo(jamoMapValue, lastChar) {
 	}
 	// MEDIAL
 	else if (jamoMapValue.medial !== undefined) {
-		if (isFinal(lastChar)) {
-			// TODO implement replacement of final consonant with initial consonant
-			console.log("this fincon needs to be replaced with initcon NOW!");
-		}
-
 		return jamoMapValue.medial;
 	}
 	// FINAL
@@ -300,6 +303,7 @@ function getNextJamo(jamoMapValue, lastChar) {
 
 // Calculate the next Hangul jamo to insert/remove
 function calculate(input, pressedKey, selStart, thisObject) {
+	var output = "";
 	var lastNchars = (input.length < 2)
 			? input.substring(0, selStart)
 			: input.substring(selStart-2, selStart);
@@ -308,7 +312,6 @@ function calculate(input, pressedKey, selStart, thisObject) {
 	last2PressedKeys.push(pressedKey);
 
 	// Get current char
-	// TODO Use the NAKD technique in HangulReplacer to decide whether consonant goes to previous or next syllable
 	for (var c = 2; c > 0; c--) {
 		var b = last2PressedKeys.toString().substring(2-c, 2);
 		var jamoMapValue = jamoMap.get(b);
@@ -336,11 +339,19 @@ function calculate(input, pressedKey, selStart, thisObject) {
 		}
 	}
 
+	// Check if the last jamo is a final consonant
+	if (isFinal(lastChar) && isMedial(character)) {
+		// TODO implement replacement of final consonant with initial consonant
+		var newChar = convertFinToInit(last2PressedKeys.nthTop(1));
+		console.log("this fincon needs to be replaced with initcon NOW! " + newChar);
+		input = input.slice(0, selStart-1) + newChar + input.slice(selStart);
+	}
+
 	// Set as originally pressed key if no valid Jamo entry was found
 	if (character === undefined) character = pressedKey;
 
 	// Insert character at cursor position
-	var output = (overrideCurrChar)
+	output = (overrideCurrChar)
 			? input.slice(0, selStart-1) + character + input.slice(selStart)
 			: input.slice(0, selStart) + character + input.slice(selStart);
 	console.log("LAST CHAR = " + input.charAt(selStart-1));
