@@ -156,26 +156,29 @@ function jamoTest() {
 ========MAP OF ALL HANGUL JAMOS=========
 ======================================*/
 
+// Null jamo
 var jamo_nil = undefined;
+
+// Initials/finals
 var jamo_g = new Jamo(jamo_nil, 'ᄀ', 'ᆨ');
-var jamo_gs = new Jamo(jamo_g, undefined, 'ᆪ'); jamo_gs.setDecomposed("ᆨᄉ");
+var jamo_g_s = new Jamo(jamo_g, undefined, 'ᆪ'); jamo_g_s.setDecomposed("ᆨᄉ");
 var jamo_kk = new Jamo(jamo_nil, 'ᄁ', 'ᆩ');
 var jamo_n = new Jamo(jamo_nil, 'ᄂ', 'ᆫ');
-var jamo_nj = new Jamo(jamo_n, undefined, 'ᆬ'); jamo_nj.setDecomposed("ᆫᄌ");
-var jamo_nh = new Jamo(jamo_n, undefined, 'ᆭ'); jamo_nh.setDecomposed("ᆫᄒ");
+var jamo_n_j = new Jamo(jamo_n, undefined, 'ᆬ'); jamo_n_j.setDecomposed("ᆫᄌ");
+var jamo_n_h = new Jamo(jamo_n, undefined, 'ᆭ'); jamo_n_h.setDecomposed("ᆫᄒ");
 var jamo_d = new Jamo(jamo_nil, 'ᄃ', 'ᆮ');
 var jamo_tt = new Jamo(jamo_nil, 'ᄄ', undefined);
 var jamo_r = new Jamo(jamo_nil, 'ᄅ', 'ᆯ');
-var jamo_rg = new Jamo(jamo_r, undefined, 'ᆰ'); jamo_rg.setDecomposed("ᆯᄀ");
-var jamo_rm = new Jamo(jamo_r, undefined, 'ᆱ'); jamo_rm.setDecomposed("ᆯᄆ");
-var jamo_rb = new Jamo(jamo_r, undefined, 'ᆲ'); jamo_rb.setDecomposed("ᆯᄇ");
-var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ'); jamo_rs.setDecomposed("ᆯᄉ");
-var jamo_rt = new Jamo(jamo_r, undefined, 'ᆴ'); jamo_rt.setDecomposed("ᆯᄐ");
-var jamo_rp = new Jamo(jamo_r, undefined, 'ᆵ'); jamo_rp.setDecomposed("ᆯᄑ");
-var jamo_rh = new Jamo(jamo_r, undefined, 'ᆶ'); jamo_rh.setDecomposed("ᆯᄒ");
+var jamo_r_g = new Jamo(jamo_r, undefined, 'ᆰ'); jamo_r_g.setDecomposed("ᆯᄀ");
+var jamo_r_m = new Jamo(jamo_r, undefined, 'ᆱ'); jamo_r_m.setDecomposed("ᆯᄆ");
+var jamo_r_b = new Jamo(jamo_r, undefined, 'ᆲ'); jamo_r_b.setDecomposed("ᆯᄇ");
+var jamo_r_s = new Jamo(jamo_r, undefined, 'ᆳ'); jamo_r_s.setDecomposed("ᆯᄉ");
+var jamo_r_t = new Jamo(jamo_r, undefined, 'ᆴ'); jamo_r_t.setDecomposed("ᆯᄐ");
+var jamo_r_p = new Jamo(jamo_r, undefined, 'ᆵ'); jamo_r_p.setDecomposed("ᆯᄑ");
+var jamo_r_h = new Jamo(jamo_r, undefined, 'ᆶ'); jamo_r_h.setDecomposed("ᆯᄒ");
 var jamo_m = new Jamo(jamo_nil, 'ᄆ', 'ᆷ');
 var jamo_b = new Jamo(jamo_nil, 'ᄇ', 'ᆸ');
-var jamo_bs = new Jamo(jamo_b, undefined, 'ᆹ'); jamo_bs.setDecomposed("ᆸᄉ");
+var jamo_b_s = new Jamo(jamo_b, undefined, 'ᆹ'); jamo_b_s.setDecomposed("ᆸᄉ");
 var jamo_pp = new Jamo(jamo_nil, 'ᄈ', undefined);
 var jamo_s = new Jamo(jamo_nil, 'ᄉ', 'ᆺ');
 var jamo_ss = new Jamo(jamo_nil, 'ᄊ', 'ᆻ');
@@ -188,6 +191,7 @@ var jamo_t = new Jamo(jamo_nil, 'ᄐ', 'ᇀ');
 var jamo_p = new Jamo(jamo_nil, 'ᄑ', 'ᇁ');
 var jamo_h = new Jamo(jamo_nil, 'ᄒ', 'ᇂ');
 
+// Medials
 var jamo_a = new Jamo(jamo_nil, 'ᅡ');
 var jamo_ae = new Jamo(jamo_nil, 'ᅢ');
 var jamo_ya = new Jamo(jamo_nil, 'ᅣ');
@@ -197,18 +201,106 @@ var jamo_e = new Jamo(jamo_nil, 'ᅦ');
 var jamo_yeo = new Jamo(jamo_nil, 'ᅧ');
 var jamo_ye = new Jamo(jamo_nil, 'ᅨ');
 var jamo_o = new Jamo(jamo_nil, 'ᅩ');
-var jamo_oa = new Jamo(jamo_o, 'ᅪ');
-var jamo_oae = new Jamo(jamo_o, 'ᅫ');
-var jamo_oi = new Jamo(jamo_o, 'ᅬ');
+var jamo_o_a = new Jamo(jamo_o, 'ᅪ');
+var jamo_o_ae = new Jamo(jamo_o, 'ᅫ');
+var jamo_o_i = new Jamo(jamo_o, 'ᅬ');
 var jamo_yo = new Jamo(jamo_nil, 'ᅭ');
 var jamo_u = new Jamo(jamo_nil, 'ᅮ');
-var jamo_ueo = new Jamo(jamo_u, 'ᅯ');
-var jamo_ue = new Jamo(jamo_u, 'ᅰ');
-var jamo_ui = new Jamo(jamo_u, 'ᅱ');
+var jamo_u_eo = new Jamo(jamo_u, 'ᅯ');
+var jamo_u_e = new Jamo(jamo_u, 'ᅰ');
+var jamo_u_i = new Jamo(jamo_u, 'ᅱ');
 var jamo_yu = new Jamo(jamo_nil, 'ᅲ');
 var jamo_eu = new Jamo(jamo_nil, 'ᅳ');
-var jamo_eui = new Jamo(jamo_eu, 'ᅴ');
+var jamo_eu_i = new Jamo(jamo_eu, 'ᅴ');
 var jamo_i = new Jamo(jamo_nil, 'ᅵ');
+
+// Initials (obsolete Hangul)
+// TODO: Merge existing final forms with these initial forms!
+/*
+var jamo_g_d = new Jamo(jamo_nil, 'ᅚ', undefined);
+var jamo_n_g = new Jamo(jamo_nil, 'ᄓ', undefined);
+var jamo_n_n = new Jamo(jamo_nil, 'ᄔ', undefined);
+var jamo_n_d = new Jamo(jamo_nil, 'ᄕ', undefined);
+var jamo_n_b = new Jamo(jamo_nil, 'ᄖ', undefined);
+var jamo_n_s = new Jamo(jamo_nil, 'ᅛ', undefined);
+var jamo_n_j = new Jamo(jamo_nil, 'ᅜ', undefined);
+var jamo_n_h = new Jamo(jamo_nil, 'ᅝ', undefined);
+var jamo_d_r = new Jamo(jamo_nil, 'ᅞ', undefined);
+var jamo_d_g = new Jamo(jamo_nil, 'ᄗ', undefined);
+var jamo_r_n = new Jamo(jamo_nil, 'ᄘ', undefined);
+var jamo_r_r = new Jamo(jamo_nil, 'ᄙ', undefined);
+var jamo_r_h = new Jamo(jamo_nil, 'ᄚ', undefined);
+var jamo_r_x = new Jamo(jamo_nil, 'ᄛ', undefined);
+var jamo_m_b = new Jamo(jamo_nil, 'ᄜ', undefined);
+var jamo_m_x = new Jamo(jamo_nil, 'ᄝ', undefined);
+var jamo_b_g = new Jamo(jamo_nil, 'ᄞ', undefined);
+var jamo_b_n = new Jamo(jamo_nil, 'ᄟ', undefined);
+var jamo_b_d = new Jamo(jamo_nil, 'ᄠ', undefined);
+var jamo_b_s = new Jamo(jamo_nil, 'ᄡ', undefined);
+var jamo_b_s_g = new Jamo(jamo_nil, 'ᄢ', undefined);
+var jamo_b_s_d = new Jamo(jamo_nil, 'ᄣ', undefined);
+var jamo_b_s_b = new Jamo(jamo_nil, 'ᄤ', undefined);
+var jamo_b_s_s = new Jamo(jamo_nil, 'ᄥ', undefined);
+var jamo_b_s_j = new Jamo(jamo_nil, 'ᄦ', undefined);
+var jamo_b_j = new Jamo(jamo_nil, 'ᄧ', undefined);
+var jamo_b_c = new Jamo(jamo_nil, 'ᄨ', undefined);
+var jamo_b_t = new Jamo(jamo_nil, 'ᄩ', undefined);
+var jamo_b_p = new Jamo(jamo_nil, 'ᄪ', undefined);
+var jamo_b_x = new Jamo(jamo_nil, 'ᄫ', undefined);
+var jamo_pp_x = new Jamo(jamo_nil, 'ᄬ', undefined);
+var jamo_s_g = new Jamo(jamo_nil, 'ᄭ', undefined);
+var jamo_s_n = new Jamo(jamo_nil, 'ᄮ', undefined);
+var jamo_s_d = new Jamo(jamo_nil, 'ᄯ', undefined);
+var jamo_s_r = new Jamo(jamo_nil, 'ᄰ', undefined);
+var jamo_s_m = new Jamo(jamo_nil, 'ᄱ', undefined);
+var jamo_s_b = new Jamo(jamo_nil, 'ᄲ', undefined);
+var jamo_s_b_g = new Jamo(jamo_nil, 'ᄳ', undefined);
+var jamo_s_ng = new Jamo(jamo_nil, 'ᄵ', undefined);
+var jamo_s_j = new Jamo(jamo_nil, 'ᄶ', undefined);
+var jamo_s_c = new Jamo(jamo_nil, 'ᄷ', undefined);
+var jamo_s_k = new Jamo(jamo_nil, 'ᄸ', undefined);
+var jamo_s_t = new Jamo(jamo_nil, 'ᄹ', undefined);
+var jamo_s_p = new Jamo(jamo_nil, 'ᄺ', undefined);
+var jamo_s_h = new Jamo(jamo_nil, 'ᄻ', undefined);
+var jamo_s_s_s = new Jamo(jamo_nil, 'ᄴ', undefined);
+var jamo_ng_g = new Jamo(jamo_nil, 'ᅁ', undefined);
+var jamo_ng_d = new Jamo(jamo_nil, 'ᅂ', undefined);
+var jamo_ng_m = new Jamo(jamo_nil, 'ᅃ', undefined);
+var jamo_ng_b = new Jamo(jamo_nil, 'ᅄ', undefined);
+var jamo_ng_s = new Jamo(jamo_nil, 'ᅅ', undefined);
+var jamo_ng_z = new Jamo(jamo_nil, 'ᅆ', undefined);
+var jamo_ng_ng = new Jamo(jamo_nil, 'ᅇ', undefined);
+var jamo_ng_j = new Jamo(jamo_nil, 'ᅈ', undefined);
+var jamo_ng_c = new Jamo(jamo_nil, 'ᅉ', undefined);
+var jamo_ng_t = new Jamo(jamo_nil, 'ᅊ', undefined);
+var jamo_ng_p = new Jamo(jamo_nil, 'ᅋ', undefined);
+var jamo_j_ng = new Jamo(jamo_nil, 'ᅍ', undefined);
+var jamo_c_k = new Jamo(jamo_nil, 'ᅒ', undefined);
+var jamo_c_h = new Jamo(jamo_nil, 'ᅓ', undefined);
+var jamo_p_b = new Jamo(jamo_nil, 'ᅖ', undefined);
+var jamo_p_x = new Jamo(jamo_nil, 'ᅗ', undefined);
+var jamo_h_h = new Jamo(jamo_nil, 'ᅘ', undefined);
+
+var jamo_s_left = new Jamo(jamo_nil, 'ᄼ', undefined);
+var jamo_ss_left = new Jamo(jamo_nil, 'ᄽ', undefined);
+var jamo_s_rite = new Jamo(jamo_nil, 'ᄾ', undefined);
+var jamo_ss_rite = new Jamo(jamo_nil, 'ᄿ', undefined);
+var jamo_z = new Jamo(jamo_nil, 'ᅀ', undefined);
+var jamo_ng = new Jamo(jamo_nil, 'ᅌ', undefined);
+var jamo_j_left = new Jamo(jamo_nil, 'ᅎ', undefined);
+var jamo_jj_left = new Jamo(jamo_nil, 'ᅏ', undefined);
+var jamo_j_rite = new Jamo(jamo_nil, 'ᅐ', undefined);
+var jamo_jj_rite = new Jamo(jamo_nil, 'ᅑ', undefined);
+var jamo_c_left = new Jamo(jamo_nil, 'ᅔ', undefined);
+var jamo_c_rite = new Jamo(jamo_nil, 'ᅕ', undefined);
+var jamo_q = new Jamo(jamo_nil, 'ᅙ', undefined);
+*/
+
+// Medials (obsolete Hangul)
+// TODO: Implement Medials (obsolete Hangul)
+
+// Finals (obsolete Hangul)
+// TODO: Implement Finals (obsolete Hangul)
 
 var jamoMap = new Map([
     ["r", jamo_g ],
@@ -240,30 +332,30 @@ var jamoMap = new Map([
     ["u",  jamo_yeo],
     ["P",  jamo_ye ],
     ["h",  jamo_o  ],
-    ["hk", jamo_oa ],
-    ["ho", jamo_oae],
-    ["hl", jamo_oi ],
+    ["hk", jamo_o_a ],
+    ["ho", jamo_o_ae],
+    ["hl", jamo_o_i ],
     ["y",  jamo_yo ],
     ["n",  jamo_u  ],
-    ["nj", jamo_ueo],
-    ["np", jamo_ue ],
-    ["nl", jamo_ui ],
+    ["nj", jamo_u_eo],
+    ["np", jamo_u_e ],
+    ["nl", jamo_u_i ],
     ["b",  jamo_yu ],
     ["m",  jamo_eu ],
-    ["ml", jamo_eui],
+    ["ml", jamo_eu_i],
     ["l",  jamo_i  ],
 
-    ["rt", jamo_gs],
-    ["sw", jamo_nj],
-    ["sg", jamo_nh],
-    ["fr", jamo_rg],
-    ["fa", jamo_rm],
-    ["fq", jamo_rb],
-    ["ft", jamo_rs],
-    ["fx", jamo_rt],
-    ["fv", jamo_rp],
-    ["fg", jamo_rh],
-    ["qt", jamo_bs],
+    ["rt", jamo_g_s],
+    ["sw", jamo_n_j],
+    ["sg", jamo_n_h],
+    ["fr", jamo_r_g],
+    ["fa", jamo_r_m],
+    ["fq", jamo_r_b],
+    ["ft", jamo_r_s],
+    ["fx", jamo_r_t],
+    ["fv", jamo_r_p],
+    ["fg", jamo_r_h],
+    ["qt", jamo_b_s],
 ]);
 
 // Check if this char is a Hangul Jamo initial
