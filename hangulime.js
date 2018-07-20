@@ -157,8 +157,8 @@ var jamo_nh = new Jamo(jamo_n, undefined, 'ᆭ'); jamo_nh.setDecomposed("ᆫᄒ"
 var jamo_d = new Jamo(jamo_nil, 'ᄃ', 'ᆮ');
 var jamo_tt = new Jamo(jamo_nil, 'ᄄ', undefined);
 var jamo_r = new Jamo(jamo_nil, 'ᄅ', 'ᆯ');
-var jamo_rg = new Jamo(jamo_r, undefined, 'ᆰ');
-var jamo_rm = new Jamo(jamo_r, undefined, 'ᆱ');
+var jamo_rg = new Jamo(jamo_r, undefined, 'ᆰ'); jamo_rg.setDecomposed("ᆯᄀ");
+var jamo_rm = new Jamo(jamo_r, undefined, 'ᆱ'); jamo_rm.setDecomposed("ᆯᄆ");
 var jamo_rb = new Jamo(jamo_r, undefined, 'ᆲ'); jamo_rb.setDecomposed("ᆯᄇ");
 var jamo_rs = new Jamo(jamo_r, undefined, 'ᆳ'); jamo_rs.setDecomposed("ᆯᄉ");
 var jamo_rt = new Jamo(jamo_r, undefined, 'ᆴ'); jamo_rt.setDecomposed("ᆯᄐ");
@@ -289,7 +289,6 @@ var selStart;
 var selEnd;
 
 function convertFinToInit(previousJamoKeypress) {
-	// TODO: handle splitting up final consonant clusters!
 	var jamoMapValue = jamoMap.get(previousJamoKeypress);
 
 	if (jamoMapValue !== undefined) {
@@ -297,7 +296,7 @@ function convertFinToInit(previousJamoKeypress) {
 		if (jamoMapValue.decomposed !== undefined) {
 			return jamoMapValue.decomposed;
 		}
-		return jamoMapValue.initial;
+		return jamoMapValue.initial + "";
 	} else {
 		console.log("FIN->INIT: nothing was found FOR REAL");
 		return undefined;
@@ -334,7 +333,6 @@ function calculate(input, pressedKey, thisObject) {
 			: input.substring(selStart-2, selStart);
 	lastChar = lastNchars.charAt(lastNchars.length-1);
 	overrideCurrChar = false;
-	var moveForward = false;
 	lastNPressedKeys.push(pressedKey);
 
 	// Get current char
@@ -368,19 +366,21 @@ function calculate(input, pressedKey, thisObject) {
 	}
 
 	// Check if the last jamo needs to change from final to initial form
+	// or a multi-consonant cluster needs to be broken up between 2 syllables
 	if (isFinal(lastChar) && isMedial(character)) {
 		var newChar = convertFinToInit(lastNValidJamoKeypresses.nthTop(1));
 		console.log("this fincon needs to be replaced with initcon NOW! " + newChar);
 
-		if (newChar.length > 1) {
-			moveForward = true;
-		}
-
-		// If so, replace it with the initial variant of the last jamo
+		// If so, replace it
 		input = input.slice(0, selStart-1) + newChar + input.slice(selStart);
+
+		// Increment cursor if the replacement is longer than 1
+		if (newChar.length > 1) {
+			selStart++;
+		}
 	}
 
-	// Set as originally pressed key if no valid Jamo entry was found
+	// Set character as originally pressed key if no valid Jamo entry was found
 	if (character === undefined) {
 		character = pressedKey;
 		lastNValidJamoKeypresses.push(undefined);
