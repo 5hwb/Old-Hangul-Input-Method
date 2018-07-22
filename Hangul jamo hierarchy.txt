@@ -118,8 +118,8 @@
 * ᅦ
 * ᅧ
     * ᆥ (old)
-* ᅽ (old)
-* ᅾ (old)
+    * ᅽ (old)
+    * ᅾ (old)
 * ᅨ
 * ᅩ
     * ᅪ
@@ -133,11 +133,11 @@
     * ᆦ (old)
     * ᆧ (old)
 * ᅭ
-* ᆄ (old)
-* ᆅ (old)
-* ᆆ (old)
-* ᆇ (old)
-* ᆈ (old)
+    * ᆄ (old)
+    * ᆅ (old)
+    * ᆆ (old)
+    * ᆇ (old)
+    * ᆈ (old)
 * ᅮ
     * ᅯ
     * ᅰ
@@ -148,13 +148,13 @@
     * ᆌ (old)
     * ᆍ (old)
 * ᅲ
-* ᆎ (old)
-* ᆏ (old)
-* ᆐ (old)
-* ᆑ (old)
-* ᆒ (old)
-* ᆓ (old)
-* ᆔ (old)
+    * ᆎ (old)
+    * ᆏ (old)
+    * ᆐ (old)
+    * ᆑ (old)
+    * ᆒ (old)
+    * ᆓ (old)
+    * ᆔ (old)
 * ᅳ
     * ᅴ
     * ᆕ (old)
@@ -209,7 +209,7 @@
         * ᇔ (fin, old)
         * ᇕ (fin, old)
     * ᆳ (fin)
-    * ᇖ (fin, old)
+        * ᇖ (fin, old)
     * ᆴ (fin)
     * ᆵ (fin)
     * ᆶ (fin)
@@ -244,7 +244,7 @@
 * ᆻ (fin)
 * ᆼ (fin)
     * ᇬ (fin, old)
-    * ᇭ (fin, old)
+        * ᇭ (fin, old)
     * ᇮ (fin, old)
     * ᇯ (fin, old)
 * ᆽ (fin)
