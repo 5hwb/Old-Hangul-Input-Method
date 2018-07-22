@@ -412,7 +412,7 @@ var jamoMap = new Map([
     ["x", jamo_t ],
     ["v", jamo_p ],
     ["g", jamo_h ],
-
+	////////////////////////////////////////
     ["k",  jamo_a  ],
     ["o",  jamo_ae ],
     ["i",  jamo_ya ],
@@ -434,7 +434,7 @@ var jamoMap = new Map([
     ["m",  jamo_eu ],
     ["ml", jamo_eu_i],
     ["l",  jamo_i  ],
-
+	////////////////////////////////////////
     ["rt", jamo_g_s],
     ["sw", jamo_n_j],
     ["sg", jamo_n_h],
@@ -446,10 +446,7 @@ var jamoMap = new Map([
     ["fv", jamo_r_p],
     ["fg", jamo_r_h],
     ["qt", jamo_b_s],
-
-
-
-    /////////////////////////////
+	////////////////////////////////////////
     ["re", jamo_g_d    ],
     ["sr", jamo_n_g    ],
     ["ss", jamo_n_n    ],
@@ -522,7 +519,7 @@ var jamoMap = new Map([
     ["B", jamo_c_left ],
     ["N", jamo_c_rite ],
     ["G", jamo_q      ],
-    //////////////////////////////
+    ////////////////////////////////////////
     ["kh", jamo_a_o      ],
     ["kn", jamo_a_u      ],
     ["km", jamo_a_eu     ],
@@ -615,18 +612,11 @@ var jamoMap = new Map([
     ["DA", jamo_ng_z  ],
 ]);
 
-// Check if this char is a Hangul Jamo initial
-function isInitial(c) {
-	return ('\u1100' <= c && c <= '\u1112');
-}
-// Check if this char is a Hangul Jamo medial
-function isMedial(c) {
-	return ('\u1161' <= c && c <= '\u1175');
-}
-// Check if this char is a Hangul Jamo final
-function isFinal(c) {
-	return ('\u11A8' <= c && c <= '\u11C2');
-}
+/*======================================
+=========OLD HANGUL IME LOGIC===========
+======================================*/
+// TODO: Implement [F] key to stop initial consonant clusters forming by default
+// TODO: Fix final consonant clusters becoming initial clusters
 
 // IME input string
 var input = "";
@@ -645,6 +635,19 @@ var overrideCurrChar = false;
 // The current selection positions
 var selStart;
 var selEnd;
+
+// Check if this char is a Hangul Jamo initial
+function isInitial(c) {
+	return ('\u1100' <= c && c <= '\u1112');
+}
+// Check if this char is a Hangul Jamo medial
+function isMedial(c) {
+	return ('\u1161' <= c && c <= '\u1175');
+}
+// Check if this char is a Hangul Jamo final
+function isFinal(c) {
+	return ('\u11A8' <= c && c <= '\u11C2');
+}
 
 // Convert the given final consonant input into an initial consonant
 function convertFinToInit(previousJamoKeypress) {
