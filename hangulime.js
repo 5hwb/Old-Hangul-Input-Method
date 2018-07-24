@@ -188,17 +188,17 @@ var jamo_k   = new Jamo(jamo_nil, 'ᄏ', 'ᆿ');
 var jamo_t   = new Jamo(jamo_nil, 'ᄐ', 'ᇀ');
 var jamo_p   = new Jamo(jamo_nil, 'ᄑ', 'ᇁ');
 var jamo_h   = new Jamo(jamo_nil, 'ᄒ', 'ᇂ');
-var jamo_g_s = new Jamo(jamo_g, undefined, 'ᆪ'); jamo_g_s.setDecomposed("ᆨᄉ");
-var jamo_n_j = new Jamo(jamo_n, 'ᅜ', 'ᆬ'); jamo_n_j.setDecomposed("ᆫᄌ");
-var jamo_n_h = new Jamo(jamo_n, 'ᅝ', 'ᆭ'); jamo_n_h.setDecomposed("ᆫᄒ");
-var jamo_r_g = new Jamo(jamo_r, undefined, 'ᆰ'); jamo_r_g.setDecomposed("ᆯᄀ");
-var jamo_r_m = new Jamo(jamo_r, undefined, 'ᆱ'); jamo_r_m.setDecomposed("ᆯᄆ");
-var jamo_r_b = new Jamo(jamo_r, undefined, 'ᆲ'); jamo_r_b.setDecomposed("ᆯᄇ");
-var jamo_r_s = new Jamo(jamo_r, undefined, 'ᆳ'); jamo_r_s.setDecomposed("ᆯᄉ");
-var jamo_r_t = new Jamo(jamo_r, undefined, 'ᆴ'); jamo_r_t.setDecomposed("ᆯᄐ");
-var jamo_r_p = new Jamo(jamo_r, undefined, 'ᆵ'); jamo_r_p.setDecomposed("ᆯᄑ");
-var jamo_r_h = new Jamo(jamo_r, 'ᄚ', 'ᆶ'); jamo_r_h.setDecomposed("ᆯᄒ");
-var jamo_b_s = new Jamo(jamo_b, 'ᄡ', 'ᆹ'); jamo_b_s.setDecomposed("ᆸᄉ");
+var jamo_g_s = new Jamo(jamo_g, undefined, 'ᆪ'); /*jamo_g_s.setDecomposed("ᆨᄉ");*/
+var jamo_n_j = new Jamo(jamo_n, 'ᅜ', 'ᆬ'); /*jamo_n_j.setDecomposed("ᆫᄌ");*/
+var jamo_n_h = new Jamo(jamo_n, 'ᅝ', 'ᆭ'); /*jamo_n_h.setDecomposed("ᆫᄒ");*/
+var jamo_r_g = new Jamo(jamo_r, undefined, 'ᆰ'); /*jamo_r_g.setDecomposed("ᆯᄀ");*/
+var jamo_r_m = new Jamo(jamo_r, undefined, 'ᆱ'); /*jamo_r_m.setDecomposed("ᆯᄆ");*/
+var jamo_r_b = new Jamo(jamo_r, undefined, 'ᆲ'); /*jamo_r_b.setDecomposed("ᆯᄇ");*/
+var jamo_r_s = new Jamo(jamo_r, undefined, 'ᆳ'); /*jamo_r_s.setDecomposed("ᆯᄉ");*/
+var jamo_r_t = new Jamo(jamo_r, undefined, 'ᆴ'); /*jamo_r_t.setDecomposed("ᆯᄐ");*/
+var jamo_r_p = new Jamo(jamo_r, undefined, 'ᆵ'); /*jamo_r_p.setDecomposed("ᆯᄑ");*/
+var jamo_r_h = new Jamo(jamo_r, 'ᄚ', 'ᆶ'); /*jamo_r_h.setDecomposed("ᆯᄒ");*/
+var jamo_b_s = new Jamo(jamo_b, 'ᄡ', 'ᆹ'); /*jamo_b_s.setDecomposed("ᆸᄉ");*/
 
 
 // Medials
@@ -615,7 +615,7 @@ var jamoMap = new Map([
 /*======================================
 =========OLD HANGUL IME LOGIC===========
 ======================================*/
-// TODO: Implement [F] key to stop initial consonant clusters forming by default
+// TODO: Implement [F] key, indicates that any consonants typed after it are for the next syllable
 // TODO: Fix final consonant clusters becoming initial clusters
 
 // IME input string
@@ -638,37 +638,45 @@ var selEnd;
 
 // Check if this char is a Hangul Jamo initial
 function isInitial(c) {
-	return ('\u1100' <= c && c <= '\u1112');
+	return ('\u1100' <= c && c <= '\u115F');
 }
 // Check if this char is a Hangul Jamo medial
 function isMedial(c) {
-	return ('\u1161' <= c && c <= '\u1175');
+	return ('\u1161' <= c && c <= '\u11A7');
 }
 // Check if this char is a Hangul Jamo final
 function isFinal(c) {
-	return ('\u11A8' <= c && c <= '\u11C2');
+	return ('\u11A8' <= c && c <= '\u11FF');
 }
 
 // Convert the given final consonant input into an initial consonant
 function convertFinToInit(previousJamoKeypress) {
 	var jamoMapValue = jamoMap.get(previousJamoKeypress);
+	var newChar = undefined;
 
 	if (jamoMapValue !== undefined) {
 		console.log("FIN->INIT: All good. " + jamoMapValue.toString());
 		if (jamoMapValue.decomposed !== undefined) {
-			return jamoMapValue.decomposed;
+			newChar = jamoMapValue.decomposed;
+		} else {
+			newChar = (jamoMapValue.initial !== undefined) ? jamoMapValue.initial : "";
 		}
-		return jamoMapValue.initial + "";
 	} else {
 		console.log("FIN->INIT: nothing was found FOR REAL");
-		return undefined;
+	}
+
+	if (newChar !== undefined) {
+		return newChar;
+	} else {
+		return "";
 	}
 }
 
 // Get the next jamo to be inserted
 function getNextJamo(jamoMapValue, lastChar) {
 	// INITIAL
-	if (jamoMapValue.initial !== undefined) {
+	if (jamoMapValue.initial !== undefined
+				&& !jamoMapValue.hasMultipleJamo()) {
 		// Return final form if vowel precedes it
 		if (isMedial(lastChar) && jamoMapValue.final !== undefined) {
 			return jamoMapValue.final;
