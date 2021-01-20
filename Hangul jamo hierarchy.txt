@@ -12,9 +12,9 @@
     * ᅛ (init, old)
     * ᅜ (init, old)
     * ᅝ (init, old)
-    * ᅞ (init, old)
 * ᄃ (init)
     * ᄗ (init, old)
+    * ᅞ (init, old)
 * ᄄ (init)
 * ᄅ (init)
     * ᄘ (init, old)
@@ -39,7 +39,6 @@
     * ᄩ (init, old)
     * ᄪ (init, old)
     * ᄫ (init, old)
-
 * ᄈ (init)
     * ᄬ (init, old)
 * ᄉ (init)
@@ -140,11 +139,11 @@
     * ᆈ (old)
 * ᅮ
     * ᅯ
+        * ᆋ (old)
     * ᅰ
     * ᅱ
     * ᆉ (old)
     * ᆊ (old)
-    * ᆋ (old)
     * ᆌ (old)
     * ᆍ (old)
 * ᅲ
@@ -157,9 +156,9 @@
     * ᆔ (old)
 * ᅳ
     * ᅴ
+        * ᆗ (old)
     * ᆕ (old)
     * ᆖ (old)
-    * ᆗ (old)
 * ᅵ
     * ᆘ (old)
     * ᆙ (old)
