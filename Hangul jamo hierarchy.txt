@@ -176,90 +176,90 @@
 ==============FINAL JAMOS===============
 ========================================
 * ᆨ (fin)
-    * ᇃ (fin, old)
-    * ᆪ (fin)
-        * ᇄ (fin, old)
-    * ᇺ (fin, old)
-    * ᇻ (fin, old)
-    * ᇼ (fin, old)
-    * ᇽ (fin, old)
-    * ᇾ (fin, old)
+    * ᇃ (fin, old) -> ᆨᄅ
+    * ᆪ (fin) -> ᆨᄉ
+        * ᇄ (fin, old) -> ᆪᄀ
+    * ᇺ (fin, old) -> ᆨᄂ
+    * ᇻ (fin, old) -> ᆨᄇ
+    * ᇼ (fin, old) -> ᆨᄎ
+    * ᇽ (fin, old) -> ᆨᄏ
+    * ᇾ (fin, old) -> ᆨᄒ
 * ᆩ (fin)
 * ᆫ (fin)
-    * ᆬ (fin)
-    * ᆭ (fin)
-    * ᇅ (fin, old)
-    * ᇆ (fin, old)
-    * ᇇ (fin, old)
-    * ᇈ (fin, old)
-    * ᇉ (fin, old)
-    * ᇿ (fin, old)
+    * ᆬ (fin) -> ᆫᄌ
+    * ᆭ (fin) -> ᆫᄒ
+    * ᇅ (fin, old) -> ᆫᄀ
+    * ᇆ (fin, old) -> ᆫᄃ
+    * ᇇ (fin, old) -> ᆫᄉ
+    * ᇈ (fin, old) -> ᆫᅀ
+    * ᇉ (fin, old) -> ᆫᄐ
+    * ᇿ (fin, old) -> ᆫᄂ
 * ᆮ (fin)
-    * ᇊ (fin, old)
-    * ᇋ (fin, old)
+    * ᇊ (fin, old) -> ᆮᄀ
+    * ᇋ (fin, old) -> ᆮᄅ
 * ᆯ (fin)
-    * ᆰ (fin)
-        * ᇌ (fin, old)
-    * ᆱ (fin)
-        * ᇑ (fin, old)
-        * ᇒ (fin, old)
-    * ᆲ (fin)
-        * ᇓ (fin, old)
-        * ᇔ (fin, old)
-        * ᇕ (fin, old)
-    * ᆳ (fin)
-        * ᇖ (fin, old)
-    * ᆴ (fin)
-    * ᆵ (fin)
-    * ᆶ (fin)
-    * ᇍ (fin, old)
-    * ᇎ (fin, old)
-        * ᇏ (fin, old)
-    * ᇐ (fin, old)
-    * ᇗ (fin, old)
-    * ᇘ (fin, old)
-    * ᇙ (fin, old)
+    * ᆰ (fin) -> ᆯᄀ
+        * ᇌ (fin, old) -> ᆰᄉ
+    * ᆱ (fin) -> ᆯᄆ
+        * ᇑ (fin, old) -> ᆱᄀ
+        * ᇒ (fin, old) -> ᆱᄉ
+    * ᆲ (fin) -> ᆯᄇ
+        * ᇓ (fin, old) -> ᆲᄉ
+        * ᇔ (fin, old) -> ᆲᄒ
+        * ᇕ (fin, old) -> ᆯᄫ
+    * ᆳ (fin) -> ᆯᄉ
+        * ᇖ (fin, old) -> ᆳᄉ
+    * ᆴ (fin) -> ᆯᄐ
+    * ᆵ (fin) -> ᆯᄑ
+    * ᆶ (fin) -> ᆯᄒ
+    * ᇍ (fin, old) -> ᆯᄂ
+    * ᇎ (fin, old) -> ᆯᄃ
+        * ᇏ (fin, old) -> ᇎᄒ
+    * ᇐ (fin, old) -> ᆯᄅ
+    * ᇗ (fin, old) -> ᆯᅀ
+    * ᇘ (fin, old) -> ᆯᄏ
+    * ᇙ (fin, old) -> ᆯᅙ
 * ᆷ (fin)
-    * ᇚ (fin, old)
-    * ᇛ (fin, old)
-    * ᇜ (fin, old)
-    * ᇝ (fin, old)
-        * ᇞ (fin, old)
-    * ᇟ (fin, old)
-    * ᇠ (fin, old)
-    * ᇡ (fin, old)
+    * ᇚ (fin, old) -> ᆷᄀ
+    * ᇛ (fin, old) -> ᆷᄅ
+    * ᇜ (fin, old) -> ᆷᄇ
+    * ᇝ (fin, old) -> ᆷᄉ
+        * ᇞ (fin, old) -> ᇝᄉ
+    * ᇟ (fin, old) -> ᆷᅀ
+    * ᇠ (fin, old) -> ᆷᄎ
+    * ᇡ (fin, old) -> ᆷᄒ
     * ᇢ (fin, old)
 * ᆸ (fin)
-    * ᆹ (fin)
-    * ᇣ (fin, old)
-    * ᇤ (fin, old)
-    * ᇥ (fin, old)
+    * ᆹ (fin) -> ᆸᄉ
+    * ᇣ (fin, old) -> ᆸᄅ
+    * ᇤ (fin, old) -> ᆸᄑ
+    * ᇥ (fin, old) -> ᆸᄒ
     * ᇦ (fin, old)
 * ᆺ (fin)
-    * ᇧ (fin, old)
-    * ᇨ (fin, old)
-    * ᇩ (fin, old)
-    * ᇪ (fin, old)
+    * ᇧ (fin, old) -> ᆺᄀ
+    * ᇨ (fin, old) -> ᆺᄃ
+    * ᇩ (fin, old) -> ᆺᄅ
+    * ᇪ (fin, old) -> ᆺᄇ
 * ᆻ (fin)
 * ᆼ (fin)
-    * ᇬ (fin, old)
-        * ᇭ (fin, old)
-    * ᇮ (fin, old)
-    * ᇯ (fin, old)
+    * ᇬ (fin, old) -> ᆼᄀ
+        * ᇭ (fin, old) -> ᇬᄀ
+    * ᇮ (fin, old) -> ᆼᄋ
+    * ᇯ (fin, old) -> ᆼᄏ
 * ᆽ (fin)
 * ᆾ (fin)
 * ᆿ (fin)
 * ᇀ (fin)
 * ᇁ (fin)
-    * ᇳ (fin, old)
+    * ᇳ (fin, old) -> ᇁᄇ
     * ᇴ (fin, old)
 * ᇂ (fin)
-    * ᇵ (fin, old)
-    * ᇶ (fin, old)
-    * ᇷ (fin, old)
-    * ᇸ (fin, old)
+    * ᇵ (fin, old) -> ᇂᄂ
+    * ᇶ (fin, old) -> ᇂᄅ
+    * ᇷ (fin, old) -> ᇂᄆ
+    * ᇸ (fin, old) -> ᇂᄇ
 * ᇫ (fin, old)
 * ᇰ (fin, old)
-    * ᇱ (fin, old)
-    * ᇲ (fin, old)
+    * ᇱ (fin, old) -> ᇰᄉ
+    * ᇲ (fin, old) -> ᇰᅀ
 * ᇹ (fin, old)
