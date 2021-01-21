@@ -18,44 +18,27 @@ textarea {
 </style>
 </head>
 
-<body id="body">
+<body id="body" onload="init();">
+  <div id="header">
+  	<div id="header_inner" class="fixed">
+  		<div id="logo">
+  			<h1>Old Hangul IME</h1>
+  		</div>
+  	</div>
+      <!-- <div id="printlogo"><img src="/css/logo.gif" alt="DeGraeve.com" width="181" height="25" /></div> -->
+  </div>
+  <!-- /header -->
+  <div id="main">
+    <script src="hangulime_new.js" type="text/javascript"></script>
+    <form>
+      <p>
+        <strong>Type a string of Old Hangul text. Unicode compliant!</strong>
+        <br/>
+    	  <textarea id="hangulime" rows="5" cols="40"></textarea>
+      </p>
+    	<p>(JavaScript required)</p>
+    </form>
+  </div>
+</body>
 
-<div id="header">
-
-	<div id="header_inner" class="fixed">
-
-		<div id="logo">
-			<h1>Old Hangul IME</h1>
-		</div>
-
-	</div>
-    <!-- <div id="printlogo"><img src="/css/logo.gif" alt="DeGraeve.com" width="181" height="25" /></div> -->
-</div>
-
-
-<!-- /header -->
-
-<div id="main">
-
-<script src="hangulime.js" type="text/javascript"></script>
-
-<form>
-  <p>
-    <strong>Type a string of Old Hangul text. Unicode compliant!</strong>
-    <br/>
-	  <textarea id="hangulime" rows="5" cols="40"></textarea>
-  </p>
-	<p>(JavaScript required)</p>
-</form>
-
-<!--
-<script src="ROT13%20Cipher_files/urchin.js" type="text/javascript">
-</script>-->
-<script type="text/javascript">
-var hangulInput = document.getElementById("hangulime");
-hangulInput.addEventListener("keypress", function(event){receiveKeypress(event, this)}, true);
-</script>
-
-</div>
-
-</body></html>
+</html>
