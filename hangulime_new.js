@@ -205,6 +205,6 @@ function init() {
   // Add event listener to Old Hangul IME textarea
   var hangulInput = document.getElementById("hangulime");
   hangulInput.addEventListener("keypress", function(event) {
-    receiveKeypress(event, this)
+    receiveKeypress(event, this);
   }, true);
 }
