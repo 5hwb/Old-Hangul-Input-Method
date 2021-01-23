@@ -41,6 +41,13 @@ FixedStack.prototype.nthTop = function(n) {
 	return undefined;
 }
 
+// Clear all elements in the stack
+FixedStack.prototype.clear = function() {
+	this.top = -1;
+	this.stack = new Array(this.size);
+}
+
+
 // Print the contents of the stack, starting with the oldest elements and ending with the last
 FixedStack.prototype.toString = function() {
 	var res = "";
@@ -123,6 +130,16 @@ function fixedStackTest() {
 	stacko.push("m");
 	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 	stacko.push("a");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	
+	// Clear the stack
+	stacko.clear();
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("g");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("l");
+	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+	stacko.push("o");
 	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 }
 
@@ -750,8 +767,6 @@ function insertInput(input, pressedKey, context) {
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
 
-	
-
 	// Set character as the original keypress if no valid Jamo entry was found
 	if (currChar === undefined) {
 		currChar = pressedKey;
@@ -816,6 +831,6 @@ function init() {
   
   console.log("jamo_init_map =");
   console.log(jamo_init_map);
-  // fixedStackTest();
+  fixedStackTest();
   // jamoTest();
 }
