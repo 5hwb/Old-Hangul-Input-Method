@@ -738,8 +738,8 @@ function isFinal(c) {
 	return ('\u11A8' <= c && c <= '\u11FF');
 }
 
-// Calculate the next Hangul jamo to insert/remove
-function calculate(input, pressedKey, context) {
+// Insert or remove Hangul jamo into the given input string
+function insertInput(input, pressedKey, context) {
 	var output = "";
 	var currChar = pressedKey;
 	overrideCurrChar = false;
@@ -799,7 +799,7 @@ function receiveKeypress(e, context) {
 	if (keynum != 8 && keynum != undefined) {
 		input = context.value;
 		//context.value = input + pressedKey;
-		context.value = calculate(input, pressedKey, context);
+		context.value = insertInput(input, pressedKey, context);
 
 		// Reset cursor to previously known position
 		var incrementAmount = (overrideCurrChar) ? 0 : 1;
