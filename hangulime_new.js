@@ -724,23 +724,36 @@ var jamo_fin_map = new Map([
 // TODO: Implement [F] key, indicates that any consonants typed after it are for the next syllable
 // TODO: Fix final consonant clusters becoming initial clusters
 
+// Some more constants
+const STATE_DEFAULT = 0;
+const STATE_INSERT_LETTER = 1;
+const STATE_INSERT_INIT = 2;
+const STATE_INSERT_MED = 3;
+const STATE_INSERT_FIN = 4;
+const STATE_INSERT_INIT_CLUSTER = 5;
+const STATE_INSERT_MED_CLUSTER = 6;
+const STATE_INSERT_FIN_CLUSTER = 7;
+
 // IME input string
 var input = "";
 
-// The last 2 keypresses (in ASCII format)
+// The last 4 keypresses (in ASCII format)
 var num = 4;
 var lastNPressedKeys = new FixedStack(num);
 var lastNValidJamoKeypresses = new FixedStack(num);
+
+// The current selection positions
+var selStart = 0;
+var selEnd = 0;
+
+// Current state of the IME
+var currState = STATE_DEFAULT;
 
 // The last char before the cursor
 var lastChar = undefined;
 
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
-
-// The current selection positions
-var selStart;
-var selEnd;
 
 // Check if this char is a Hangul Jamo initial
 function isInitial(c) {
@@ -766,6 +779,13 @@ function insertInput(input, pressedKey, context) {
 
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
+	
+	switch (currState) {
+		case STATE_DEFAULT: 
+			break;
+		default: break;
+	}
+	
 
 	// Set character as the original keypress if no valid Jamo entry was found
 	if (currChar === undefined) {
@@ -801,6 +821,7 @@ function receiveKeypress(e, context) {
 	// Get the pressed key
 	var pressedKey = String.fromCharCode(keynum);
 	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
+	//console.log("e.key = " + e.key);
 
 	// Get the current cursor position
 	selStart = context.selectionStart;
@@ -823,14 +844,14 @@ function receiveKeypress(e, context) {
 }
 
 function init() {
-  // Add event listener to Old Hangul IME textarea
-  var hangulInput = document.getElementById("hangulime");
-  hangulInput.addEventListener("keypress", function(event) {
-    receiveKeypress(event, this);
-  }, true);
-  
-  console.log("jamo_init_map =");
-  console.log(jamo_init_map);
-  fixedStackTest();
-  // jamoTest();
+	// Add event listener to Old Hangul IME textarea
+	var hangulInput = document.getElementById("hangulime");
+	hangulInput.addEventListener("keypress", function(event) {
+		receiveKeypress(event, this);
+	}, true);
+
+	console.log("jamo_init_map =");
+	console.log(jamo_init_map);
+	fixedStackTest();
+	// jamoTest();
 }
