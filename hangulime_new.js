@@ -738,6 +738,39 @@ function isFinal(c) {
 	return ('\u11A8' <= c && c <= '\u11FF');
 }
 
+// Calculate the next Hangul jamo to insert/remove
+function calculate(input, pressedKey, context) {
+	var output = "";
+	var currChar = pressedKey;
+	overrideCurrChar = false;
+
+	// Add the pressed key to the fixed stack of previous keypresses
+	lastNPressedKeys.push(pressedKey);
+
+	// Last character before the cursor in the input string
+	lastChar = input.substring(0, selStart).charAt(selStart-1);
+
+	
+
+	// Set character as the original keypress if no valid Jamo entry was found
+	if (currChar === undefined) {
+		currChar = pressedKey;
+		lastNValidJamoKeypresses.push(undefined);
+	}
+
+	// Insert character at cursor position
+	output = (overrideCurrChar)
+			? input.slice(0, selStart-1) + currChar + input.slice(selStart)
+			: input.slice(0, selStart) + currChar + input.slice(selStart);
+	console.log("LAST CHAR = " + input.charAt(selStart-1));
+	console.log("INPUT =  '" + input + "'");
+	console.log("OUTPUT = '" + output + "'");
+	console.log("lastNPressedKeys = '" + lastNPressedKeys.toString() + "'");
+	console.log("lastNValidJamoKeypresses = '" + lastNValidJamoKeypresses.toString() + "'");
+
+	return output;
+}
+
 // Get all input keypresses
 function receiveKeypress(e, context) {
 	console.log("=================");
@@ -765,7 +798,8 @@ function receiveKeypress(e, context) {
 	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
 	if (keynum != 8 && keynum != undefined) {
 		input = context.value;
-		context.value = input + pressedKey;
+		//context.value = input + pressedKey;
+		context.value = calculate(input, pressedKey, context);
 
 		// Reset cursor to previously known position
 		var incrementAmount = (overrideCurrChar) ? 0 : 1;
@@ -780,6 +814,8 @@ function init() {
     receiveKeypress(event, this);
   }, true);
   
+  console.log("jamo_init_map =");
+  console.log(jamo_init_map);
   // fixedStackTest();
   // jamoTest();
 }
