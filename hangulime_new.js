@@ -795,71 +795,64 @@ function insertInput(input, pressedKey, context) {
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
 	
+	// The last N pressed keys as a string
+	var pressedKeys = stackPressedKeys.toString();
 	
 	// Get current char, scanning for trigraphs first before
 	// narrowing down the search
-	for (var c = num; c > 0; c--) {
-		var pressedKeys = stackPressedKeys.toString().substring(num-c, num);
+	for (var c = pressedKeys.length; c > 0; c--) {
+		var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
 		var chosenJamo = undefined;
 		var character = undefined;
-		console.log("c=" + c + "num-c=" + (num-c) + " pressedKeys=" + pressedKeys + " chosenJamo=" + chosenJamo);
-
 		
 		// Update the IME state given the current state and the last 3 pressed keys
+		// TODO: handle case when state is Insert Final and vowel key is pressed (need to convert the final into an initial)
 		switch (currState) {
 			case STATE_DEFAULT: 
 				console.log("STATE: Default");
 			case STATE_INSERT_INIT:
 				console.log("STATE: Insert Initial");
-				if (map_jamo_init.has(pressedKeys)) {
+				if (map_jamo_init.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_INIT;
-					chosenJamo = map_jamo_init.get(pressedKeys);
+					chosenJamo = map_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
-				else if (map_jamo_med.has(pressedKeys)) {
+				else if (map_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
-					chosenJamo = map_jamo_med.get(pressedKeys);
+					chosenJamo = map_jamo_med.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Medial");
-				}
-				else {
-					currState = STATE_INSERT_LETTER;
 				}
 				break;
 			case STATE_INSERT_MED:
 				console.log("STATE: Insert Medial");
-				if (map_jamo_med.has(pressedKeys)) {
+				if (map_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
-					chosenJamo = map_jamo_med.get(pressedKeys);
+					chosenJamo = map_jamo_med.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Medial");
 				}
-				else if (map_jamo_fin.has(pressedKeys)) {
+				else if (map_jamo_fin.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_FIN;
-					chosenJamo = map_jamo_fin.get(pressedKeys);
+					chosenJamo = map_jamo_fin.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Final");
-				}
-				else {
-					currState = STATE_INSERT_LETTER;
 				}
 				break;
 			case STATE_INSERT_FIN:
 				console.log("STATE: Insert Final");
-				if (map_jamo_fin.has(pressedKeys)) {
+				if (map_jamo_fin.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_FIN;
-					chosenJamo = map_jamo_fin.get(pressedKeys);
+					chosenJamo = map_jamo_fin.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Final");
 				}
-				else if (map_jamo_init.has(pressedKeys)) {
+				else if (map_jamo_init.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_INIT;
-					chosenJamo = map_jamo_init.get(pressedKeys);
+					chosenJamo = map_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
-				}
-				else {
-					currState = STATE_INSERT_LETTER;
-					console.log("* Changed state to Insert Non-Hangul Letter");
 				}
 				break;
 			default: break;
 		}
+		
+		console.log("c=" + c + " len-c=" + (pressedKeys.length-c) + " lastCPressedKeys=" + lastCPressedKeys + " chosenJamo=" + chosenJamo);
 
 		if (chosenJamo === undefined) {
 			continue;
@@ -876,6 +869,10 @@ function insertInput(input, pressedKey, context) {
 	
 	// Set character as the original keypress if no valid Jamo entry was found
 	if (currChar === undefined) {
+		currState = STATE_INSERT_LETTER;
+		console.log("Changed state to Insert Non-Hangul Letter");
+
+		
 		currChar = pressedKey;
 		stackValidJamoKeypresses.push(undefined);
 	}
