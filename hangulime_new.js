@@ -737,10 +737,10 @@ const STATE_INSERT_FIN_CLUSTER = 7;
 // IME input string
 var input = "";
 
-// The last 4 keypresses (in ASCII format)
+// FixedStack prototypes containing the last 4 keypresses (in ASCII format)
 var num = 4;
-var lastNPressedKeys = new FixedStack(num);
-var lastNValidJamoKeypresses = new FixedStack(num);
+var stackPressedKeys = new FixedStack(num);
+var stackValidJamoKeypresses = new FixedStack(num);
 
 // The current selection positions
 var selStart = 0;
@@ -790,19 +790,16 @@ function insertInput(input, pressedKey, context) {
 	overrideCurrChar = false;
 
 	// Add the pressed key to the fixed stack of previous keypresses
-	lastNPressedKeys.push(pressedKey);
+	stackPressedKeys.push(pressedKey);
 
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
 	
 	
-	
-	
-	
 	// Get current char, scanning for trigraphs first before
 	// narrowing down the search
 	for (var c = num; c > 0; c--) {
-		var pressedKeys = lastNPressedKeys.toString().substring(num-c, num);
+		var pressedKeys = stackPressedKeys.toString().substring(num-c, num);
 		var chosenJamo = undefined;
 		var character = undefined;
 		console.log("c=" + c + "num-c=" + (num-c) + " pressedKeys=" + pressedKeys + " chosenJamo=" + chosenJamo);
@@ -871,7 +868,7 @@ function insertInput(input, pressedKey, context) {
 		// Exit the loop if a valid Jamo object is found
 		if (character !== undefined) {
 			overrideCurrChar = chosenJamo.hasMultipleJamo();
-			lastNValidJamoKeypresses.push(pressedKeys);
+			stackValidJamoKeypresses.push(pressedKeys);
 			console.log(" OVERRIDE=" + overrideCurrChar);
 			break;
 		}
@@ -880,7 +877,7 @@ function insertInput(input, pressedKey, context) {
 	// Set character as the original keypress if no valid Jamo entry was found
 	if (currChar === undefined) {
 		currChar = pressedKey;
-		lastNValidJamoKeypresses.push(undefined);
+		stackValidJamoKeypresses.push(undefined);
 	}
 
 	// Insert character at cursor position
@@ -891,8 +888,8 @@ function insertInput(input, pressedKey, context) {
 	console.log("CURRENT STATE = " + getStateName(currState));
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
-	console.log("lastNPressedKeys = '" + lastNPressedKeys.toString() + "'");
-	console.log("lastNValidJamoKeypresses = '" + lastNValidJamoKeypresses.toString() + "'");
+	console.log("stackPressedKeys = '" + stackPressedKeys.toString() + "'");
+	console.log("stackValidJamoKeypresses = '" + stackValidJamoKeypresses.toString() + "'");
 
 	return output;
 }
