@@ -442,7 +442,7 @@ var jamo_fin_x_g_g  = new Jamo(jamo_fin_x_g, JAMO_FINAL, 'ᇭ', "ᇬᄀ");
 // JAMO MAPPINGS  //
 ////////////////////
 
-var jamo_init_map = new Map([
+var map_jamo_init = new Map([
 	// INITIALS
 	["r", jamo_init_g],
 	["R", jamo_init_gg],
@@ -545,7 +545,7 @@ var jamo_init_map = new Map([
 	["tqw", jamo_init_s_b_g]
 ]);
 
-var jamo_med_map = new Map([
+var map_jamo_med = new Map([
 	// MEDIALS
 	["k", jamo_med_a],
 	["o", jamo_med_ae],
@@ -623,7 +623,7 @@ var jamo_med_map = new Map([
 	["mln", jamo_med_eu_i_u]
 ]);
 
-var jamo_fin_map = new Map([
+var map_jamo_fin = new Map([
 	// FINALS
 	["r", jamo_fin_g],
 	["R", jamo_fin_gg],
@@ -780,6 +780,8 @@ function insertInput(input, pressedKey, context) {
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
 	
+	// Update the IME state
+	// TODO: put this in a function that takes a string lastNPressedKeys.toString() and returns the new state
 	switch (currState) {
 		case STATE_DEFAULT: 
 			break;
@@ -798,6 +800,7 @@ function insertInput(input, pressedKey, context) {
 			? input.slice(0, selStart-1) + currChar + input.slice(selStart)
 			: input.slice(0, selStart) + currChar + input.slice(selStart);
 	console.log("LAST CHAR = " + input.charAt(selStart-1));
+	console.log("CURRENT STATE = " + currState);
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 	console.log("lastNPressedKeys = '" + lastNPressedKeys.toString() + "'");
@@ -850,8 +853,8 @@ function init() {
 		receiveKeypress(event, this);
 	}, true);
 
-	console.log("jamo_init_map =");
-	console.log(jamo_init_map);
+	console.log("map_jamo_init =");
+	console.log(map_jamo_init);
 	fixedStackTest();
 	// jamoTest();
 }
