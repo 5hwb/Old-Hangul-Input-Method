@@ -768,6 +768,21 @@ function isFinal(c) {
 	return ('\u11A8' <= c && c <= '\u11FF');
 }
 
+// Convert the state int into a string
+function getStateName(state) {
+	switch (state) {
+		case STATE_DEFAULT: return "STATE_DEFAULT";
+		case STATE_INSERT_LETTER: return "STATE_INSERT_LETTER";
+		case STATE_INSERT_INIT: return "STATE_INSERT_INIT";
+		case STATE_INSERT_MED: return "STATE_INSERT_MED";
+		case STATE_INSERT_FIN: return "STATE_INSERT_FIN";
+		case STATE_INSERT_INIT_CLUSTER: return "STATE_INSERT_INIT_CLUSTER";
+		case STATE_INSERT_MED_CLUSTER: return "STATE_INSERT_MED_CLUSTER";
+		case STATE_INSERT_FIN_CLUSTER: return "STATE_INSERT_FIN_CLUSTER";
+		default: return "INVALID";
+	}
+}
+
 // Insert or remove Hangul jamo into the given input string
 function insertInput(input, pressedKey, context) {
 	var output = "";
@@ -780,15 +795,88 @@ function insertInput(input, pressedKey, context) {
 	// Last character before the cursor in the input string
 	lastChar = input.substring(0, selStart).charAt(selStart-1);
 	
-	// Update the IME state
-	// TODO: put this in a function that takes a string lastNPressedKeys.toString() and returns the new state
-	switch (currState) {
-		case STATE_DEFAULT: 
+	
+	
+	
+	
+	// Get current char, scanning for trigraphs first before
+	// narrowing down the search
+	for (var c = num; c > 0; c--) {
+		var pressedKeys = lastNPressedKeys.toString().substring(num-c, num);
+		var chosenJamo = undefined;
+		var character = undefined;
+		console.log("c=" + c + "num-c=" + (num-c) + " pressedKeys=" + pressedKeys + " chosenJamo=" + chosenJamo);
+
+		
+		// Update the IME state given the current state and the last 3 pressed keys
+		switch (currState) {
+			case STATE_DEFAULT: 
+				console.log("STATE: Default");
+			case STATE_INSERT_INIT:
+				console.log("STATE: Insert Initial");
+				if (map_jamo_init.has(pressedKeys)) {
+					currState = STATE_INSERT_INIT;
+					chosenJamo = map_jamo_init.get(pressedKeys);
+					console.log("* Changed state to Insert Initial");
+				}
+				else if (map_jamo_med.has(pressedKeys)) {
+					currState = STATE_INSERT_MED;
+					chosenJamo = map_jamo_med.get(pressedKeys);
+					console.log("* Changed state to Insert Medial");
+				}
+				else {
+					currState = STATE_INSERT_LETTER;
+				}
+				break;
+			case STATE_INSERT_MED:
+				console.log("STATE: Insert Medial");
+				if (map_jamo_med.has(pressedKeys)) {
+					currState = STATE_INSERT_MED;
+					chosenJamo = map_jamo_med.get(pressedKeys);
+					console.log("* Changed state to Insert Medial");
+				}
+				else if (map_jamo_fin.has(pressedKeys)) {
+					currState = STATE_INSERT_FIN;
+					chosenJamo = map_jamo_fin.get(pressedKeys);
+					console.log("* Changed state to Insert Final");
+				}
+				else {
+					currState = STATE_INSERT_LETTER;
+				}
+				break;
+			case STATE_INSERT_FIN:
+				console.log("STATE: Insert Final");
+				if (map_jamo_fin.has(pressedKeys)) {
+					currState = STATE_INSERT_FIN;
+					chosenJamo = map_jamo_fin.get(pressedKeys);
+					console.log("* Changed state to Insert Final");
+				}
+				else if (map_jamo_init.has(pressedKeys)) {
+					currState = STATE_INSERT_INIT;
+					chosenJamo = map_jamo_init.get(pressedKeys);
+					console.log("* Changed state to Insert Initial");
+				}
+				else {
+					currState = STATE_INSERT_LETTER;
+					console.log("* Changed state to Insert Non-Hangul Letter");
+				}
+				break;
+			default: break;
+		}
+
+		if (chosenJamo === undefined) {
+			continue;
+		}
+
+		// Exit the loop if a valid Jamo object is found
+		if (character !== undefined) {
+			overrideCurrChar = chosenJamo.hasMultipleJamo();
+			lastNValidJamoKeypresses.push(pressedKeys);
+			console.log(" OVERRIDE=" + overrideCurrChar);
 			break;
-		default: break;
+		}
 	}
 	
-
 	// Set character as the original keypress if no valid Jamo entry was found
 	if (currChar === undefined) {
 		currChar = pressedKey;
@@ -800,7 +888,7 @@ function insertInput(input, pressedKey, context) {
 			? input.slice(0, selStart-1) + currChar + input.slice(selStart)
 			: input.slice(0, selStart) + currChar + input.slice(selStart);
 	console.log("LAST CHAR = " + input.charAt(selStart-1));
-	console.log("CURRENT STATE = " + currState);
+	console.log("CURRENT STATE = " + getStateName(currState));
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 	console.log("lastNPressedKeys = '" + lastNPressedKeys.toString() + "'");
