@@ -929,6 +929,11 @@ function receiveKeypress(e, context) {
 	}
 }
 
+// Get all input keypresses
+function receiveKeydown(e, context) {
+	console.log("KEYDOWN: e.key = " + e.key + " e.code = " + e.code);
+}
+
 function init() {
 	// Add event listener to Old Hangul IME textarea
 	var hangulInput = document.getElementById("hangulime");
@@ -936,8 +941,12 @@ function init() {
 		receiveKeypress(event, this);
 	}, true);
 
-	console.log("map_jamo_init =");
-	console.log(map_jamo_init);
-	fixedStackTest();
+	hangulInput.addEventListener("keydown", function(event) {
+		receiveKeydown(event, this);
+	}, true);
+
+	// console.log("map_jamo_init =");
+	// console.log(map_jamo_init);
+	// fixedStackTest();
 	// jamoTest();
 }
