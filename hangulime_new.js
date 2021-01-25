@@ -722,7 +722,6 @@ var map_jamo_fin = new Map([
 =========OLD HANGUL IME LOGIC===========
 ======================================*/
 // TODO: Implement [F] key, indicates that any consonants typed after it are for the next syllable
-// TODO: Fix final consonant clusters becoming initial clusters
 
 // Some more constants
 const STATE_DEFAULT = 0;
@@ -792,7 +791,7 @@ function insertInput(input, pressedKey, context) {
 	// Add the pressed key to the fixed stack of previous keypresses
 	stackPressedKeys.push(pressedKey);
 	
-	// The last N pressed keys as a string
+	// Get the most recently pressed keys as a string
 	var pressedKeys = stackPressedKeys.toString();
 	
 	// Get current char, scanning for trigraphs first before
@@ -801,7 +800,7 @@ function insertInput(input, pressedKey, context) {
 		var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
 		var chosenJamo = undefined;
 		
-		// Update the IME state given the current state and the last 3 pressed keys
+		// Update the IME state given the current state and the most recently pressed keys
 		switch (currState) {
 			case STATE_DEFAULT: 
 				console.log("STATE: Default");
@@ -879,10 +878,13 @@ function insertInput(input, pressedKey, context) {
 		stackValidJamos.push(undefined);
 	}
 	
-	// Swap the final char for init char
+	// If medial vowel was inputted after final was inputted,
+	// swap the final jamos for their decomposed final+initial jamos
 	if (overridePrevChar) {
 		var lastJamo = stackValidJamos.nthTop(1).decomposed;
 		input = input.slice(0, input.length - 1) + lastJamo;
+		
+		// Adjust cursor position to accomodate the decomposed final+initial jamos
 		selStart += (lastJamo.length - 1);
 		selEnd += (lastJamo.length - 1);
 	}
