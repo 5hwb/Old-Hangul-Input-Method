@@ -740,7 +740,7 @@ var input = "";
 // FixedStack prototypes containing the last 4 keypresses (in ASCII format)
 var num = 4;
 var stackPressedKeys = new FixedStack(num);
-var stackValidJamoKeypresses = new FixedStack(num);
+var stackValidJamos = new FixedStack(num);
 
 // The current selection positions
 var selStart = 0;
@@ -751,6 +751,8 @@ var currState = STATE_DEFAULT;
 
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
+
+var overridePrevChar = false;
 
 // Check if this char is a Hangul Jamo initial
 function isInitial(c) {
@@ -785,6 +787,7 @@ function insertInput(input, pressedKey, context) {
 	var output = "";
 	var currChar = pressedKey;
 	overrideCurrChar = false;
+	overridePrevChar = false;
 
 	// Add the pressed key to the fixed stack of previous keypresses
 	stackPressedKeys.push(pressedKey);
@@ -799,7 +802,6 @@ function insertInput(input, pressedKey, context) {
 		var chosenJamo = undefined;
 		
 		// Update the IME state given the current state and the last 3 pressed keys
-		// TODO: handle case when state is Insert Final and vowel key is pressed (need to convert the final into an initial)
 		switch (currState) {
 			case STATE_DEFAULT: 
 				console.log("STATE: Default");
@@ -844,9 +846,9 @@ function insertInput(input, pressedKey, context) {
 					console.log("* Changed state to Insert Initial");
 				}
 				else if (map_jamo_med.has(lastCPressedKeys)) {
-					// TODO when this happens, swap the final char for init char
 					currState = STATE_INSERT_MED;
 					chosenJamo = map_jamo_med.get(lastCPressedKeys);
+					overridePrevChar = true;
 					console.log("* Changed state to Insert Medial (after Insert Final)");
 				}
 				break;
@@ -858,7 +860,7 @@ function insertInput(input, pressedKey, context) {
 		// Exit the loop if a valid Jamo object is found
 		if (chosenJamo !== undefined) {
 			overrideCurrChar = chosenJamo.hasMultipleJamo();
-			stackValidJamoKeypresses.push(pressedKeys);
+			stackValidJamos.push(chosenJamo);
 			console.log(" OVERRIDE=" + overrideCurrChar);
 			break;
 		}
@@ -874,20 +876,28 @@ function insertInput(input, pressedKey, context) {
 		console.log("Changed state to Insert Non-Hangul Letter");
 		
 		currChar = pressedKey;
-		stackValidJamoKeypresses.push(undefined);
+		stackValidJamos.push(undefined);
+	}
+	
+	// Swap the final char for init char
+	if (overridePrevChar) {
+		var lastJamo = stackValidJamos.nthTop(1).decomposed;
+		input = input.slice(0, input.length - 1) + lastJamo;
+		selStart += (lastJamo.length - 1);
+		selEnd += (lastJamo.length - 1);
 	}
 
 	// Insert character at cursor position
 	output = (overrideCurrChar)
 			? input.slice(0, selStart-1) + currChar + input.slice(selStart)
 			: input.slice(0, selStart) + currChar + input.slice(selStart);
-	console.log("LAST CHAR = " + input.charAt(selStart-1));
+	console.log("LAST JAMO = " + stackValidJamos.nthTop(1));
 	console.log("CURRENT STATE = " + getStateName(currState));
-	console.log("overrideCurrChar = " + overrideCurrChar);
+	console.log("overrideCurrChar = " + overrideCurrChar + " overridePrevChar = " + overridePrevChar);
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 	console.log("stackPressedKeys = '" + stackPressedKeys.toString() + "'");
-	console.log("stackValidJamoKeypresses = '" + stackValidJamoKeypresses.toString() + "'");
+	console.log("stackValidJamos = '" + stackValidJamos.toString() + "'");
 
 	return output;
 }
@@ -940,7 +950,7 @@ function receiveKeydown(e, context) {
 		e.key == "ArrowDown") {
 		currState = STATE_DEFAULT;
 		stackPressedKeys = new FixedStack(num);
-		stackValidJamoKeypresses = new FixedStack(num);
+		stackValidJamos = new FixedStack(num);
 		console.log("KEYDOWN: State changed to Default");		
 	}
 }
