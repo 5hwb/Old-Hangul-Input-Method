@@ -803,7 +803,6 @@ function insertInput(input, pressedKey, context) {
 	for (var c = pressedKeys.length; c > 0; c--) {
 		var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
 		var chosenJamo = undefined;
-		var character = undefined;
 		
 		// Update the IME state given the current state and the last 3 pressed keys
 		// TODO: handle case when state is Insert Final and vowel key is pressed (need to convert the final into an initial)
@@ -854,12 +853,8 @@ function insertInput(input, pressedKey, context) {
 		
 		console.log("c=" + c + " len-c=" + (pressedKeys.length-c) + " lastCPressedKeys=" + lastCPressedKeys + " chosenJamo=" + chosenJamo);
 
-		if (chosenJamo === undefined) {
-			continue;
-		}
-
 		// Exit the loop if a valid Jamo object is found
-		if (character !== undefined) {
+		if (chosenJamo !== undefined) {
 			overrideCurrChar = chosenJamo.hasMultipleJamo();
 			stackValidJamoKeypresses.push(pressedKeys);
 			console.log(" OVERRIDE=" + overrideCurrChar);
@@ -883,6 +878,7 @@ function insertInput(input, pressedKey, context) {
 			: input.slice(0, selStart) + currChar + input.slice(selStart);
 	console.log("LAST CHAR = " + input.charAt(selStart-1));
 	console.log("CURRENT STATE = " + getStateName(currState));
+	console.log("overrideCurrChar = " + overrideCurrChar);
 	console.log("INPUT =  '" + input + "'");
 	console.log("OUTPUT = '" + output + "'");
 	console.log("stackPressedKeys = '" + stackPressedKeys.toString() + "'");
