@@ -86,8 +86,8 @@ const JAMO_FINAL = 2;
  */
 function Jamo(parent, type, letter, decomposed) {
 	this.parent = parent; // The parent of this jamo (if it's composed of multiple jamos)
-  this.type = type; // Jamo type (int): initial = 0, medial = 1, final = 2
-  this.letter = letter; // Jamo letter
+	this.type = type; // Jamo type (int): initial = 0, medial = 1, final = 2
+	this.letter = letter; // Jamo letter
 	this.decomposed = decomposed; // The decomposed form of this jamo
 }
 
@@ -809,6 +809,8 @@ function insertInput(input, pressedKey, context) {
 		switch (currState) {
 			case STATE_DEFAULT: 
 				console.log("STATE: Default");
+			case STATE_INSERT_LETTER: 
+				console.log("STATE: Insert Letter");
 			case STATE_INSERT_INIT:
 				console.log("STATE: Insert Initial");
 				if (map_jamo_init.has(lastCPressedKeys)) {
@@ -862,11 +864,14 @@ function insertInput(input, pressedKey, context) {
 		}
 	}
 	
+	// Set the character as a Hangul Jamo character
+	if (chosenJamo !== undefined) {
+		currChar = chosenJamo.letter;
+	}
 	// Set character as the original keypress if no valid Jamo entry was found
-	if (currChar === undefined) {
+	else {
 		currState = STATE_INSERT_LETTER;
 		console.log("Changed state to Insert Non-Hangul Letter");
-
 		
 		currChar = pressedKey;
 		stackValidJamoKeypresses.push(undefined);
