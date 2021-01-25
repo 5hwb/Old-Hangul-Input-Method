@@ -929,9 +929,22 @@ function receiveKeypress(e, context) {
 	}
 }
 
-// Get all input keypresses
+// Get all input keypresses including non-character keys (e.g. backspace, arrow keys)
 function receiveKeydown(e, context) {
 	console.log("KEYDOWN: e.key = " + e.key + " e.code = " + e.code);
+	
+	// Revert to default state and clear all stacks
+	// if backspace or arrow keys are pressed
+	if (e.key == "Backspace" ||
+		e.key == "ArrowLeft" || 
+		e.key == "ArrowRight" || 
+		e.key == "ArrowUp" || 
+		e.key == "ArrowDown") {
+		currState = STATE_DEFAULT;
+		stackPressedKeys = new FixedStack(num);
+		stackValidJamoKeypresses = new FixedStack(num);
+		console.log("KEYDOWN: State changed to Default");		
+	}
 }
 
 function init() {
