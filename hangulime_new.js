@@ -749,9 +749,6 @@ var selEnd = 0;
 // Current state of the IME
 var currState = STATE_DEFAULT;
 
-// The last char before the cursor
-var lastChar = undefined;
-
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
 
@@ -791,9 +788,6 @@ function insertInput(input, pressedKey, context) {
 
 	// Add the pressed key to the fixed stack of previous keypresses
 	stackPressedKeys.push(pressedKey);
-
-	// Last character before the cursor in the input string
-	lastChar = input.substring(0, selStart).charAt(selStart-1);
 	
 	// The last N pressed keys as a string
 	var pressedKeys = stackPressedKeys.toString();
@@ -848,6 +842,12 @@ function insertInput(input, pressedKey, context) {
 					currState = STATE_INSERT_INIT;
 					chosenJamo = map_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
+				}
+				else if (map_jamo_med.has(lastCPressedKeys)) {
+					// TODO when this happens, swap the final char for init char
+					currState = STATE_INSERT_MED;
+					chosenJamo = map_jamo_med.get(lastCPressedKeys);
+					console.log("* Changed state to Insert Medial (after Insert Final)");
 				}
 				break;
 			default: break;
@@ -931,8 +931,6 @@ function receiveKeypress(e, context) {
 
 // Get all input keypresses including non-character keys (e.g. backspace, arrow keys)
 function receiveKeydown(e, context) {
-	console.log("KEYDOWN: e.key = " + e.key + " e.code = " + e.code);
-	
 	// Revert to default state and clear all stacks
 	// if backspace or arrow keys are pressed
 	if (e.key == "Backspace" ||
