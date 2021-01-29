@@ -733,9 +733,6 @@ const STATE_INSERT_INIT_CLUSTER = 5;
 const STATE_INSERT_MED_CLUSTER = 6;
 const STATE_INSERT_FIN_CLUSTER = 7;
 
-// IME input string
-var input = "";
-
 // FixedStack prototypes containing the last 4 keypresses (in ASCII format)
 var num = 4;
 var stackPressedKeys = new FixedStack(num);
@@ -781,8 +778,8 @@ function getStateName(state) {
 	}
 }
 
-// Insert or remove Hangul jamo into the given input string
-function insertInput(input, pressedKey, context) {
+// Insert or remove Hangul jamo into the given input string, given the pressed key
+function insertInput(input, pressedKey) {
 	var output = "";
 	var currChar = pressedKey;
 	overrideCurrChar = false;
@@ -944,9 +941,8 @@ function receiveKeypress(e, context) {
 
 	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
 	if (keynum != 8 && keynum != undefined) {
-		input = context.value;
-		//context.value = input + pressedKey;
-		context.value = insertInput(input, pressedKey, context);
+		//context.value = context.value + pressedKey;
+		context.value = insertInput(context.value, pressedKey);
 
 		// Reset cursor to previously known position
 		var incrementAmount = (overrideCurrChar) ? 0 : 1;
@@ -956,8 +952,7 @@ function receiveKeypress(e, context) {
 
 // Get all input keypresses including non-character keys (e.g. backspace, arrow keys)
 function receiveKeydown(e, context) {
-	// Revert to default state and clear all stacks
-	// if backspace or arrow keys are pressed
+	// Revert to default state and clear all stacks if backspace or arrow keys are pressed
 	if (e.key == "Backspace" ||
 		e.key == "ArrowLeft" || 
 		e.key == "ArrowRight" || 
@@ -971,12 +966,12 @@ function receiveKeydown(e, context) {
 }
 
 function init() {
-	// Add event listener to Old Hangul IME textarea
 	var hangulInput = document.getElementById("hangulime");
+
+  // Add event listeners to Old Hangul IME textarea
 	hangulInput.addEventListener("keypress", function(event) {
 		receiveKeypress(event, this);
 	}, true);
-
 	hangulInput.addEventListener("keydown", function(event) {
 		receiveKeydown(event, this);
 	}, true);
