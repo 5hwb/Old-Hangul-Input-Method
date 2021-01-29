@@ -882,7 +882,7 @@ function insertInput(input, pressedKey, context) {
 	// swap the final jamos for their decomposed final+initial jamos
 	if (overridePrevChar) {
 		var lastJamo = stackValidJamos.nthTop(1).decomposed;
-		input = input.slice(0, input.length - 1) + lastJamo;
+		input = input.slice(0, selStart-1) + lastJamo + input.slice(selStart);
 		
 		// Adjust cursor position to accomodate the decomposed final+initial jamos
 		selStart += (lastJamo.length - 1);
