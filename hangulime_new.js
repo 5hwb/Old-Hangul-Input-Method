@@ -802,7 +802,8 @@ function insertInput(input, pressedKey, context) {
 		
 		// Update the IME state given the current state and the most recently pressed keys
 		switch (currState) {
-			case STATE_DEFAULT: 
+			// Default, Insert Non-Hangul Letter, Insert Initial
+      case STATE_DEFAULT: 
 				console.log("STATE: Default");
 			case STATE_INSERT_LETTER: 
 				console.log("STATE: Insert Letter");
@@ -819,7 +820,9 @@ function insertInput(input, pressedKey, context) {
 					console.log("* Changed state to Insert Medial");
 				}
 				break;
-			case STATE_INSERT_MED:
+			
+      // Insert Medial
+      case STATE_INSERT_MED:
 				console.log("STATE: Insert Medial");
 				if (map_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
@@ -831,8 +834,15 @@ function insertInput(input, pressedKey, context) {
 					chosenJamo = map_jamo_fin.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Final");
 				}
+        // Transition to Insert Initial if initial-only jamo (e.g. ㅃ) was inputted
+        else if (map_jamo_init.has(lastCPressedKeys)) {
+					currState = STATE_INSERT_INIT;
+					chosenJamo = map_jamo_init.get(lastCPressedKeys);
+					console.log("* Changed state to Insert Initial");
+				}
 				break;
-			case STATE_INSERT_FIN:
+			
+      case STATE_INSERT_FIN:
 				console.log("STATE: Insert Final");
 				if (map_jamo_fin.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_FIN;
@@ -844,14 +854,17 @@ function insertInput(input, pressedKey, context) {
 					chosenJamo = map_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
-				else if (map_jamo_med.has(lastCPressedKeys)) {
+        // Transition to Insert Medial if medial jamo (e.g. ㅃ) was inputted,
+        // indicating that the final jamo needs to be decomposed 
+        else if (map_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
 					chosenJamo = map_jamo_med.get(lastCPressedKeys);
 					overridePrevChar = true;
 					console.log("* Changed state to Insert Medial (after Insert Final)");
 				}
 				break;
-			default: break;
+			
+      default: break;
 		}
 		
 		console.log("c=" + c + " len-c=" + (pressedKeys.length-c) + " lastCPressedKeys=" + lastCPressedKeys + " chosenJamo=" + chosenJamo);
@@ -879,7 +892,7 @@ function insertInput(input, pressedKey, context) {
 	}
 	
 	// If medial vowel was inputted after final was inputted,
-	// swap the final jamos for their decomposed final+initial jamos
+	// replace the final jamos with their decomposed final+initial forms
 	if (overridePrevChar) {
 		var lastJamo = stackValidJamos.nthTop(1).decomposed;
 		input = input.slice(0, selStart-1) + lastJamo + input.slice(selStart);
