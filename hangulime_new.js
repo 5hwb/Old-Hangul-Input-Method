@@ -791,8 +791,7 @@ function insertInput(input, pressedKey) {
 	// Get the most recently pressed keys as a string
 	var pressedKeys = stackPressedKeys.toString();
 	
-	// Get current char, scanning for trigraphs first before
-	// narrowing down the search
+	// Get current char, scanning for trigraphs first before narrowing down the search
 	for (var c = pressedKeys.length; c > 0; c--) {
 		var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
 		var chosenJamo = undefined;
