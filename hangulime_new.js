@@ -778,7 +778,7 @@ var currState = STATE_DEFAULT;
 
 // Indicate if current character should be overridden (for inserting composite Hangul jamo)
 var overrideCurrChar = false;
-
+// Indicate if previous character should be overridden (for decomposing composite Hangul jamo)
 var overridePrevChar = false;
 
 // Check if this char is a Hangul Jamo initial
@@ -813,7 +813,9 @@ function getStateName(state) {
 function insertInput(input, pressedKey) {
 	var output = "";
 	var currChar = pressedKey;
-	overrideCurrChar = false;
+	
+  // Reset boolean flags
+  overrideCurrChar = false;
 	overridePrevChar = false;
 
 	// Add the pressed key to the fixed stack of previous keypresses
@@ -948,27 +950,24 @@ function insertInput(input, pressedKey) {
 function deleteInput(input) {
   console.log("<<<<<<<<<<<<<<<<<");
   
-  // Exit function if there is no preceding character
-  if (selStart < 1) {
-    console.log("No preceding char, exiting deleteInput()");
-    return input;
-  }
-  
   // Output string
   output = "";
   
   // The previous character before the cursor
-  var prevChar = input[selStart-1];
+  var prevChar = (selStart < 1) ? input[selStart-1] : undefined;
   var chosenPrevJamo = undefined;
   console.log("prevChar = " + prevChar);
+  console.log("selStart = " + selStart + " selEnd = " + selEnd);
   
   // The new character to replace the previous character with
   var replChar = "";
+  
+  // Indicate if selection covers 1 or more char
+  var isSelectingMultipleChars = (selStart != selEnd);
 
-  // Set boolean flags
-  overrideCurrChar = false;
-	overridePrevChar = false;
-    
+  // Reset boolean flags
+  overridePrevChar = false;
+  
   // Update the IME state given the current state and the preceding chracter prior to this one
   if (map_char_jamo_init.has(prevChar)) {
     currState = STATE_INSERT_INIT;
@@ -996,12 +995,21 @@ function deleteInput(input) {
     console.log("REPLCHAR = " + replChar);
   }
   
-  output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
-  
+  // If cursor is selecting 1 or more characters, delete the selection
+  if (isSelectingMultipleChars) {
+    output = input.slice(0, selStart) + input.slice(selEnd);
+    console.log("DELETED: 1 or more chars");
+  }
   // Adjust the cursor position if char was deleted (assuming jamo size is 1)
-  if (!overridePrevChar) { 
+  else if (!overridePrevChar) { 
+    output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
     selStart -= 1;
     selEnd -= 1;
+    console.log("DELETED: !overridePrevChar");
+  }
+  else {
+    output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
+    console.log("DELETED: default");
   }
   return output;
 }
