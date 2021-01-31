@@ -954,7 +954,7 @@ function deleteInput(input) {
   output = "";
   
   // The previous character before the cursor
-  var prevChar = (selStart < 1) ? input[selStart-1] : undefined;
+  var prevChar = (selStart >= 1) ? input[selStart-1] : undefined;
   var chosenPrevJamo = undefined;
   console.log("prevChar = " + prevChar);
   console.log("selStart = " + selStart + " selEnd = " + selEnd);
