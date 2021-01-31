@@ -441,7 +441,7 @@ var jamo_fin_x_g_g  = new Jamo(jamo_fin_x_g, "drr", JAMO_FINAL, 'ᇭ', "ᇬᄀ")
 
 
 ////////////////////
-// JAMO MAPPINGS  //
+// JAMO LISTINGS  //
 ////////////////////
 
 var list_jamo_init = [
@@ -721,7 +721,7 @@ var list_jamo_fin = [
 ];
 
 ////////////////////
-// JAMO LISTINGS  //
+// JAMO MAPPINGS  //
 ////////////////////
 
 // Create a mapping from a jamo character to a Jamo instance from a list of Jamo instances
