@@ -442,7 +442,7 @@ var jamo_fin_x_g_g  = new Jamo(jamo_fin_x_g, JAMO_FINAL, 'ᇭ', "ᇬᄀ");
 // JAMO MAPPINGS  //
 ////////////////////
 
-var map_jamo_init = new Map([
+var map_keypress_jamo_init = new Map([
 	// INITIALS
 	["r", jamo_init_g],
 	["R", jamo_init_gg],
@@ -545,7 +545,7 @@ var map_jamo_init = new Map([
 	["tqw", jamo_init_s_b_g]
 ]);
 
-var map_jamo_med = new Map([
+var map_keypress_jamo_med = new Map([
 	// MEDIALS
 	["k", jamo_med_a],
 	["o", jamo_med_ae],
@@ -623,7 +623,7 @@ var map_jamo_med = new Map([
 	["mln", jamo_med_eu_i_u]
 ]);
 
-var map_jamo_fin = new Map([
+var map_keypress_jamo_fin = new Map([
 	// FINALS
 	["r", jamo_fin_g],
 	["R", jamo_fin_gg],
@@ -718,6 +718,21 @@ var map_jamo_fin = new Map([
 	["drr", jamo_fin_x_g_g]
 ]);
 
+// Create a mapping from a jamo character to a Jamo prototype from the keypress-to-Jamo mapping
+function createCharToJamoMap(keypressToJamoMap) {
+  var charToJamoMap = new Map();
+  
+  for (let jamoVal of keypressToJamoMap.values()) {
+    charToJamoMap.set(jamoVal.letter, jamoVal);
+  }
+  
+  return charToJamoMap;
+}
+
+var map_char_jamo_init = createCharToJamoMap(map_keypress_jamo_init);
+var map_char_jamo_med = createCharToJamoMap(map_keypress_jamo_med);
+var map_char_jamo_fin = createCharToJamoMap(map_keypress_jamo_fin);
+
 /*======================================
 =========OLD HANGUL IME LOGIC===========
 ======================================*/
@@ -805,14 +820,14 @@ function insertInput(input, pressedKey) {
 				console.log("STATE: Insert Letter");
 			case STATE_INSERT_INIT:
 				console.log("STATE: Insert Initial");
-				if (map_jamo_init.has(lastCPressedKeys)) {
+				if (map_keypress_jamo_init.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_INIT;
-					chosenJamo = map_jamo_init.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
-				else if (map_jamo_med.has(lastCPressedKeys)) {
+				else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
-					chosenJamo = map_jamo_med.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Medial");
 				}
 				break;
@@ -820,41 +835,41 @@ function insertInput(input, pressedKey) {
       // Insert Medial
       case STATE_INSERT_MED:
 				console.log("STATE: Insert Medial");
-				if (map_jamo_med.has(lastCPressedKeys)) {
+				if (map_keypress_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
-					chosenJamo = map_jamo_med.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Medial");
 				}
-				else if (map_jamo_fin.has(lastCPressedKeys)) {
+				else if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_FIN;
-					chosenJamo = map_jamo_fin.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Final");
 				}
         // Transition to Insert Initial if initial-only jamo (e.g. ㅃ) was inputted
-        else if (map_jamo_init.has(lastCPressedKeys)) {
+        else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_INIT;
-					chosenJamo = map_jamo_init.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
 				break;
 			
       case STATE_INSERT_FIN:
 				console.log("STATE: Insert Final");
-				if (map_jamo_fin.has(lastCPressedKeys)) {
+				if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_FIN;
-					chosenJamo = map_jamo_fin.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Final");
 				}
-				else if (map_jamo_init.has(lastCPressedKeys)) {
+				else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_INIT;
-					chosenJamo = map_jamo_init.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
         // Transition to Insert Medial if medial jamo (e.g. ㅃ) was inputted,
         // indicating that the final jamo needs to be decomposed 
-        else if (map_jamo_med.has(lastCPressedKeys)) {
+        else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
-					chosenJamo = map_jamo_med.get(lastCPressedKeys);
+					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
 					overridePrevChar = true;
 					console.log("* Changed state to Insert Medial (after Insert Final)");
 				}
@@ -913,6 +928,68 @@ function insertInput(input, pressedKey) {
 	return output;
 }
 
+// Modify the given input string on backspace, depending on which Hangul jamo is before the cursor
+function deleteInput(input) {
+  console.log("<<<<<<<<<<<<<<<<<");
+  
+  // Exit function if there is no preceding character
+  if (selStart < 1) {
+    console.log("No preceding char, exiting deleteInput()");
+    return input;
+  }
+  
+  // Output string
+  output = "";
+  
+  // The previous character before the cursor
+  var prevChar = input[selStart-1];
+  var chosenPrevJamo = undefined;
+  console.log("prevChar = " + prevChar);
+  
+  // The new character to replace the previous character with
+  var replChar = "";
+
+  // Set boolean flags
+  overrideCurrChar = false;
+	overridePrevChar = false;
+    
+  // Update the IME state given the current state and the preceding chracter prior to this one
+  if (map_char_jamo_init.has(prevChar)) {
+    currState = STATE_INSERT_INIT;
+    chosenPrevJamo = map_char_jamo_init.get(prevChar);
+    console.log("* Changed state to Insert Initial");
+  }
+  else if (map_char_jamo_med.has(prevChar)) {
+    currState = STATE_INSERT_MED;
+    chosenPrevJamo = map_char_jamo_med.get(prevChar);
+    console.log("* Changed state to Insert Medial");
+  }
+  else if (map_char_jamo_fin.has(prevChar)) {
+    currState = STATE_INSERT_FIN;
+    chosenPrevJamo = map_char_jamo_fin.get(prevChar);
+    console.log("* Changed state to Insert Final");
+  }
+  else {
+    console.log("* State was left unchanged");
+  }
+
+  // Set replacement char if parent of prev char jamo was found
+  if (chosenPrevJamo != undefined && chosenPrevJamo.hasMultipleJamo()) {
+    replChar = chosenPrevJamo.parent.letter;
+    overridePrevChar = true;
+    console.log("REPLCHAR = " + replChar);
+  }
+  
+  output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
+  
+  // Adjust the cursor position if char was deleted (assuming jamo size is 1)
+  if (!overridePrevChar) { 
+    selStart -= 1;
+    selEnd -= 1;
+  }
+  return output;
+}
+
 // Get all input keypresses
 function receiveKeypress(e, context) {
 	console.log("=================");
@@ -933,7 +1010,7 @@ function receiveKeypress(e, context) {
 	// Get the current cursor position
 	selStart = context.selectionStart;
 	selEnd = context.selectionEnd;
-	console.log("START=" + selStart + " END=" + selEnd);
+	console.log("keypress: START=" + selStart + " END=" + selEnd);
 
 	// Disable inserting the char if it's an ASCII char or the Enter key
 	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) e.preventDefault();
@@ -951,17 +1028,34 @@ function receiveKeypress(e, context) {
 
 // Get all input keypresses including non-character keys (e.g. backspace, arrow keys)
 function receiveKeydown(e, context) {
+  // Get the current cursor position
+	selStart = context.selectionStart;
+	selEnd = context.selectionEnd;
+
 	// Revert to default state and clear all stacks if backspace or arrow keys are pressed
-	if (e.key == "Backspace" ||
-		e.key == "ArrowLeft" || 
-		e.key == "ArrowRight" || 
-		e.key == "ArrowUp" || 
-		e.key == "ArrowDown") {
+	if (e.key == "ArrowLeft" || 
+  		e.key == "ArrowRight" || 
+  		e.key == "ArrowUp" || 
+  		e.key == "ArrowDown") {
 		currState = STATE_DEFAULT;
 		stackPressedKeys = new FixedStack(num);
 		stackValidJamos = new FixedStack(num);
-		console.log("KEYDOWN: State changed to Default");		
+		//console.log("KEYDOWN: State changed to Default");		
 	}
+  
+  if (e.key == "Backspace") {
+    // Clear all stacks
+    stackPressedKeys = new FixedStack(num);
+    stackValidJamos = new FixedStack(num);
+
+    context.value = deleteInput(context.value);
+
+    // Reset cursor to previously known position
+		context.selectionEnd = selStart;
+    
+    // Prevent backspace from deleting char by default  
+    e.preventDefault();
+  }
 }
 
 function init() {
@@ -975,8 +1069,8 @@ function init() {
 		receiveKeydown(event, this);
 	}, true);
 
-	// console.log("map_jamo_init =");
-	// console.log(map_jamo_init);
+	// console.log("map_keypress_jamo_init =");
+	// console.log(map_keypress_jamo_init);
 	// fixedStackTest();
 	// jamoTest();
 }
