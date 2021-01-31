@@ -753,7 +753,6 @@ var map_char_jamo_fin  = createCharToJamoMap(list_jamo_fin);
 /*======================================
 =========OLD HANGUL IME LOGIC===========
 ======================================*/
-// TODO: Implement [F] key, indicates that any consonants typed after it are for the next syllable
 
 // Some more constants
 const STATE_DEFAULT = 0;
@@ -1007,6 +1006,13 @@ function deleteInput(input) {
   return output;
 }
 
+// Revert to default state and clear all stacks
+function clearStacks() {
+  currState = STATE_DEFAULT;
+  stackPressedKeys = new FixedStack(num);
+  stackValidJamos = new FixedStack(num);
+}
+
 // Get all input keypresses
 function receiveKeypress(e, context) {
 	console.log("=================");
@@ -1029,11 +1035,18 @@ function receiveKeypress(e, context) {
 	selEnd = context.selectionEnd;
 	console.log("keypress: START=" + selStart + " END=" + selEnd);
 
-	// Disable inserting the char if it's an ASCII char or the Enter key
-	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) e.preventDefault();
-
+	// Disable inserting the char if it's an ASCII char, the [F] key or the Enter key
+	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) {
+    e.preventDefault();
+  }
+  
+  // Reset stacks if [F] key is pressed
+  if (keynum == 74) {
+    clearStacks();    
+  }
+  
 	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
-	if (keynum != 8 && keynum != undefined) {
+	else if (keynum != 8 && keynum != undefined) {
 		//context.value = context.value + pressedKey;
 		context.value = insertInput(context.value, pressedKey);
 
@@ -1049,14 +1062,11 @@ function receiveKeydown(e, context) {
 	selStart = context.selectionStart;
 	selEnd = context.selectionEnd;
 
-	// Revert to default state and clear all stacks if backspace or arrow keys are pressed
 	if (e.key == "ArrowLeft" || 
   		e.key == "ArrowRight" || 
   		e.key == "ArrowUp" || 
   		e.key == "ArrowDown") {
-		currState = STATE_DEFAULT;
-		stackPressedKeys = new FixedStack(num);
-		stackValidJamos = new FixedStack(num);
+    clearStacks();
 		//console.log("KEYDOWN: State changed to Default");		
 	}
   
