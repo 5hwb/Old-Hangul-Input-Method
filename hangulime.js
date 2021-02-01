@@ -4,6 +4,7 @@
  *
  * This is a script that turns a HTML Textarea into a Korean Hangul IME
  * capable of inserting archaic Hangul letters.
+ * NOTE: this is an older version of hangulime.js - for the latest version check hangulime_new.js.
  */
 
 /*======================================
