@@ -809,6 +809,13 @@ function getStateName(state) {
 	}
 }
 
+// Revert to default state and clear all stacks
+function clearStacks() {
+  currState = STATE_DEFAULT;
+  stackPressedKeys = new FixedStack(num);
+  stackValidJamos = new FixedStack(num);
+}
+
 // Insert or remove Hangul jamo into the given input string, given the pressed key
 function insertInput(input, pressedKey) {
 	var output = "";
@@ -901,6 +908,16 @@ function insertInput(input, pressedKey) {
 
 		// Exit the loop if a valid Jamo object is found
 		if (chosenJamo !== undefined) {
+      
+      // If the selected Jamo cluster is not directly descended from the current Jamo,
+      // the detected cluster is NOT valid, so it can be ignored
+      if (chosenJamo.parent !== undefined) {
+        if (chosenJamo.parent.letter != input.charAt(selStart-1)) {
+          console.log(" OVERRIDE cancelled since jamo has diff parent");
+          continue;
+        }
+      }
+      
 			overrideCurrChar = chosenJamo.hasMultipleJamo();
 			stackValidJamos.push(chosenJamo);
 			console.log(" OVERRIDE=" + overrideCurrChar);
@@ -950,6 +967,12 @@ function insertInput(input, pressedKey) {
 // Modify the given input string on backspace, depending on which Hangul jamo is before the cursor
 function deleteInput(input) {
   console.log("<<<<<<<<<<<<<<<<<");
+  
+  // Exit function if cursor is at beginning of string
+  if (selStart == 0 && selEnd == 0) {
+    console.log("Nothing to delete. Returning original string");
+    return input;
+  }
   
   // Output string
   output = "";
@@ -1013,13 +1036,6 @@ function deleteInput(input) {
     console.log("DELETED: default");
   }
   return output;
-}
-
-// Revert to default state and clear all stacks
-function clearStacks() {
-  currState = STATE_DEFAULT;
-  stackPressedKeys = new FixedStack(num);
-  stackValidJamos = new FixedStack(num);
 }
 
 // Get all input keypresses
