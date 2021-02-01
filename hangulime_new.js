@@ -831,7 +831,7 @@ function insertInput(input, pressedKey) {
 		
 		// Update the IME state given the current state and the most recently pressed keys
 		switch (currState) {
-			// Default, Insert Non-Hangul Letter, Insert Initial
+			// States: Default, Insert Non-Hangul Letter, Insert Initial
       case STATE_DEFAULT: 
 				console.log("STATE: Default");
 			case STATE_INSERT_LETTER: 
@@ -850,7 +850,7 @@ function insertInput(input, pressedKey) {
 				}
 				break;
 			
-      // Insert Medial
+      // State: Insert Medial
       case STATE_INSERT_MED:
 				console.log("STATE: Insert Medial");
 				if (map_keypress_jamo_med.has(lastCPressedKeys)) {
@@ -871,6 +871,7 @@ function insertInput(input, pressedKey) {
 				}
 				break;
 			
+      // State: Insert Final
       case STATE_INSERT_FIN:
 				console.log("STATE: Insert Final");
 				if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
@@ -883,7 +884,7 @@ function insertInput(input, pressedKey) {
 					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
 					console.log("* Changed state to Insert Initial");
 				}
-        // Transition to Insert Medial if medial jamo (e.g. ㅃ) was inputted,
+        // Transition to Insert Medial if medial jamo (e.g. ㅓ) was inputted,
         // indicating that the final jamo needs to be decomposed 
         else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
 					currState = STATE_INSERT_MED;
