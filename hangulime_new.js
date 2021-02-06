@@ -740,7 +740,7 @@ var list_jamo_fin = [
 // JAMO MAPPINGS  //
 ////////////////////
 
-// Create a mapping from a jamo character to a Jamo instance from a list of Jamo instances
+// From a list of Jamo instances, create a mapping from a jamo character to its corresponding Jamo instance
 function createCharToJamoMap(jamoList) {
   var charToJamoMap = new Map();
   for (let jamoVal of jamoList) {
@@ -749,7 +749,7 @@ function createCharToJamoMap(jamoList) {
   return charToJamoMap;
 }
 
-// Create a mapping from a keypress string sequence to a Jamo instance from a list of Jamo instances
+// From a list of Jamo instances, create a mapping from a keypress string sequence to its corresponding Jamo instance
 function createKeypressToJamoMap(jamoList) {
   var keypressToJamoMap = new Map();
   for (let jamoVal of jamoList) {
