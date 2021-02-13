@@ -31,61 +31,61 @@
  * If the stack is full, the oldest elements are overwritten by newly added elements
  */
 function FixedStack(stackSize) {
-	this.size = stackSize;
-	this.top = -1;
-	this.stack = new Array(stackSize);
+  this.size = stackSize;
+  this.top = -1;
+  this.stack = new Array(stackSize);
 }
 
 // Push an item onto the top of the stack
 FixedStack.prototype.push = function(item) {
-	this.top = (this.top + 1) % this.size;
-	this.stack[this.top] = item;
-	return false;
+  this.top = (this.top + 1) % this.size;
+  this.stack[this.top] = item;
+  return false;
 }
 
 // Get the 1st element (top) in the stack
 FixedStack.prototype.getTop = function() {
-	return this.stack[this.top];
+  return this.stack[this.top];
 }
 
 // Get the nth added element in the stack
 FixedStack.prototype.nthTop = function(n) {
-	if (n >= 0 && n < this.size) {
-		var nIndex = this.top - n;
-		return this.stack[(nIndex % this.size + this.size) % this.size];
-	}
-	return undefined;
+  if (n >= 0 && n < this.size) {
+    var nIndex = this.top - n;
+    return this.stack[(nIndex % this.size + this.size) % this.size];
+  }
+  return undefined;
 }
 
 // Clear all elements in the stack
 FixedStack.prototype.clear = function() {
-	this.top = -1;
-	this.stack = new Array(this.size);
+  this.top = -1;
+  this.stack = new Array(this.size);
 }
 
 
 // Print the contents of the stack, starting with the oldest elements and ending with the last
 FixedStack.prototype.toString = function() {
-	var res = "";
-	for (var i = 0; i > (-this.size); i--) {
-		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
-		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "";
-		res = disp + res;
-	}
-	//res += "]";
-	return res;
+  var res = "";
+  for (var i = 0; i > (-this.size); i--) {
+    var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
+    var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "";
+    res = disp + res;
+  }
+  //res += "]";
+  return res;
 }
 
 // DEBUGGING ONLY: Print the contents of the stack starting with the most recently pushed one
 FixedStack.prototype.showContents = function() {
-	var res = "[";
-	for (var i = 0; i > (-this.size); i--) {
-		var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
-		var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "null";
-		res += (disp + ",");
-	}
-	res += "]";
-	return res;
+  var res = "[";
+  for (var i = 0; i > (-this.size); i--) {
+    var iAdjusted = ((i + this.top) % this.size + this.size) % this.size;
+    var disp = (this.stack[iAdjusted] != undefined) ? this.stack[iAdjusted] : "null";
+    res += (disp + ",");
+  }
+  res += "]";
+  return res;
 }
 
 /*======================================
@@ -101,29 +101,29 @@ const JAMO_FINAL = 2;
  * A prototype that represents a Hangul letter (jamo) and its variant forms
  */
 function Jamo(parent, keypress, type, letter, decomposed) {
-	this.parent = parent; // The parent of this jamo (if it's composed of multiple jamos)
+  this.parent = parent; // The parent of this jamo (if it's composed of multiple jamos)
   this.keypress = keypress; // Keypresses required to input this jamo
   this.type = type; // Jamo type (int): initial = 0, medial = 1, final = 2
-	this.letter = letter; // Jamo letter
-	this.decomposed = decomposed; // The decomposed form of this jamo
+  this.letter = letter; // Jamo letter
+  this.decomposed = decomposed; // The decomposed form of this jamo
 }
 
 // Check if this Jamo is composed of multiple Jamos
 Jamo.prototype.hasMultipleJamo = function() {
-	return (this.parent != undefined);
+  return (this.parent != undefined);
 }
 
 // (DEBUGGING ONLY) Display the contents of this Jamo
 Jamo.prototype.toString = function() {
-	var result = [];
-	result.push(
-		"{ parent=" + ((this.parent == undefined) ? "NULL" : this.parent.letter),
-		", type=" + this.type,
-		", letter=" + this.letter,
-		", decomp=" + this.decomposed,
-		" }"
-	);
-	return result.join("");
+  var result = [];
+  result.push(
+    "{ parent=" + ((this.parent == undefined) ? "NULL" : this.parent.letter),
+    ", type=" + this.type,
+    ", letter=" + this.letter,
+    ", decomp=" + this.decomposed,
+    " }"
+  );
+  return result.join("");
 }
 
 /*======================================
@@ -132,32 +132,32 @@ Jamo.prototype.toString = function() {
 
 // Test the FixedStack
 function fixedStackTest() {
-	var stacko = new FixedStack(5);
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("p");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("a");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("e");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("s");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("t");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("m");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("a");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	
-	// Clear the stack
-	stacko.clear();
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("g");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("l");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
-	stacko.push("o");
-	console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  var stacko = new FixedStack(5);
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("p");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("a");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("e");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("s");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("t");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("m");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("a");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  
+  // Clear the stack
+  stacko.clear();
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("g");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("l");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
+  stacko.push("o");
+  console.log("STACKO TOP = " + stacko.getTop() + " " + stacko.toString());
 }
 
 function jamoTest() {
@@ -461,279 +461,279 @@ var jamo_fin_x_g_g  = new Jamo(jamo_fin_x_g, "drr", JAMO_FINAL, 'ᇭ', "ᇬᄀ")
 ////////////////////
 
 var list_jamo_init = [
-	// INITIALS
-	jamo_init_g,
-	jamo_init_gg,
-	jamo_init_n,
-	jamo_init_d,
-	jamo_init_dd,
-	jamo_init_r,
-	jamo_init_m,
-	jamo_init_b,
-	jamo_init_bb,
-	jamo_init_s,
-	jamo_init_ss,
-	jamo_init_x,
-	jamo_init_j,
-	jamo_init_jj,
-	jamo_init_c,
-	jamo_init_k,
-	jamo_init_t,
-	jamo_init_p,
-	jamo_init_h,
-	jamo_init_s_left,
-	jamo_init_s_rite,
-	jamo_init_z,
-	jamo_init_ng,
-	jamo_init_j_left,
-	jamo_init_j_rite,
-	jamo_init_c_left,
-	jamo_init_c_rite,
-	jamo_init_q,
+  // INITIALS
+  jamo_init_g,
+  jamo_init_gg,
+  jamo_init_n,
+  jamo_init_d,
+  jamo_init_dd,
+  jamo_init_r,
+  jamo_init_m,
+  jamo_init_b,
+  jamo_init_bb,
+  jamo_init_s,
+  jamo_init_ss,
+  jamo_init_x,
+  jamo_init_j,
+  jamo_init_jj,
+  jamo_init_c,
+  jamo_init_k,
+  jamo_init_t,
+  jamo_init_p,
+  jamo_init_h,
+  jamo_init_s_left,
+  jamo_init_s_rite,
+  jamo_init_z,
+  jamo_init_ng,
+  jamo_init_j_left,
+  jamo_init_j_rite,
+  jamo_init_c_left,
+  jamo_init_c_rite,
+  jamo_init_q,
 
-	jamo_init_ss_left,
-	jamo_init_ss_rite,
-	jamo_init_jj_left,
-	jamo_init_jj_rite,
+  jamo_init_ss_left,
+  jamo_init_ss_rite,
+  jamo_init_jj_left,
+  jamo_init_jj_rite,
 
-	// INITIAL CLUSTERS
-	jamo_init_g_d,
-	jamo_init_n_g,
-	jamo_init_n_n,
-	jamo_init_n_d,
-	jamo_init_n_b,
-	jamo_init_n_s,
-	jamo_init_n_j,
-	jamo_init_n_h,
-	jamo_init_d_g,
-	jamoinit__d_r,
-	jamo_init_r_n,
-	jamo_init_r_r,
-	jamo_init_r_h,
-	jamo_init_r_S,
-	jamo_init_m_b,
-	jamo_init_m_S,
-	jamo_init_b_g,
-	jamo_init_b_n,
-	jamo_init_b_d,
-	jamo_init_b_s,
-	jamo_init_b_j,
-	jamo_init_b_c,
-	jamo_init_b_t,
-	jamo_init_b_p,
-	jamo_init_b_S,
-	jamo_init_bb_S,
-	jamo_init_s_g,
-	jamo_init_s_n,
-	jamo_init_s_d,
-	jamo_init_s_r,
-	jamo_init_s_m,
-	jamo_init_s_b,
-	jamo_init_s_x,
-	jamo_init_s_j,
-	jamo_init_s_c,
-	jamo_init_s_k,
-	jamo_init_s_t,
-	jamo_init_s_p,
-	jamo_init_s_h,
-	jamo_init_ss_s,
-	jamo_init_x_g,
-	jamo_init_x_d,
-	jamo_init_x_m,
-	jamo_init_x_b,
-	jamo_init_x_s,
-	jamo_init_x_z,
-	jamo_init_x_x,
-	jamo_init_x_j,
-	jamo_init_x_c,
-	jamo_init_x_t,
-	jamo_init_x_p,
-	jamo_init_j_x,
-	jamo_init_c_k,
-	jamo_init_c_h,
-	jamo_init_p_b,
-	jamo_init_p_S,
-	jamo_init_h_h,
+  // INITIAL CLUSTERS
+  jamo_init_g_d,
+  jamo_init_n_g,
+  jamo_init_n_n,
+  jamo_init_n_d,
+  jamo_init_n_b,
+  jamo_init_n_s,
+  jamo_init_n_j,
+  jamo_init_n_h,
+  jamo_init_d_g,
+  jamoinit__d_r,
+  jamo_init_r_n,
+  jamo_init_r_r,
+  jamo_init_r_h,
+  jamo_init_r_S,
+  jamo_init_m_b,
+  jamo_init_m_S,
+  jamo_init_b_g,
+  jamo_init_b_n,
+  jamo_init_b_d,
+  jamo_init_b_s,
+  jamo_init_b_j,
+  jamo_init_b_c,
+  jamo_init_b_t,
+  jamo_init_b_p,
+  jamo_init_b_S,
+  jamo_init_bb_S,
+  jamo_init_s_g,
+  jamo_init_s_n,
+  jamo_init_s_d,
+  jamo_init_s_r,
+  jamo_init_s_m,
+  jamo_init_s_b,
+  jamo_init_s_x,
+  jamo_init_s_j,
+  jamo_init_s_c,
+  jamo_init_s_k,
+  jamo_init_s_t,
+  jamo_init_s_p,
+  jamo_init_s_h,
+  jamo_init_ss_s,
+  jamo_init_x_g,
+  jamo_init_x_d,
+  jamo_init_x_m,
+  jamo_init_x_b,
+  jamo_init_x_s,
+  jamo_init_x_z,
+  jamo_init_x_x,
+  jamo_init_x_j,
+  jamo_init_x_c,
+  jamo_init_x_t,
+  jamo_init_x_p,
+  jamo_init_j_x,
+  jamo_init_c_k,
+  jamo_init_c_h,
+  jamo_init_p_b,
+  jamo_init_p_S,
+  jamo_init_h_h,
 
-	jamo_init_b_s_g,
-	jamo_init_b_s_d,
-	jamo_init_b_s_b,
-	jamo_init_b_s_s,
-	jamo_init_b_s_j,
-	jamo_init_s_b_g
+  jamo_init_b_s_g,
+  jamo_init_b_s_d,
+  jamo_init_b_s_b,
+  jamo_init_b_s_s,
+  jamo_init_b_s_j,
+  jamo_init_s_b_g
 ];
 
 var list_jamo_med = [
-	// MEDIALS
-	jamo_med_a,
-	jamo_med_ae,
-	jamo_med_ya,
-	jamo_med_yae,
-	jamo_med_eo,
-	jamo_med_e,
-	jamo_med_yeo,
-	jamo_med_ye,
-	jamo_med_o,
-	jamo_med_yo,
-	jamo_med_u,
-	jamo_med_yu,
-	jamo_med_eu,
-	jamo_med_i,
-	jamo_med_v,
+  // MEDIALS
+  jamo_med_a,
+  jamo_med_ae,
+  jamo_med_ya,
+  jamo_med_yae,
+  jamo_med_eo,
+  jamo_med_e,
+  jamo_med_yeo,
+  jamo_med_ye,
+  jamo_med_o,
+  jamo_med_yo,
+  jamo_med_u,
+  jamo_med_yu,
+  jamo_med_eu,
+  jamo_med_i,
+  jamo_med_v,
 
-	// MEDIAL CLUSTERS
-	jamo_med_a_o,
-	jamo_med_a_u,
-	jamo_med_a_eu,
-	jamo_med_ya_o,
-	jamo_med_ya_yo,
-	jamo_med_ya_u,
-	jamo_med_eo_o,
-	jamo_med_eo_u,
-	jamo_med_eo_eu,
-	jamo_med_yeo_ya,
-	jamo_med_yeo_o,
-	jamo_med_yeo_u,
-	jamo_med_o_a,
-	jamo_med_o_ae,
-	jamo_med_o_i,
-	jamo_med_o_eo,
-	jamo_med_o_e,
-	jamo_med_o_ye,
-	jamo_med_o_o,
-	jamo_med_o_u,
-	jamo_med_o_ya,
-	jamo_med_o_yae,
-	jamo_med_yo_ya,
-	jamo_med_yo_yae,
-	jamo_med_yo_yeo,
-	jamo_med_yo_o,
-	jamo_med_yo_i,
-	jamo_med_u_eo,
-	jamo_med_u_e,
-	jamo_med_u_i,
-	jamo_med_u_a,
-	jamo_med_u_ae,
-	jamo_med_u_ye,
-	jamo_med_u_u,
-	jamo_med_yu_a,
-	jamo_med_yu_eo,
-	jamo_med_yu_e,
-	jamo_med_yu_eo,
-	jamo_med_yu_ye,
-	jamo_med_yu_u,
-	jamo_med_yu_i,
-	jamo_med_eu_i,
-	jamo_med_eu_u,
-	jamo_med_eu_eu,
-	jamo_med_i_a,
-	jamo_med_i_ya,
-	jamo_med_i_o,
-	jamo_med_i_u,
-	jamo_med_i_eu,
-	jamo_med_i_v,
-	jamo_med_v_eo,
-	jamo_med_v_u,
-	jamo_med_v_i,
-	jamo_med_v_v,
+  // MEDIAL CLUSTERS
+  jamo_med_a_o,
+  jamo_med_a_u,
+  jamo_med_a_eu,
+  jamo_med_ya_o,
+  jamo_med_ya_yo,
+  jamo_med_ya_u,
+  jamo_med_eo_o,
+  jamo_med_eo_u,
+  jamo_med_eo_eu,
+  jamo_med_yeo_ya,
+  jamo_med_yeo_o,
+  jamo_med_yeo_u,
+  jamo_med_o_a,
+  jamo_med_o_ae,
+  jamo_med_o_i,
+  jamo_med_o_eo,
+  jamo_med_o_e,
+  jamo_med_o_ye,
+  jamo_med_o_o,
+  jamo_med_o_u,
+  jamo_med_o_ya,
+  jamo_med_o_yae,
+  jamo_med_yo_ya,
+  jamo_med_yo_yae,
+  jamo_med_yo_yeo,
+  jamo_med_yo_o,
+  jamo_med_yo_i,
+  jamo_med_u_eo,
+  jamo_med_u_e,
+  jamo_med_u_i,
+  jamo_med_u_a,
+  jamo_med_u_ae,
+  jamo_med_u_ye,
+  jamo_med_u_u,
+  jamo_med_yu_a,
+  jamo_med_yu_eo,
+  jamo_med_yu_e,
+  jamo_med_yu_eo,
+  jamo_med_yu_ye,
+  jamo_med_yu_u,
+  jamo_med_yu_i,
+  jamo_med_eu_i,
+  jamo_med_eu_u,
+  jamo_med_eu_eu,
+  jamo_med_i_a,
+  jamo_med_i_ya,
+  jamo_med_i_o,
+  jamo_med_i_u,
+  jamo_med_i_eu,
+  jamo_med_i_v,
+  jamo_med_v_eo,
+  jamo_med_v_u,
+  jamo_med_v_i,
+  jamo_med_v_v,
 
-	jamo_med_u_eo_eu,
-	jamo_med_eu_i_u
+  jamo_med_u_eo_eu,
+  jamo_med_eu_i_u
 ];
 
 var list_jamo_fin = [
-	// FINALS
-	jamo_fin_g,
-	jamo_fin_gg,
-	jamo_fin_n,
-	jamo_fin_d,
-	jamo_fin_r,
-	jamo_fin_m,
-	jamo_fin_b,
-	jamo_fin_s,
-	jamo_fin_ss,
-	jamo_fin_x,
-	jamo_fin_j,
-	jamo_fin_c,
-	jamo_fin_k,
-	jamo_fin_t,
-	jamo_fin_p,
-	jamo_fin_h,
-	jamo_fin_z,
-	jamo_fin_ng,
-	jamo_fin_q,
+  // FINALS
+  jamo_fin_g,
+  jamo_fin_gg,
+  jamo_fin_n,
+  jamo_fin_d,
+  jamo_fin_r,
+  jamo_fin_m,
+  jamo_fin_b,
+  jamo_fin_s,
+  jamo_fin_ss,
+  jamo_fin_x,
+  jamo_fin_j,
+  jamo_fin_c,
+  jamo_fin_k,
+  jamo_fin_t,
+  jamo_fin_p,
+  jamo_fin_h,
+  jamo_fin_z,
+  jamo_fin_ng,
+  jamo_fin_q,
 
-	// FINAL CLUSTERS
-	jamo_fin_g_r,
-	jamo_fin_g_s,
-	jamo_fin_g_n,
-	jamo_fin_g_b,
-	jamo_fin_g_c,
-	jamo_fin_g_k,
-	jamo_fin_g_h,
-	jamo_fin_n_j,
-	jamo_fin_n_h,
-	jamo_fin_n_g,
-	jamo_fin_n_d,
-	jamo_fin_n_s,
-	jamo_fin_n_z,
-	jamo_fin_n_t,
-	jamo_fin_n_n,
-	jamo_fin_d_g,
-	jamo_fin_d_r,
-	jamo_fin_r_g,
-	jamo_fin_r_m,
-	jamo_fin_r_b,
-	jamo_fin_r_s,
-	jamo_fin_r_t,
-	jamo_fin_r_p,
-	jamo_fin_r_h,
-	jamo_fin_r_n,
-	jamo_fin_r_d,
-	jamo_fin_r_r,
-	jamo_fin_r_z,
-	jamo_fin_r_k,
-	jamo_fin_r_q,
-	jamo_fin_m_g,
-	jamo_fin_m_r,
-	jamo_fin_m_b,
-	jamo_fin_m_s,
-	jamo_fin_m_z,
-	jamo_fin_m_c,
-	jamo_fin_m_h,
-	jamo_fin_m_S,
-	jamo_fin_b_s,
-	jamo_fin_b_r,
-	jamo_fin_b_p,
-	jamo_fin_b_h,
-	jamo_fin_b_S,
-	jamo_fin_s_g,
-	jamo_fin_s_d,
-	jamo_fin_s_r,
-	jamo_fin_s_b,
-	jamo_fin_x_g,
-	jamo_fin_x_x,
-	jamo_fin_x_k,
-	jamo_fin_p_b,
-	jamo_fin_p_S,
-	jamo_fin_h_n,
-	jamo_fin_h_r,
-	jamo_fin_h_m,
-	jamo_fin_h_b,
-	jamo_fin_ng_s,
-	jamo_fin_ng_z,
+  // FINAL CLUSTERS
+  jamo_fin_g_r,
+  jamo_fin_g_s,
+  jamo_fin_g_n,
+  jamo_fin_g_b,
+  jamo_fin_g_c,
+  jamo_fin_g_k,
+  jamo_fin_g_h,
+  jamo_fin_n_j,
+  jamo_fin_n_h,
+  jamo_fin_n_g,
+  jamo_fin_n_d,
+  jamo_fin_n_s,
+  jamo_fin_n_z,
+  jamo_fin_n_t,
+  jamo_fin_n_n,
+  jamo_fin_d_g,
+  jamo_fin_d_r,
+  jamo_fin_r_g,
+  jamo_fin_r_m,
+  jamo_fin_r_b,
+  jamo_fin_r_s,
+  jamo_fin_r_t,
+  jamo_fin_r_p,
+  jamo_fin_r_h,
+  jamo_fin_r_n,
+  jamo_fin_r_d,
+  jamo_fin_r_r,
+  jamo_fin_r_z,
+  jamo_fin_r_k,
+  jamo_fin_r_q,
+  jamo_fin_m_g,
+  jamo_fin_m_r,
+  jamo_fin_m_b,
+  jamo_fin_m_s,
+  jamo_fin_m_z,
+  jamo_fin_m_c,
+  jamo_fin_m_h,
+  jamo_fin_m_S,
+  jamo_fin_b_s,
+  jamo_fin_b_r,
+  jamo_fin_b_p,
+  jamo_fin_b_h,
+  jamo_fin_b_S,
+  jamo_fin_s_g,
+  jamo_fin_s_d,
+  jamo_fin_s_r,
+  jamo_fin_s_b,
+  jamo_fin_x_g,
+  jamo_fin_x_x,
+  jamo_fin_x_k,
+  jamo_fin_p_b,
+  jamo_fin_p_S,
+  jamo_fin_h_n,
+  jamo_fin_h_r,
+  jamo_fin_h_m,
+  jamo_fin_h_b,
+  jamo_fin_ng_s,
+  jamo_fin_ng_z,
 
-	jamo_fin_g_s_g,
-	jamo_fin_r_g_s,
-	jamo_fin_r_m_g,
-	jamo_fin_r_m_s,
-	jamo_fin_r_b_s,
-	jamo_fin_r_b_h,
-	jamo_fin_r_b_S,
-	jamo_fin_r_s_s,
-	jamo_fin_r_d_h,
-	jamo_fin_m_s_s,
-	jamo_fin_x_g_g
+  jamo_fin_g_s_g,
+  jamo_fin_r_g_s,
+  jamo_fin_r_m_g,
+  jamo_fin_r_m_s,
+  jamo_fin_r_b_s,
+  jamo_fin_r_b_h,
+  jamo_fin_r_b_S,
+  jamo_fin_r_s_s,
+  jamo_fin_r_d_h,
+  jamo_fin_m_s_s,
+  jamo_fin_x_g_g
 ];
 
 ////////////////////
@@ -799,30 +799,30 @@ var overridePrevChar = false;
 
 // Check if this char is a Hangul Jamo initial
 function isInitial(c) {
-	return ('\u1100' <= c && c <= '\u115F');
+  return ('\u1100' <= c && c <= '\u115F');
 }
 // Check if this char is a Hangul Jamo medial
 function isMedial(c) {
-	return ('\u1161' <= c && c <= '\u11A7');
+  return ('\u1161' <= c && c <= '\u11A7');
 }
 // Check if this char is a Hangul Jamo final
 function isFinal(c) {
-	return ('\u11A8' <= c && c <= '\u11FF');
+  return ('\u11A8' <= c && c <= '\u11FF');
 }
 
 // Convert the state int into a string
 function getStateName(state) {
-	switch (state) {
-		case STATE_DEFAULT: return "STATE_DEFAULT";
-		case STATE_INSERT_LETTER: return "STATE_INSERT_LETTER";
-		case STATE_INSERT_INIT: return "STATE_INSERT_INIT";
-		case STATE_INSERT_MED: return "STATE_INSERT_MED";
-		case STATE_INSERT_FIN: return "STATE_INSERT_FIN";
-		case STATE_INSERT_INIT_CLUSTER: return "STATE_INSERT_INIT_CLUSTER";
-		case STATE_INSERT_MED_CLUSTER: return "STATE_INSERT_MED_CLUSTER";
-		case STATE_INSERT_FIN_CLUSTER: return "STATE_INSERT_FIN_CLUSTER";
-		default: return "INVALID";
-	}
+  switch (state) {
+    case STATE_DEFAULT: return "STATE_DEFAULT";
+    case STATE_INSERT_LETTER: return "STATE_INSERT_LETTER";
+    case STATE_INSERT_INIT: return "STATE_INSERT_INIT";
+    case STATE_INSERT_MED: return "STATE_INSERT_MED";
+    case STATE_INSERT_FIN: return "STATE_INSERT_FIN";
+    case STATE_INSERT_INIT_CLUSTER: return "STATE_INSERT_INIT_CLUSTER";
+    case STATE_INSERT_MED_CLUSTER: return "STATE_INSERT_MED_CLUSTER";
+    case STATE_INSERT_FIN_CLUSTER: return "STATE_INSERT_FIN_CLUSTER";
+    default: return "INVALID";
+  }
 }
 
 // Revert to default state and clear all stacks
@@ -834,96 +834,96 @@ function clearStacks() {
 
 // Insert or remove Hangul jamo into the given input string, given the pressed key
 function insertInput(input, pressedKey) {
-	var output = "";
-	var currChar = pressedKey;
-	
+  var output = "";
+  var currChar = pressedKey;
+  
   // Reset boolean flags
   overrideCurrChar = false;
-	overridePrevChar = false;
+  overridePrevChar = false;
 
-	// Add the pressed key to the fixed stack of previous keypresses
-	stackPressedKeys.push(pressedKey);
-	
-	// Get the most recently pressed keys as a string
-	var pressedKeys = stackPressedKeys.toString();
-	
-	// Get current char, scanning for trigraphs first before narrowing down the search
-	for (var c = pressedKeys.length; c > 0; c--) {
-		var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
-		var chosenJamo = undefined;
-		
-		// Update the IME state given the current state and the most recently pressed keys
-		switch (currState) {
-			// States: Default, Insert Non-Hangul Letter, Insert Initial
+  // Add the pressed key to the fixed stack of previous keypresses
+  stackPressedKeys.push(pressedKey);
+  
+  // Get the most recently pressed keys as a string
+  var pressedKeys = stackPressedKeys.toString();
+  
+  // Get current char, scanning for trigraphs first before narrowing down the search
+  for (var c = pressedKeys.length; c > 0; c--) {
+    var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
+    var chosenJamo = undefined;
+    
+    // Update the IME state given the current state and the most recently pressed keys
+    switch (currState) {
+      // States: Default, Insert Non-Hangul Letter, Insert Initial
       case STATE_DEFAULT: 
-				console.log("STATE: Default");
-			case STATE_INSERT_LETTER: 
-				console.log("STATE: Insert Letter");
-			case STATE_INSERT_INIT:
-				console.log("STATE: Insert Initial");
-				if (map_keypress_jamo_init.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_INIT;
-					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Initial");
-				}
-				else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_MED;
-					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Medial");
-				}
-				break;
-			
+        console.log("STATE: Default");
+      case STATE_INSERT_LETTER: 
+        console.log("STATE: Insert Letter");
+      case STATE_INSERT_INIT:
+        console.log("STATE: Insert Initial");
+        if (map_keypress_jamo_init.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_INIT;
+          chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Initial");
+        }
+        else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_MED;
+          chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Medial");
+        }
+        break;
+      
       // State: Insert Medial
       case STATE_INSERT_MED:
-				console.log("STATE: Insert Medial");
-				if (map_keypress_jamo_med.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_MED;
-					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Medial");
-				}
-				else if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_FIN;
-					chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Final");
-				}
+        console.log("STATE: Insert Medial");
+        if (map_keypress_jamo_med.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_MED;
+          chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Medial");
+        }
+        else if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_FIN;
+          chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Final");
+        }
         // Transition to Insert Initial if initial-only jamo (e.g. ㅃ) was inputted
         else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_INIT;
-					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Initial");
-				}
-				break;
-			
+          currState = STATE_INSERT_INIT;
+          chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Initial");
+        }
+        break;
+      
       // State: Insert Final
       case STATE_INSERT_FIN:
-				console.log("STATE: Insert Final");
-				if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_FIN;
-					chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Final");
-				}
-				else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_INIT;
-					chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
-					console.log("* Changed state to Insert Initial");
-				}
+        console.log("STATE: Insert Final");
+        if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_FIN;
+          chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Final");
+        }
+        else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
+          currState = STATE_INSERT_INIT;
+          chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
+          console.log("* Changed state to Insert Initial");
+        }
         // Transition to Insert Medial if medial jamo (e.g. ㅓ) was inputted,
         // indicating that the final jamo needs to be decomposed 
         else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
-					currState = STATE_INSERT_MED;
-					chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
-					overridePrevChar = true;
-					console.log("* Changed state to Insert Medial (after Insert Final)");
-				}
-				break;
-			
+          currState = STATE_INSERT_MED;
+          chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
+          overridePrevChar = true;
+          console.log("* Changed state to Insert Medial (after Insert Final)");
+        }
+        break;
+      
       default: break;
-		}
-		
-		console.log("c=" + c + " len-c=" + (pressedKeys.length-c) + " lastCPressedKeys=" + lastCPressedKeys + " chosenJamo=" + chosenJamo);
+    }
+    
+    console.log("c=" + c + " len-c=" + (pressedKeys.length-c) + " lastCPressedKeys=" + lastCPressedKeys + " chosenJamo=" + chosenJamo);
 
-		// Exit the loop if a valid Jamo object is found
-		if (chosenJamo !== undefined) {
+    // Exit the loop if a valid Jamo object is found
+    if (chosenJamo !== undefined) {
       
       // If the selected Jamo cluster is not directly descended from the current Jamo,
       // the detected cluster is NOT valid, so it can be ignored
@@ -934,50 +934,50 @@ function insertInput(input, pressedKey) {
         }
       }
       
-			overrideCurrChar = chosenJamo.hasMultipleJamo();
-			stackValidJamos.push(chosenJamo);
-			console.log(" OVERRIDE=" + overrideCurrChar);
-			break;
-		}
-	}
-	
-	// Set the character as a Hangul Jamo character
-	if (chosenJamo !== undefined) {
-		currChar = chosenJamo.letter;
-	}
-	// Set character as the original keypress if no valid Jamo entry was found
-	else {
-		currState = STATE_INSERT_LETTER;
-		console.log("Changed state to Insert Non-Hangul Letter");
-		
-		currChar = pressedKey;
-		stackValidJamos.push(undefined);
-	}
-	
-	// If medial vowel was inputted after final was inputted,
-	// replace the final jamos with their decomposed final+initial forms
-	if (overridePrevChar) {
-		var lastJamo = stackValidJamos.nthTop(1).decomposed;
-		input = input.slice(0, selStart-1) + lastJamo + input.slice(selStart);
-		
-		// Adjust cursor position to accomodate the decomposed final+initial jamos
-		selStart += (lastJamo.length - 1);
-		selEnd += (lastJamo.length - 1);
-	}
+      overrideCurrChar = chosenJamo.hasMultipleJamo();
+      stackValidJamos.push(chosenJamo);
+      console.log(" OVERRIDE=" + overrideCurrChar);
+      break;
+    }
+  }
+  
+  // Set the character as a Hangul Jamo character
+  if (chosenJamo !== undefined) {
+    currChar = chosenJamo.letter;
+  }
+  // Set character as the original keypress if no valid Jamo entry was found
+  else {
+    currState = STATE_INSERT_LETTER;
+    console.log("Changed state to Insert Non-Hangul Letter");
+    
+    currChar = pressedKey;
+    stackValidJamos.push(undefined);
+  }
+  
+  // If medial vowel was inputted after final was inputted,
+  // replace the final jamos with their decomposed final+initial forms
+  if (overridePrevChar) {
+    var lastJamo = stackValidJamos.nthTop(1).decomposed;
+    input = input.slice(0, selStart-1) + lastJamo + input.slice(selStart);
+    
+    // Adjust cursor position to accomodate the decomposed final+initial jamos
+    selStart += (lastJamo.length - 1);
+    selEnd += (lastJamo.length - 1);
+  }
 
-	// Insert character at cursor position
-	output = (overrideCurrChar)
-			? input.slice(0, selStart-1) + currChar + input.slice(selStart)
-			: input.slice(0, selStart) + currChar + input.slice(selStart);
-	console.log("LAST JAMO = " + stackValidJamos.nthTop(1));
-	console.log("CURRENT STATE = " + getStateName(currState));
-	console.log("overrideCurrChar = " + overrideCurrChar + " overridePrevChar = " + overridePrevChar);
-	console.log("INPUT =  '" + input + "'");
-	console.log("OUTPUT = '" + output + "'");
-	console.log("stackPressedKeys = '" + stackPressedKeys.toString() + "'");
-	console.log("stackValidJamos = '" + stackValidJamos.toString() + "'");
+  // Insert character at cursor position
+  output = (overrideCurrChar)
+      ? input.slice(0, selStart-1) + currChar + input.slice(selStart)
+      : input.slice(0, selStart) + currChar + input.slice(selStart);
+  console.log("LAST JAMO = " + stackValidJamos.nthTop(1));
+  console.log("CURRENT STATE = " + getStateName(currState));
+  console.log("overrideCurrChar = " + overrideCurrChar + " overridePrevChar = " + overridePrevChar);
+  console.log("INPUT =  '" + input + "'");
+  console.log("OUTPUT = '" + output + "'");
+  console.log("stackPressedKeys = '" + stackPressedKeys.toString() + "'");
+  console.log("stackValidJamos = '" + stackValidJamos.toString() + "'");
 
-	return output;
+  return output;
 }
 
 // Modify the given input string on backspace, depending on which Hangul jamo is before the cursor
@@ -1056,28 +1056,28 @@ function deleteInput(input) {
 
 // Get all input keypresses
 function receiveKeypress(e, context) {
-	console.log("=================");
+  console.log("=================");
 
-	// Get keycode of pressed key
-	var keynum;
-	if (window.event) { // IE
-		keynum = e.keyCode;
-	} else if (e.which) { // Netscape/Firefox/Opera
-		keynum = e.which;
-	}
+  // Get keycode of pressed key
+  var keynum;
+  if (window.event) { // IE
+    keynum = e.keyCode;
+  } else if (e.which) { // Netscape/Firefox/Opera
+    keynum = e.which;
+  }
 
-	// Get the pressed key
-	var pressedKey = String.fromCharCode(keynum);
-	console.log("Pressed Key: -" + keynum + "- " + pressedKey);
-	//console.log("e.key = " + e.key);
+  // Get the pressed key
+  var pressedKey = String.fromCharCode(keynum);
+  console.log("Pressed Key: -" + keynum + "- " + pressedKey);
+  //console.log("e.key = " + e.key);
 
-	// Get the current cursor position
-	selStart = context.selectionStart;
-	selEnd = context.selectionEnd;
-	console.log("keypress: START=" + selStart + " END=" + selEnd);
+  // Get the current cursor position
+  selStart = context.selectionStart;
+  selEnd = context.selectionEnd;
+  console.log("keypress: START=" + selStart + " END=" + selEnd);
 
-	// Disable inserting the char if it's an ASCII char, the [F] key or the Enter key
-	if (keynum == 13 || (keynum >= 32 && keynum <= 126)) {
+  // Disable inserting the char if it's an ASCII char, the [F] key or the Enter key
+  if (keynum == 13 || (keynum >= 32 && keynum <= 126)) {
     e.preventDefault();
   }
   
@@ -1086,30 +1086,30 @@ function receiveKeypress(e, context) {
     clearStacks();    
   }
   
-	// Calculate the next Hangul jamo to be inserted, except if backspace is pressed
-	else if (keynum != 8 && keynum != undefined) {
-		//context.value = context.value + pressedKey;
-		context.value = insertInput(context.value, pressedKey);
+  // Calculate the next Hangul jamo to be inserted, except if backspace is pressed
+  else if (keynum != 8 && keynum != undefined) {
+    //context.value = context.value + pressedKey;
+    context.value = insertInput(context.value, pressedKey);
 
-		// Reset cursor to previously known position
-		var incrementAmount = (overrideCurrChar) ? 0 : 1;
-		context.selectionEnd = selStart + incrementAmount;
-	}
+    // Reset cursor to previously known position
+    var incrementAmount = (overrideCurrChar) ? 0 : 1;
+    context.selectionEnd = selStart + incrementAmount;
+  }
 }
 
 // Get all input keypresses including non-character keys (e.g. backspace, arrow keys)
 function receiveKeydown(e, context) {
   // Get the current cursor position
-	selStart = context.selectionStart;
-	selEnd = context.selectionEnd;
+  selStart = context.selectionStart;
+  selEnd = context.selectionEnd;
 
-	if (e.key == "ArrowLeft" || 
-  		e.key == "ArrowRight" || 
-  		e.key == "ArrowUp" || 
-  		e.key == "ArrowDown") {
+  if (e.key == "ArrowLeft" || 
+      e.key == "ArrowRight" || 
+      e.key == "ArrowUp" || 
+      e.key == "ArrowDown") {
     clearStacks();
-		//console.log("KEYDOWN: State changed to Default");		
-	}
+    //console.log("KEYDOWN: State changed to Default");
+  }
   
   if (e.key == "Backspace") {
     // Clear all stacks
@@ -1119,7 +1119,7 @@ function receiveKeydown(e, context) {
     context.value = deleteInput(context.value);
 
     // Reset cursor to previously known position
-		context.selectionEnd = selStart;
+    context.selectionEnd = selStart;
     
     // Prevent backspace from deleting char by default  
     e.preventDefault();
@@ -1127,20 +1127,20 @@ function receiveKeydown(e, context) {
 }
 
 function init() {
-	var hangulInput = document.getElementById("hangulime");
+  var hangulInput = document.getElementById("hangulime");
 
   // Add event listeners to Old Hangul IME textarea
-	hangulInput.addEventListener("keypress", function(event) {
-		receiveKeypress(event, this);
-	}, true);
-	hangulInput.addEventListener("keydown", function(event) {
-		receiveKeydown(event, this);
-	}, true);
+  hangulInput.addEventListener("keypress", function(event) {
+    receiveKeypress(event, this);
+  }, true);
+  hangulInput.addEventListener("keydown", function(event) {
+    receiveKeydown(event, this);
+  }, true);
 
   console.log("map_char_jamo_init =");
   console.log(map_char_jamo_init);
   console.log("map_keypress_jamo_init =");
   console.log(map_keypress_jamo_init);
-	// fixedStackTest();
-	// jamoTest();
+  // fixedStackTest();
+  // jamoTest();
 }
