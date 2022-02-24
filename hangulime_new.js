@@ -214,6 +214,8 @@ var jamo_init_j_rite  = new Jamo(jamo_nil, "V", JAMO_INITIAL, 'ᅐ', undefined);
 var jamo_init_c_left  = new Jamo(jamo_nil, "B", JAMO_INITIAL, 'ᅔ', undefined);
 var jamo_init_c_rite  = new Jamo(jamo_nil, "N", JAMO_INITIAL, 'ᅕ', undefined);
 var jamo_init_q       = new Jamo(jamo_nil, "G", JAMO_INITIAL, 'ᅙ', undefined);
+var jamo_init_high    = new Jamo(jamo_nil, "F", JAMO_INITIAL, '〮', undefined);
+var jamo_init_ris     = new Jamo(jamo_nil, "H", JAMO_INITIAL, '〯', undefined);
 
 var jamo_init_ss_left = new Jamo(jamo_init_s_left, "ZZ", JAMO_INITIAL, 'ᄽ', undefined);
 var jamo_init_ss_rite = new Jamo(jamo_init_s_rite, "XX", JAMO_INITIAL, 'ᄿ', undefined);
@@ -490,6 +492,8 @@ var list_jamo_init = [
   jamo_init_c_left,
   jamo_init_c_rite,
   jamo_init_q,
+  jamo_init_ris,
+  jamo_init_high,
 
   jamo_init_ss_left,
   jamo_init_ss_rite,
