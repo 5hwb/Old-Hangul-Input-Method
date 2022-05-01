@@ -463,6 +463,7 @@ var jamo_fin_r_g   = new Jamo(jamo_fin_r,  "fr", JAMO_FINAL, 'ᆰ', "ᆯᄀ");
 var jamo_fin_r_m   = new Jamo(jamo_fin_r,  "fa", JAMO_FINAL, 'ᆱ', "ᆯᄆ");
 var jamo_fin_r_b   = new Jamo(jamo_fin_r,  "fq", JAMO_FINAL, 'ᆲ', "ᆯᄇ");
 var jamo_fin_r_s   = new Jamo(jamo_fin_r,  "ft", JAMO_FINAL, 'ᆳ', "ᆯᄉ");
+var jamo_fin_r_ss  = new Jamo(jamo_fin_r,  "fT", JAMO_FINAL, 'ᇖ', "ᆯᄊ");
 var jamo_fin_r_t   = new Jamo(jamo_fin_r,  "fx", JAMO_FINAL, 'ᆴ', "ᆯᄐ");
 var jamo_fin_r_p   = new Jamo(jamo_fin_r,  "fv", JAMO_FINAL, 'ᆵ', "ᆯᄑ");
 var jamo_fin_r_h   = new Jamo(jamo_fin_r,  "fg", JAMO_FINAL, 'ᆶ', "ᆯᄒ");
@@ -476,6 +477,7 @@ var jamo_fin_m_g   = new Jamo(jamo_fin_m,  "ar", JAMO_FINAL, 'ᇚ', "ᆷᄀ");
 var jamo_fin_m_r   = new Jamo(jamo_fin_m,  "af", JAMO_FINAL, 'ᇛ', "ᆷᄅ");
 var jamo_fin_m_b   = new Jamo(jamo_fin_m,  "aq", JAMO_FINAL, 'ᇜ', "ᆷᄇ");
 var jamo_fin_m_s   = new Jamo(jamo_fin_m,  "at", JAMO_FINAL, 'ᇝ', "ᆷᄉ");
+var jamo_fin_m_ss  = new Jamo(jamo_fin_m,  "aT", JAMO_FINAL, 'ᇞ', "ᆷᄊ");
 var jamo_fin_m_z   = new Jamo(jamo_fin_m,  "aA", JAMO_FINAL, 'ᇟ', "ᆷᅀ");
 var jamo_fin_m_c   = new Jamo(jamo_fin_m,  "ac", JAMO_FINAL, 'ᇠ', "ᆷᄎ");
 var jamo_fin_m_h   = new Jamo(jamo_fin_m,  "ag", JAMO_FINAL, 'ᇡ', "ᆷᄒ");
@@ -509,10 +511,7 @@ var jamo_fin_r_m_s  = new Jamo(jamo_fin_r_m, "fat", JAMO_FINAL, 'ᇒ', "ᆱᄉ")
 var jamo_fin_r_b_s  = new Jamo(jamo_fin_r_b, "fqt", JAMO_FINAL, 'ᇓ', "ᆲᄉ");
 var jamo_fin_r_b_h  = new Jamo(jamo_fin_r_b, "fqg", JAMO_FINAL, 'ᇔ', "ᆲᄒ");
 var jamo_fin_r_b_S  = new Jamo(jamo_fin_r_b, "fqS", JAMO_FINAL, 'ᇕ', "ᆯᄫ");
-var jamo_fin_r_s_s  = new Jamo(jamo_fin_r_s, "ftt", JAMO_FINAL, 'ᇖ', "ᆳᄉ");
 var jamo_fin_r_d_h  = new Jamo(jamo_fin_r_d, "feg", JAMO_FINAL, 'ᇏ', "ᇎᄒ");
-var jamo_fin_m_s_s  = new Jamo(jamo_fin_m_s, "att", JAMO_FINAL, 'ᇞ', "ᇝᄉ");
-var jamo_fin_ng_g_g  = new Jamo(jamo_fin_ng_g, "drr", JAMO_FINAL, 'ᇭ', "ᇬᄀ");
 
 // JAMO FINAL EXTENSION B
 var jamo_fin_n_r   = new Jamo(jamo_fin_n,   "sf",  JAMO_FINAL, 'ퟋ', "ᆫᄅ");
@@ -898,10 +897,10 @@ var list_jamo_fin = [
   jamo_fin_r_b_s,
   jamo_fin_r_b_h,
   jamo_fin_r_b_S,
-  jamo_fin_r_s_s,
+  jamo_fin_r_ss,
   jamo_fin_r_d_h,
-  jamo_fin_m_s_s,
-  jamo_fin_ng_g_g,
+  jamo_fin_m_ss,
+  jamo_fin_ng_gg,
 
   //Final Vowel Extension B
   jamo_fin_n_r,
