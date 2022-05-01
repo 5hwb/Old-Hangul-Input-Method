@@ -186,41 +186,41 @@ function jamoTest() {
 var jamo_nil = undefined;
 
 // INITIALS
-var jamo_init_g       = new Jamo(jamo_nil, "r", JAMO_INITIAL, 'ᄀ', undefined);
-var jamo_init_gg      = new Jamo(jamo_nil, "R", JAMO_INITIAL, 'ᄁ', undefined);
-var jamo_init_n       = new Jamo(jamo_nil, "s", JAMO_INITIAL, 'ᄂ', undefined);
-var jamo_init_d       = new Jamo(jamo_nil, "e", JAMO_INITIAL, 'ᄃ', undefined);
-var jamo_init_dd      = new Jamo(jamo_nil, "E", JAMO_INITIAL, 'ᄄ', undefined);
-var jamo_init_r       = new Jamo(jamo_nil, "f", JAMO_INITIAL, 'ᄅ', undefined);
-var jamo_init_m       = new Jamo(jamo_nil, "a", JAMO_INITIAL, 'ᄆ', undefined);
-var jamo_init_b       = new Jamo(jamo_nil, "q", JAMO_INITIAL, 'ᄇ', undefined);
-var jamo_init_bb      = new Jamo(jamo_nil, "Q", JAMO_INITIAL, 'ᄈ', undefined);
-var jamo_init_s       = new Jamo(jamo_nil, "t", JAMO_INITIAL, 'ᄉ', undefined);
-var jamo_init_ss      = new Jamo(jamo_nil, "T", JAMO_INITIAL, 'ᄊ', undefined);
-var jamo_init_x       = new Jamo(jamo_nil, "d", JAMO_INITIAL, 'ᄋ', undefined);
-var jamo_init_j       = new Jamo(jamo_nil, "w", JAMO_INITIAL, 'ᄌ', undefined);
-var jamo_init_jj      = new Jamo(jamo_nil, "W", JAMO_INITIAL, 'ᄍ', undefined);
-var jamo_init_c       = new Jamo(jamo_nil, "c", JAMO_INITIAL, 'ᄎ', undefined);
-var jamo_init_k       = new Jamo(jamo_nil, "z", JAMO_INITIAL, 'ᄏ', undefined);
-var jamo_init_t       = new Jamo(jamo_nil, "x", JAMO_INITIAL, 'ᄐ', undefined);
-var jamo_init_p       = new Jamo(jamo_nil, "v", JAMO_INITIAL, 'ᄑ', undefined);
-var jamo_init_h       = new Jamo(jamo_nil, "g", JAMO_INITIAL, 'ᄒ', undefined);
-var jamo_init_s_left  = new Jamo(jamo_nil, "Z", JAMO_INITIAL, 'ᄼ', undefined);
-var jamo_init_s_rite  = new Jamo(jamo_nil, "X", JAMO_INITIAL, 'ᄾ', undefined);
-var jamo_init_z       = new Jamo(jamo_nil, "A", JAMO_INITIAL, 'ᅀ', undefined);
-var jamo_init_ng      = new Jamo(jamo_nil, "D", JAMO_INITIAL, 'ᅌ', undefined);
-var jamo_init_j_left  = new Jamo(jamo_nil, "C", JAMO_INITIAL, 'ᅎ', undefined);
-var jamo_init_j_rite  = new Jamo(jamo_nil, "V", JAMO_INITIAL, 'ᅐ', undefined);
-var jamo_init_c_left  = new Jamo(jamo_nil, "B", JAMO_INITIAL, 'ᅔ', undefined);
-var jamo_init_c_rite  = new Jamo(jamo_nil, "N", JAMO_INITIAL, 'ᅕ', undefined);
-var jamo_init_q       = new Jamo(jamo_nil, "G", JAMO_INITIAL, 'ᅙ', undefined);
-var jamo_init_high    = new Jamo(jamo_nil, "F", JAMO_INITIAL, '〮', undefined);
-var jamo_init_ris     = new Jamo(jamo_nil, "H", JAMO_INITIAL, '〯', undefined);
+var jamo_init_g        = new Jamo(jamo_nil, "r", JAMO_INITIAL, 'ᄀ', undefined);
+var jamo_init_gg       = new Jamo(jamo_nil, "R", JAMO_INITIAL, 'ᄁ', undefined);
+var jamo_init_n        = new Jamo(jamo_nil, "s", JAMO_INITIAL, 'ᄂ', undefined);
+var jamo_init_d        = new Jamo(jamo_nil, "e", JAMO_INITIAL, 'ᄃ', undefined);
+var jamo_init_dd       = new Jamo(jamo_nil, "E", JAMO_INITIAL, 'ᄄ', undefined);
+var jamo_init_r        = new Jamo(jamo_nil, "f", JAMO_INITIAL, 'ᄅ', undefined);
+var jamo_init_m        = new Jamo(jamo_nil, "a", JAMO_INITIAL, 'ᄆ', undefined);
+var jamo_init_b        = new Jamo(jamo_nil, "q", JAMO_INITIAL, 'ᄇ', undefined);
+var jamo_init_bb       = new Jamo(jamo_nil, "Q", JAMO_INITIAL, 'ᄈ', undefined);
+var jamo_init_s        = new Jamo(jamo_nil, "t", JAMO_INITIAL, 'ᄉ', undefined);
+var jamo_init_ss       = new Jamo(jamo_nil, "T", JAMO_INITIAL, 'ᄊ', undefined);
+var jamo_init_x        = new Jamo(jamo_nil, "d", JAMO_INITIAL, 'ᄋ', undefined);
+var jamo_init_j        = new Jamo(jamo_nil, "w", JAMO_INITIAL, 'ᄌ', undefined);
+var jamo_init_jj       = new Jamo(jamo_nil, "W", JAMO_INITIAL, 'ᄍ', undefined);
+var jamo_init_c        = new Jamo(jamo_nil, "c", JAMO_INITIAL, 'ᄎ', undefined);
+var jamo_init_k        = new Jamo(jamo_nil, "z", JAMO_INITIAL, 'ᄏ', undefined);
+var jamo_init_t        = new Jamo(jamo_nil, "x", JAMO_INITIAL, 'ᄐ', undefined);
+var jamo_init_p        = new Jamo(jamo_nil, "v", JAMO_INITIAL, 'ᄑ', undefined);
+var jamo_init_h        = new Jamo(jamo_nil, "g", JAMO_INITIAL, 'ᄒ', undefined);
+var jamo_init_s_left   = new Jamo(jamo_nil, "Z", JAMO_INITIAL, 'ᄼ', undefined);
+var jamo_init_s_right  = new Jamo(jamo_nil, "X", JAMO_INITIAL, 'ᄾ', undefined);
+var jamo_init_z        = new Jamo(jamo_nil, "A", JAMO_INITIAL, 'ᅀ', undefined);
+var jamo_init_ng       = new Jamo(jamo_nil, "D", JAMO_INITIAL, 'ᅌ', undefined);
+var jamo_init_j_left   = new Jamo(jamo_nil, "C", JAMO_INITIAL, 'ᅎ', undefined);
+var jamo_init_j_right  = new Jamo(jamo_nil, "V", JAMO_INITIAL, 'ᅐ', undefined);
+var jamo_init_c_left   = new Jamo(jamo_nil, "B", JAMO_INITIAL, 'ᅔ', undefined);
+var jamo_init_c_right  = new Jamo(jamo_nil, "N", JAMO_INITIAL, 'ᅕ', undefined);
+var jamo_init_q        = new Jamo(jamo_nil, "G", JAMO_INITIAL, 'ᅙ', undefined);
+var jamo_init_high     = new Jamo(jamo_nil, "F", JAMO_INITIAL, '〮', undefined);
+var jamo_init_ris      = new Jamo(jamo_nil, "H", JAMO_INITIAL, '〯', undefined);
 
-var jamo_init_ss_left = new Jamo(jamo_init_s_left, "ZZ", JAMO_INITIAL, 'ᄽ', undefined);
-var jamo_init_ss_rite = new Jamo(jamo_init_s_rite, "XX", JAMO_INITIAL, 'ᄿ', undefined);
-var jamo_init_jj_left = new Jamo(jamo_init_j_left, "CC", JAMO_INITIAL, 'ᅏ', undefined);
-var jamo_init_jj_rite = new Jamo(jamo_init_j_rite, "VV", JAMO_INITIAL, 'ᅑ', undefined);
+var jamo_init_ss_left  = new Jamo(jamo_init_s_left, "ZZ", JAMO_INITIAL, 'ᄽ', undefined);
+var jamo_init_ss_right = new Jamo(jamo_init_s_right, "XX", JAMO_INITIAL, 'ᄿ', undefined);
+var jamo_init_jj_left  = new Jamo(jamo_init_j_left, "CC", JAMO_INITIAL, 'ᅏ', undefined);
+var jamo_init_jj_right = new Jamo(jamo_init_j_right, "VV", JAMO_INITIAL, 'ᅑ', undefined);
 
 // INITIAL CLUSTERS
 var jamo_init_g_d  = new Jamo(jamo_init_g,  "re", JAMO_INITIAL, 'ᅚ', undefined);
@@ -232,7 +232,7 @@ var jamo_init_n_s  = new Jamo(jamo_init_n,  "st", JAMO_INITIAL, 'ᅛ', undefined
 var jamo_init_n_j  = new Jamo(jamo_init_n,  "sw", JAMO_INITIAL, 'ᅜ', undefined);
 var jamo_init_n_h  = new Jamo(jamo_init_n,  "sg", JAMO_INITIAL, 'ᅝ', undefined);
 var jamo_init_d_g  = new Jamo(jamo_init_d,  "er", JAMO_INITIAL, 'ᄗ', undefined);
-var jamoinit__d_r  = new Jamo(jamo_init_d,  "ef", JAMO_INITIAL, 'ᅞ', undefined);
+var jamo_init_d_r  = new Jamo(jamo_init_d,  "ef", JAMO_INITIAL, 'ᅞ', undefined);
 var jamo_init_r_n  = new Jamo(jamo_init_r,  "fs", JAMO_INITIAL, 'ᄘ', undefined);
 var jamo_init_r_r  = new Jamo(jamo_init_r,  "ff", JAMO_INITIAL, 'ᄙ', undefined);
 var jamo_init_r_h  = new Jamo(jamo_init_r,  "fg", JAMO_INITIAL, 'ᄚ', undefined);
@@ -287,6 +287,37 @@ var jamo_init_b_s_b = new Jamo(jamo_init_b_s, "qtq", JAMO_INITIAL, 'ᄤ', undefi
 var jamo_init_b_s_s = new Jamo(jamo_init_b_s, "qtt", JAMO_INITIAL, 'ᄥ', undefined);
 var jamo_init_b_s_j = new Jamo(jamo_init_b_s, "qtw", JAMO_INITIAL, 'ᄦ', undefined);
 var jamo_init_s_b_g = new Jamo(jamo_init_s_b, "tqw", JAMO_INITIAL, 'ᄳ', undefined);
+
+// INITIAL CLUSTERS HANGEUL EXTENDED BLOCK A
+var jamo_init_d_m   = new Jamo(jamo_init_d, "ea", JAMO_INITIAL, 'ꥠ', undefined);
+var jamo_init_d_b   = new Jamo(jamo_init_d, "eq", JAMO_INITIAL, 'ꥡ', undefined);
+var jamo_init_d_s   = new Jamo(jamo_init_d, "et", JAMO_INITIAL, 'ꥢ', undefined);
+var jamo_init_d_j   = new Jamo(jamo_init_d, "ew", JAMO_INITIAL, 'ꥣ', undefined);
+var jamo_init_r_g   = new Jamo(jamo_init_r, "fr", JAMO_INITIAL, 'ꥤ', undefined);
+var jamo_init_r_g_g = new Jamo(jamo_init_r_g, "frr", JAMO_INITIAL, 'ꥥ', undefined);
+var jamo_init_r_d   = new Jamo(jamo_init_r, "fe", JAMO_INITIAL, 'ꥦ', undefined);
+var jamo_init_r_d_d = new Jamo(jamo_init_r_d, "fee", JAMO_INITIAL, 'ꥧ', undefined);
+var jamo_init_r_m   = new Jamo(jamo_init_r, "fa", JAMO_INITIAL, 'ꥨ', undefined);
+var jamo_init_r_b   = new Jamo(jamo_init_r, "fq", JAMO_INITIAL, 'ꥩ', undefined);
+var jamo_init_r_b_b = new Jamo(jamo_init_r_b, "fqq", JAMO_INITIAL, 'ꥪ', undefined);
+var jamo_init_r_b_S = new Jamo(jamo_init_r_b, "fqS", JAMO_INITIAL, 'ꥫ', undefined);
+var jamo_init_r_s   = new Jamo(jamo_init_r, "ft", JAMO_INITIAL, 'ꥬ', undefined);
+var jamo_init_r_j   = new Jamo(jamo_init_r, "fw", JAMO_INITIAL, 'ꥭ', undefined);
+var jamo_init_r_k   = new Jamo(jamo_init_r, "fz", JAMO_INITIAL, 'ꥮ', undefined);
+var jamo_init_m_g  = new Jamo(jamo_init_m, "ar", JAMO_INITIAL, 'ꥯ', undefined);
+var jamo_init_m_d  = new Jamo(jamo_init_m, "ae", JAMO_INITIAL, 'ꥰ', undefined);
+var jamo_init_m_s  = new Jamo(jamo_init_m, "at", JAMO_INITIAL, 'ꥱ', undefined);
+var jamo_init_b_s_t = new Jamo(jamo_init_b_s, "qtx", JAMO_INITIAL, 'ꥲ', undefined);
+var jamo_init_b_k  = new Jamo(jamo_init_b, "qz", JAMO_INITIAL, 'ꥳ', undefined);
+var jamo_init_b_h  = new Jamo(jamo_init_b, "qg", JAMO_INITIAL, 'ꥴ', undefined);
+var jamo_init_ss_b  = new Jamo(jamo_init_ss, "Tq", JAMO_INITIAL, 'ꥵ', undefined);
+var jamo_init_x_r  = new Jamo(jamo_init_d, "df", JAMO_INITIAL, 'ꥶ', undefined);
+var jamo_init_x_h  = new Jamo(jamo_init_d, "dg", JAMO_INITIAL, 'ꥷ', undefined);
+var jamo_init_jj_g  = new Jamo(jamo_init_jj, "Wg", JAMO_INITIAL, 'ꥸ', undefined);
+var jamo_init_t_t  = new Jamo(jamo_init_t, "XX", JAMO_INITIAL, 'ꥹ', undefined);
+var jamo_init_p_h  = new Jamo(jamo_init_p, "vg", JAMO_INITIAL, 'ꥺ', undefined);
+var jamo_init_h_t  = new Jamo(jamo_init_h, "gt", JAMO_INITIAL, 'ꥻ', undefined);
+var jamo_init_q_q  = new Jamo(jamo_init_q, "GG", JAMO_INITIAL, 'ꥼ', undefined);
 
 // MEDIALS
 var jamo_med_a   = new Jamo(jamo_nil, "k", JAMO_MEDIAL, 'ᅡ', undefined);
@@ -484,21 +515,21 @@ var list_jamo_init = [
   jamo_init_p,
   jamo_init_h,
   jamo_init_s_left,
-  jamo_init_s_rite,
+  jamo_init_s_right,
   jamo_init_z,
   jamo_init_ng,
   jamo_init_j_left,
-  jamo_init_j_rite,
+  jamo_init_j_right,
   jamo_init_c_left,
-  jamo_init_c_rite,
+  jamo_init_c_right,
   jamo_init_q,
   jamo_init_ris,
   jamo_init_high,
 
   jamo_init_ss_left,
-  jamo_init_ss_rite,
+  jamo_init_ss_right,
   jamo_init_jj_left,
-  jamo_init_jj_rite,
+  jamo_init_jj_right,
 
   // INITIAL CLUSTERS
   jamo_init_g_d,
@@ -510,7 +541,7 @@ var list_jamo_init = [
   jamo_init_n_j,
   jamo_init_n_h,
   jamo_init_d_g,
-  jamoinit__d_r,
+  jamo_init_d_r,
   jamo_init_r_n,
   jamo_init_r_r,
   jamo_init_r_h,
@@ -564,7 +595,38 @@ var list_jamo_init = [
   jamo_init_b_s_b,
   jamo_init_b_s_s,
   jamo_init_b_s_j,
-  jamo_init_s_b_g
+  jamo_init_s_b_g,
+
+  // Initial Clusters Extended A
+  jamo_init_d_m,
+  jamo_init_d_b,
+  jamo_init_d_s,
+  jamo_init_d_j,
+  jamo_init_r_g,
+  jamo_init_r_g_g,
+  jamo_init_r_d,
+  jamo_init_r_d_d,
+  jamo_init_r_m,
+  jamo_init_r_b,
+  jamo_init_r_b_b,
+  jamo_init_r_b_S,
+  jamo_init_r_s,
+  jamo_init_r_j,
+  jamo_init_r_k,
+  jamo_init_m_g,
+  jamo_init_m_d,
+  jamo_init_m_s,
+  jamo_init_b_s_t,
+  jamo_init_b_k,
+  jamo_init_b_h,
+  jamo_init_ss_b,
+  jamo_init_x_r,
+  jamo_init_x_h,
+  jamo_init_jj_g,
+  jamo_init_t_t,
+  jamo_init_p_h,
+  jamo_init_h_t,
+  jamo_init_q_q
 ];
 
 var list_jamo_med = [
