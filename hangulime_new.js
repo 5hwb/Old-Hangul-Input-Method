@@ -289,35 +289,35 @@ var jamo_init_b_s_j = new Jamo(jamo_init_b_s, "qtw", JAMO_INITIAL, 'ᄦ', undefi
 var jamo_init_s_b_g = new Jamo(jamo_init_s_b, "tqw", JAMO_INITIAL, 'ᄳ', undefined);
 
 // INITIAL CLUSTERS HANGEUL EXTENDED BLOCK A
-var jamo_init_d_m   = new Jamo(jamo_init_d, "ea", JAMO_INITIAL, 'ꥠ', undefined);
-var jamo_init_d_b   = new Jamo(jamo_init_d, "eq", JAMO_INITIAL, 'ꥡ', undefined);
-var jamo_init_d_s   = new Jamo(jamo_init_d, "et", JAMO_INITIAL, 'ꥢ', undefined);
-var jamo_init_d_j   = new Jamo(jamo_init_d, "ew", JAMO_INITIAL, 'ꥣ', undefined);
-var jamo_init_r_g   = new Jamo(jamo_init_r, "fr", JAMO_INITIAL, 'ꥤ', undefined);
-var jamo_init_r_g_g = new Jamo(jamo_init_r_g, "frr", JAMO_INITIAL, 'ꥥ', undefined);
-var jamo_init_r_d   = new Jamo(jamo_init_r, "fe", JAMO_INITIAL, 'ꥦ', undefined);
-var jamo_init_r_d_d = new Jamo(jamo_init_r_d, "fee", JAMO_INITIAL, 'ꥧ', undefined);
-var jamo_init_r_m   = new Jamo(jamo_init_r, "fa", JAMO_INITIAL, 'ꥨ', undefined);
-var jamo_init_r_b   = new Jamo(jamo_init_r, "fq", JAMO_INITIAL, 'ꥩ', undefined);
-var jamo_init_r_b_b = new Jamo(jamo_init_r_b, "fqq", JAMO_INITIAL, 'ꥪ', undefined);
+var jamo_init_d_m   = new Jamo(jamo_init_d,   "ea",  JAMO_INITIAL, 'ꥠ', undefined);
+var jamo_init_d_b   = new Jamo(jamo_init_d,   "eq",  JAMO_INITIAL, 'ꥡ', undefined);
+var jamo_init_d_s   = new Jamo(jamo_init_d,   "et",  JAMO_INITIAL, 'ꥢ', undefined);
+var jamo_init_d_j   = new Jamo(jamo_init_d,   "ew",  JAMO_INITIAL, 'ꥣ', undefined);
+var jamo_init_r_g   = new Jamo(jamo_init_r,   "fr",  JAMO_INITIAL, 'ꥤ', undefined);
+var jamo_init_r_gg  = new Jamo(jamo_init_r,   "fR",  JAMO_INITIAL, 'ꥥ', undefined);
+var jamo_init_r_d   = new Jamo(jamo_init_r,   "fe",  JAMO_INITIAL, 'ꥦ', undefined);
+var jamo_init_r_dd  = new Jamo(jamo_init_r,   "fE",  JAMO_INITIAL, 'ꥧ', undefined);
+var jamo_init_r_m   = new Jamo(jamo_init_r,   "fa",  JAMO_INITIAL, 'ꥨ', undefined);
+var jamo_init_r_b   = new Jamo(jamo_init_r,   "fq",  JAMO_INITIAL, 'ꥩ', undefined);
+var jamo_init_r_bb  = new Jamo(jamo_init_r,   "fQ",  JAMO_INITIAL, 'ꥪ', undefined);
 var jamo_init_r_b_S = new Jamo(jamo_init_r_b, "fqS", JAMO_INITIAL, 'ꥫ', undefined);
-var jamo_init_r_s   = new Jamo(jamo_init_r, "ft", JAMO_INITIAL, 'ꥬ', undefined);
-var jamo_init_r_j   = new Jamo(jamo_init_r, "fw", JAMO_INITIAL, 'ꥭ', undefined);
-var jamo_init_r_k   = new Jamo(jamo_init_r, "fz", JAMO_INITIAL, 'ꥮ', undefined);
-var jamo_init_m_g  = new Jamo(jamo_init_m, "ar", JAMO_INITIAL, 'ꥯ', undefined);
-var jamo_init_m_d  = new Jamo(jamo_init_m, "ae", JAMO_INITIAL, 'ꥰ', undefined);
-var jamo_init_m_s  = new Jamo(jamo_init_m, "at", JAMO_INITIAL, 'ꥱ', undefined);
+var jamo_init_r_s   = new Jamo(jamo_init_r,   "ft",  JAMO_INITIAL, 'ꥬ', undefined);
+var jamo_init_r_j   = new Jamo(jamo_init_r,   "fw",  JAMO_INITIAL, 'ꥭ', undefined);
+var jamo_init_r_k   = new Jamo(jamo_init_r,   "fz",  JAMO_INITIAL, 'ꥮ', undefined);
+var jamo_init_m_g   = new Jamo(jamo_init_m,   "ar",  JAMO_INITIAL, 'ꥯ', undefined);
+var jamo_init_m_d   = new Jamo(jamo_init_m,   "ae",  JAMO_INITIAL, 'ꥰ', undefined);
+var jamo_init_m_s   = new Jamo(jamo_init_m,   "at",  JAMO_INITIAL, 'ꥱ', undefined);
 var jamo_init_b_s_t = new Jamo(jamo_init_b_s, "qtx", JAMO_INITIAL, 'ꥲ', undefined);
-var jamo_init_b_k  = new Jamo(jamo_init_b, "qz", JAMO_INITIAL, 'ꥳ', undefined);
-var jamo_init_b_h  = new Jamo(jamo_init_b, "qg", JAMO_INITIAL, 'ꥴ', undefined);
-var jamo_init_ss_b  = new Jamo(jamo_init_ss, "Tq", JAMO_INITIAL, 'ꥵ', undefined);
-var jamo_init_x_r  = new Jamo(jamo_init_x, "df", JAMO_INITIAL, 'ꥶ', undefined);
-var jamo_init_x_h  = new Jamo(jamo_init_x, "dg", JAMO_INITIAL, 'ꥷ', undefined);
-var jamo_init_jj_g  = new Jamo(jamo_init_jj, "Wg", JAMO_INITIAL, 'ꥸ', undefined);
-var jamo_init_t_t  = new Jamo(jamo_init_t, "xx", JAMO_INITIAL, 'ꥹ', undefined);
-var jamo_init_p_h  = new Jamo(jamo_init_p, "vg", JAMO_INITIAL, 'ꥺ', undefined);
-var jamo_init_h_t  = new Jamo(jamo_init_h, "gt", JAMO_INITIAL, 'ꥻ', undefined);
-var jamo_init_q_q  = new Jamo(jamo_init_q, "GG", JAMO_INITIAL, 'ꥼ', undefined);
+var jamo_init_b_k   = new Jamo(jamo_init_b,   "qz",  JAMO_INITIAL, 'ꥳ', undefined);
+var jamo_init_b_h   = new Jamo(jamo_init_b,   "qg",  JAMO_INITIAL, 'ꥴ', undefined);
+var jamo_init_ss_b  = new Jamo(jamo_init_ss,  "Tq",  JAMO_INITIAL, 'ꥵ', undefined);
+var jamo_init_x_r   = new Jamo(jamo_init_x,   "df",  JAMO_INITIAL, 'ꥶ', undefined);
+var jamo_init_x_h   = new Jamo(jamo_init_x,   "dg",  JAMO_INITIAL, 'ꥷ', undefined);
+var jamo_init_jj_g  = new Jamo(jamo_init_jj,  "Wg",  JAMO_INITIAL, 'ꥸ', undefined);
+var jamo_init_t_t   = new Jamo(jamo_init_t,   "xx",  JAMO_INITIAL, 'ꥹ', undefined);
+var jamo_init_p_h   = new Jamo(jamo_init_p,   "vg",  JAMO_INITIAL, 'ꥺ', undefined);
+var jamo_init_h_t   = new Jamo(jamo_init_h,   "gt",  JAMO_INITIAL, 'ꥻ', undefined);
+var jamo_init_q_q   = new Jamo(jamo_init_q,   "GG",  JAMO_INITIAL, 'ꥼ', undefined);
 
 // MEDIALS
 var jamo_med_a   = new Jamo(jamo_nil, "k", JAMO_MEDIAL, 'ᅡ', undefined);
@@ -396,29 +396,29 @@ var jamo_med_u_eo_eu = new Jamo(jamo_med_u_eo, "njm", JAMO_MEDIAL, 'ᆋ', undefi
 var jamo_med_eu_i_u  = new Jamo(jamo_med_eu_i, "mln", JAMO_MEDIAL, 'ᆗ', undefined);
 
 // JAMO MEDIAL EXTENSION B
-var jamo_med_o_yeo  = new Jamo(jamo_med_o, "hu", JAMO_FINAL, 'ힰ', undefined);
-var jamo_med_o_o_i  = new Jamo(jamo_med_o_o, "hhl", JAMO_FINAL, 'ힱ', undefined);
-var jamo_med_yo_a   = new Jamo(jamo_med_yo, "yk", JAMO_FINAL, 'ힲ', undefined);
-var jamo_med_yo_ae  = new Jamo(jamo_med_yo, "yo", JAMO_FINAL, 'ힳ', undefined);
-var jamo_med_yo_eo  = new Jamo(jamo_med_yo, "yj", JAMO_FINAL, 'ힴ', undefined);
-var jamo_med_u_yeo  = new Jamo(jamo_med_u, "nu", JAMO_FINAL, 'ힵ', undefined);
-var jamo_med_u_i_i  = new Jamo(jamo_med_u_i, "nl", JAMO_FINAL, 'ힶ', undefined);
-var jamo_med_yu_ae  = new Jamo(jamo_med_yu, "bo", JAMO_FINAL, 'ힷ', undefined);
-var jamo_med_yu_o   = new Jamo(jamo_med_yu, "bh", JAMO_FINAL, 'ힸ', undefined);
-var jamo_med_eu_a   = new Jamo(jamo_med_eu, "mk", JAMO_FINAL, 'ힹ', undefined);
-var jamo_med_eu_eo  = new Jamo(jamo_med_eu, "mj", JAMO_FINAL, 'ힺ', undefined);
-var jamo_med_eu_e   = new Jamo(jamo_med_eu, "mp", JAMO_FINAL, 'ힻ', undefined);
-var jamo_med_eu_o   = new Jamo(jamo_med_eu, "mh", JAMO_FINAL, 'ힼ', undefined);
+var jamo_med_o_yeo  = new Jamo(jamo_med_o,    "hu", JAMO_FINAL,  'ힰ', undefined);
+var jamo_med_o_o_i  = new Jamo(jamo_med_o_o,  "hhl", JAMO_FINAL, 'ힱ', undefined);
+var jamo_med_yo_a   = new Jamo(jamo_med_yo,   "yk", JAMO_FINAL,  'ힲ', undefined);
+var jamo_med_yo_ae  = new Jamo(jamo_med_yo,   "yo", JAMO_FINAL,  'ힳ', undefined);
+var jamo_med_yo_eo  = new Jamo(jamo_med_yo,   "yj", JAMO_FINAL,  'ힴ', undefined);
+var jamo_med_u_yeo  = new Jamo(jamo_med_u,    "nu", JAMO_FINAL,  'ힵ', undefined);
+var jamo_med_u_i_i  = new Jamo(jamo_med_u_i,  "nl", JAMO_FINAL,  'ힶ', undefined);
+var jamo_med_yu_ae  = new Jamo(jamo_med_yu,   "bo", JAMO_FINAL,  'ힷ', undefined);
+var jamo_med_yu_o   = new Jamo(jamo_med_yu,   "bh", JAMO_FINAL,  'ힸ', undefined);
+var jamo_med_eu_a   = new Jamo(jamo_med_eu,   "mk", JAMO_FINAL,  'ힹ', undefined);
+var jamo_med_eu_eo  = new Jamo(jamo_med_eu,   "mj", JAMO_FINAL,  'ힺ', undefined);
+var jamo_med_eu_e   = new Jamo(jamo_med_eu,   "mp", JAMO_FINAL,  'ힻ', undefined);
+var jamo_med_eu_o   = new Jamo(jamo_med_eu,   "mh", JAMO_FINAL,  'ힼ', undefined);
 var jamo_med_i_ya_o = new Jamo(jamo_med_i_ya, "lih", JAMO_FINAL, 'ힽ', undefined);
-var jamo_med_i_yae  = new Jamo(jamo_med_i, "lO", JAMO_FINAL, 'ힾ', undefined);
-var jamo_med_i_yeo  = new Jamo(jamo_med_i, "lU", JAMO_FINAL, 'ힿ', undefined);
-var jamo_med_i_ye   = new Jamo(jamo_med_i, "lP", JAMO_FINAL, 'ퟀ', undefined);
-var jamo_med_i_o_i  = new Jamo(jamo_med_i_o, "lhl", JAMO_FINAL, 'ퟁ', undefined);
-var jamo_med_i_yo   = new Jamo(jamo_med_i, "ly", JAMO_FINAL, 'ퟂ', undefined);
-var jamo_med_i_yu   = new Jamo(jamo_med_i, "lb", JAMO_FINAL, 'ퟃ', undefined);
-var jamo_med_i_i    = new Jamo(jamo_med_i, "ll", JAMO_FINAL, 'ퟄ', undefined);
-var jamo_med_v_a    = new Jamo(jamo_med_v, "Kk", JAMO_FINAL, 'ퟅ', undefined);
-var jamo_med_v_e    = new Jamo(jamo_med_v, "Kp", JAMO_FINAL, 'ퟆ', undefined);
+var jamo_med_i_yae  = new Jamo(jamo_med_i,    "lO", JAMO_FINAL,  'ힾ', undefined);
+var jamo_med_i_yeo  = new Jamo(jamo_med_i,    "lU", JAMO_FINAL,  'ힿ', undefined);
+var jamo_med_i_ye   = new Jamo(jamo_med_i,    "lP", JAMO_FINAL,  'ퟀ', undefined);
+var jamo_med_i_o_i  = new Jamo(jamo_med_i_o,  "lhl", JAMO_FINAL, 'ퟁ', undefined);
+var jamo_med_i_yo   = new Jamo(jamo_med_i,    "ly", JAMO_FINAL,  'ퟂ', undefined);
+var jamo_med_i_yu   = new Jamo(jamo_med_i,    "lb", JAMO_FINAL,  'ퟃ', undefined);
+var jamo_med_i_i    = new Jamo(jamo_med_i,    "ll", JAMO_FINAL,  'ퟄ', undefined);
+var jamo_med_v_a    = new Jamo(jamo_med_v,    "Kk", JAMO_FINAL,  'ퟅ', undefined);
+var jamo_med_v_e    = new Jamo(jamo_med_v,    "Kp", JAMO_FINAL,  'ퟆ', undefined);
 
 // FINALS
 var jamo_fin_g  = new Jamo(jamo_nil, "r", JAMO_FINAL, 'ᆨ', "ᄀ");
@@ -678,12 +678,12 @@ var list_jamo_init = [
   jamo_init_d_s,
   jamo_init_d_j,
   jamo_init_r_g,
-  jamo_init_r_g_g,
+  jamo_init_r_gg,
   jamo_init_r_d,
-  jamo_init_r_d_d,
+  jamo_init_r_dd,
   jamo_init_r_m,
   jamo_init_r_b,
-  jamo_init_r_b_b,
+  jamo_init_r_bb,
   jamo_init_r_b_S,
   jamo_init_r_s,
   jamo_init_r_j,
