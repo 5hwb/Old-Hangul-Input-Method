@@ -201,6 +201,9 @@ var jamo_r_p = new Jamo(jamo_r, undefined, 'ᆵ'); /*jamo_r_p.setDecomposed("ᆯ
 var jamo_r_h = new Jamo(jamo_r, 'ᄚ', 'ᆶ'); /*jamo_r_h.setDecomposed("ᆯᄒ");*/
 var jamo_b_s = new Jamo(jamo_b, 'ᄡ', 'ᆹ'); /*jamo_b_s.setDecomposed("ᆸᄉ");*/
 
+// INITIAL CLUSTERS HANGEUL EXTENDED BLOCK A
+var jamo_init_d_m = new Jamo(jamo_init_b_s, "ea", JAMO_INITIAL, 'ꥠ', undefined);
+
 
 // Medials
 var jamo_a    = new Jamo(jamo_nil, 'ᅡ');
