@@ -174,8 +174,10 @@ function jamoTest() {
 /**
  * GUIDE TO JAMO NAMES
  * All names use the standard Revised Romanisation of Korean, with a few exceptions:
+ * > ㅊ is transliterated to 'c' since the 'h' in 'ch' is redundant
  * > ㄹ is always transliterated to 'r', never 'l'
- * > ㅇ is transliterated 'x' as it functions as a component of other jamos
+ * > ㅇ is transliterated 'x', the archaic variant ᅌ (with short vertical stroke) is 'ng'
+ * > The bottom part of letters like 'ᄫ' and 'ᄛ' is transliterated 'S'
  * > ᅀ is transliterated 'z'
  * > ᆞ (arae-a) is transliterated 'v'
  * > If a jamo letter is made up of other jamos, its name is composed of the names
@@ -288,7 +290,7 @@ var jamo_init_b_s_s = new Jamo(jamo_init_b_s, "qtt", JAMO_INITIAL, 'ᄥ', undefi
 var jamo_init_b_s_j = new Jamo(jamo_init_b_s, "qtw", JAMO_INITIAL, 'ᄦ', undefined);
 var jamo_init_s_b_g = new Jamo(jamo_init_s_b, "tqw", JAMO_INITIAL, 'ᄳ', undefined);
 
-// INITIAL CLUSTERS HANGEUL EXTENDED BLOCK A
+// INITIAL CLUSTERS (HANGUL JAMO EXTENDED-A)
 var jamo_init_d_m   = new Jamo(jamo_init_d,   "ea",  JAMO_INITIAL, 'ꥠ', undefined);
 var jamo_init_d_b   = new Jamo(jamo_init_d,   "eq",  JAMO_INITIAL, 'ꥡ', undefined);
 var jamo_init_d_s   = new Jamo(jamo_init_d,   "et",  JAMO_INITIAL, 'ꥢ', undefined);
@@ -395,30 +397,30 @@ var jamo_med_v_v    = new Jamo(jamo_med_v,   "KK", JAMO_MEDIAL, 'ᆢ', undefined
 var jamo_med_u_eo_eu = new Jamo(jamo_med_u_eo, "njm", JAMO_MEDIAL, 'ᆋ', undefined);
 var jamo_med_eu_i_u  = new Jamo(jamo_med_eu_i, "mln", JAMO_MEDIAL, 'ᆗ', undefined);
 
-// JAMO MEDIAL EXTENSION B
-var jamo_med_o_yeo  = new Jamo(jamo_med_o,    "hu", JAMO_FINAL,  'ힰ', undefined);
-var jamo_med_o_o_i  = new Jamo(jamo_med_o_o,  "hhl", JAMO_FINAL, 'ힱ', undefined);
-var jamo_med_yo_a   = new Jamo(jamo_med_yo,   "yk", JAMO_FINAL,  'ힲ', undefined);
-var jamo_med_yo_ae  = new Jamo(jamo_med_yo,   "yo", JAMO_FINAL,  'ힳ', undefined);
-var jamo_med_yo_eo  = new Jamo(jamo_med_yo,   "yj", JAMO_FINAL,  'ힴ', undefined);
-var jamo_med_u_yeo  = new Jamo(jamo_med_u,    "nu", JAMO_FINAL,  'ힵ', undefined);
-var jamo_med_u_i_i  = new Jamo(jamo_med_u_i,  "nl", JAMO_FINAL,  'ힶ', undefined);
-var jamo_med_yu_ae  = new Jamo(jamo_med_yu,   "bo", JAMO_FINAL,  'ힷ', undefined);
-var jamo_med_yu_o   = new Jamo(jamo_med_yu,   "bh", JAMO_FINAL,  'ힸ', undefined);
-var jamo_med_eu_a   = new Jamo(jamo_med_eu,   "mk", JAMO_FINAL,  'ힹ', undefined);
-var jamo_med_eu_eo  = new Jamo(jamo_med_eu,   "mj", JAMO_FINAL,  'ힺ', undefined);
-var jamo_med_eu_e   = new Jamo(jamo_med_eu,   "mp", JAMO_FINAL,  'ힻ', undefined);
-var jamo_med_eu_o   = new Jamo(jamo_med_eu,   "mh", JAMO_FINAL,  'ힼ', undefined);
-var jamo_med_i_ya_o = new Jamo(jamo_med_i_ya, "lih", JAMO_FINAL, 'ힽ', undefined);
-var jamo_med_i_yae  = new Jamo(jamo_med_i,    "lO", JAMO_FINAL,  'ힾ', undefined);
-var jamo_med_i_yeo  = new Jamo(jamo_med_i,    "lU", JAMO_FINAL,  'ힿ', undefined);
-var jamo_med_i_ye   = new Jamo(jamo_med_i,    "lP", JAMO_FINAL,  'ퟀ', undefined);
-var jamo_med_i_o_i  = new Jamo(jamo_med_i_o,  "lhl", JAMO_FINAL, 'ퟁ', undefined);
-var jamo_med_i_yo   = new Jamo(jamo_med_i,    "ly", JAMO_FINAL,  'ퟂ', undefined);
-var jamo_med_i_yu   = new Jamo(jamo_med_i,    "lb", JAMO_FINAL,  'ퟃ', undefined);
-var jamo_med_i_i    = new Jamo(jamo_med_i,    "ll", JAMO_FINAL,  'ퟄ', undefined);
-var jamo_med_v_a    = new Jamo(jamo_med_v,    "Kk", JAMO_FINAL,  'ퟅ', undefined);
-var jamo_med_v_e    = new Jamo(jamo_med_v,    "Kp", JAMO_FINAL,  'ퟆ', undefined);
+// MEDIAL CLUSTERS (HANGUL JAMO EXTENDED-B)
+var jamo_med_o_yeo  = new Jamo(jamo_med_o,    "hu", JAMO_MEDIAL,  'ힰ', undefined);
+var jamo_med_o_o_i  = new Jamo(jamo_med_o_o,  "hhl", JAMO_MEDIAL, 'ힱ', undefined);
+var jamo_med_yo_a   = new Jamo(jamo_med_yo,   "yk", JAMO_MEDIAL,  'ힲ', undefined);
+var jamo_med_yo_ae  = new Jamo(jamo_med_yo,   "yo", JAMO_MEDIAL,  'ힳ', undefined);
+var jamo_med_yo_eo  = new Jamo(jamo_med_yo,   "yj", JAMO_MEDIAL,  'ힴ', undefined);
+var jamo_med_u_yeo  = new Jamo(jamo_med_u,    "nu", JAMO_MEDIAL,  'ힵ', undefined);
+var jamo_med_u_i_i  = new Jamo(jamo_med_u_i,  "nl", JAMO_MEDIAL,  'ힶ', undefined);
+var jamo_med_yu_ae  = new Jamo(jamo_med_yu,   "bo", JAMO_MEDIAL,  'ힷ', undefined);
+var jamo_med_yu_o   = new Jamo(jamo_med_yu,   "bh", JAMO_MEDIAL,  'ힸ', undefined);
+var jamo_med_eu_a   = new Jamo(jamo_med_eu,   "mk", JAMO_MEDIAL,  'ힹ', undefined);
+var jamo_med_eu_eo  = new Jamo(jamo_med_eu,   "mj", JAMO_MEDIAL,  'ힺ', undefined);
+var jamo_med_eu_e   = new Jamo(jamo_med_eu,   "mp", JAMO_MEDIAL,  'ힻ', undefined);
+var jamo_med_eu_o   = new Jamo(jamo_med_eu,   "mh", JAMO_MEDIAL,  'ힼ', undefined);
+var jamo_med_i_ya_o = new Jamo(jamo_med_i_ya, "lih", JAMO_MEDIAL, 'ힽ', undefined);
+var jamo_med_i_yae  = new Jamo(jamo_med_i,    "lO", JAMO_MEDIAL,  'ힾ', undefined);
+var jamo_med_i_yeo  = new Jamo(jamo_med_i,    "lU", JAMO_MEDIAL,  'ힿ', undefined);
+var jamo_med_i_ye   = new Jamo(jamo_med_i,    "lP", JAMO_MEDIAL,  'ퟀ', undefined);
+var jamo_med_i_o_i  = new Jamo(jamo_med_i_o,  "lhl", JAMO_MEDIAL, 'ퟁ', undefined);
+var jamo_med_i_yo   = new Jamo(jamo_med_i,    "ly", JAMO_MEDIAL,  'ퟂ', undefined);
+var jamo_med_i_yu   = new Jamo(jamo_med_i,    "lb", JAMO_MEDIAL,  'ퟃ', undefined);
+var jamo_med_i_i    = new Jamo(jamo_med_i,    "ll", JAMO_MEDIAL,  'ퟄ', undefined);
+var jamo_med_v_a    = new Jamo(jamo_med_v,    "Kk", JAMO_MEDIAL,  'ퟅ', undefined);
+var jamo_med_v_e    = new Jamo(jamo_med_v,    "Kp", JAMO_MEDIAL,  'ퟆ', undefined);
 
 // FINALS
 var jamo_fin_g  = new Jamo(jamo_nil, "r", JAMO_FINAL, 'ᆨ', "ᄀ");
@@ -513,7 +515,7 @@ var jamo_fin_r_b_h  = new Jamo(jamo_fin_r_b, "fqg", JAMO_FINAL, 'ᇔ', "ᆲᄒ")
 var jamo_fin_r_b_S  = new Jamo(jamo_fin_r_b, "fqS", JAMO_FINAL, 'ᇕ', "ᆯᄫ");
 var jamo_fin_r_d_h  = new Jamo(jamo_fin_r_d, "feg", JAMO_FINAL, 'ᇏ', "ᇎᄒ");
 
-// JAMO FINAL EXTENSION B
+// FINAL CLUSTERS (HANGUL JAMO EXTENDED-B)
 var jamo_fin_n_r   = new Jamo(jamo_fin_n,   "sf",  JAMO_FINAL, 'ퟋ', "ᆫᄅ");
 var jamo_fin_n_c   = new Jamo(jamo_fin_n,   "sc",  JAMO_FINAL, 'ퟌ', "ᆫᄎ");
 var jamo_fin_dd    = new Jamo(jamo_nil,     "E",   JAMO_FINAL, 'ퟍ', "ᄄ");
@@ -672,7 +674,7 @@ var list_jamo_init = [
   jamo_init_b_s_j,
   jamo_init_s_b_g,
 
-  // Initial Clusters Extended A
+// INITIAL CLUSTERS (HANGUL JAMO EXTENDED-A)
   jamo_init_d_m,
   jamo_init_d_b,
   jamo_init_d_s,
@@ -781,7 +783,7 @@ var list_jamo_med = [
   jamo_med_u_eo_eu,
   jamo_med_eu_i_u,
 
-  // Medial Vowels Extension B
+  // MEDIAL CLUSTERS (HANGUL JAMO EXTENDED-B)
   jamo_med_o_yeo,
   jamo_med_o_o_i,
   jamo_med_yo_a,
@@ -902,7 +904,7 @@ var list_jamo_fin = [
   jamo_fin_m_ss,
   jamo_fin_ng_gg,
 
-  //Final Vowel Extension B
+  // FINAL CLUSTERS (HANGUL JAMO EXTENDED-B)
   jamo_fin_n_r,
   jamo_fin_n_c,
   jamo_fin_dd,
