@@ -2,8 +2,6 @@
 
 This is a Javascript-based IME for typing archaic Korean Hangul letters (e.g. ㅸ, ㅿ, ㅵ) easily in a Unicode-compliant manner. Works in all standards-compliant Web browsers!
 
-Currently, Old Hangul Input Method supports typing characters in the 'Hangul Jamo' Unicode block. The 'Hangul Jamo Extended-A' and 'Hangul Jamo Extended-B' characters are currently unsupported for the time being. Nevertheless, pull requests to implement these additional characters are always welcome.
-
 ## How to run
 
 1. Download this repository to your device.
@@ -24,12 +22,16 @@ Currently, Old Hangul Input Method supports typing characters in the 'Hangul Jam
 
 ### Hangul jamo hierarchy
 
-This is a diagram of all the Old Hangul characters that can be typed using the Old Hangul Input Method. Currently, only those in the 'Hangul Jamo' Unicode block are supported.
+This is a diagram of all the Old Hangul characters that can be typed using the Old Hangul Input Method.
 
 ![Hangul jamo hierarchy diagram](HangulJamoHierarchyDiagram.png)
 
 ### Finite state machine
 
 This diagram shows all the internal states and transitions of the Old Hangul Input Method.
+
+## TODOs
+
+* Update the jamo hierarchy diagram
 
 ![OldHangulIME_FSM](OldHangulIME_FSM.png)
