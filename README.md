@@ -30,8 +30,8 @@ This is a diagram of all the Old Hangul characters that can be typed using the O
 
 This diagram shows all the internal states and transitions of the Old Hangul Input Method.
 
+![OldHangulIME_FSM](OldHangulIME_FSM.png)
+
 ## TODOs
 
 * Update the jamo hierarchy diagram
-
-![OldHangulIME_FSM](OldHangulIME_FSM.png)
