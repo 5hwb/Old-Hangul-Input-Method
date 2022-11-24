@@ -543,7 +543,7 @@ var jamo_fin_m_n   = new Jamo(jamo_fin_m,   "as",  JAMO_FINAL, 'ퟞ', "ᆷᄂ");
 var jamo_fin_m_n_n = new Jamo(jamo_fin_m_n, "ass", JAMO_FINAL, 'ퟟ', "ퟞᄂ");
 var jamo_fin_m_m   = new Jamo(jamo_fin_m,   "aa",  JAMO_FINAL, 'ퟠ', "ᆷᄆ");
 var jamo_fin_m_b_s = new Jamo(jamo_fin_m_b, "aqt", JAMO_FINAL, 'ퟡ', "ᇜᄉ");
-var jamo_fin_m_s   = new Jamo(jamo_fin_m,   "aw",  JAMO_FINAL, 'ퟢ', "ᆷᄌ");
+var jamo_fin_m_j   = new Jamo(jamo_fin_m,   "aw",  JAMO_FINAL, 'ퟢ', "ᆷᄌ");
 var jamo_fin_b_d   = new Jamo(jamo_fin_b,   "qe",  JAMO_FINAL, 'ퟣ', "ᆸᄃ");
 var jamo_fin_b_r_p = new Jamo(jamo_fin_b_r, "qfv", JAMO_FINAL, 'ퟤ', "ᇣᄑ");
 var jamo_fin_b_m   = new Jamo(jamo_fin_b,   "qa",  JAMO_FINAL, 'ퟥ', "ᆸᄆ");
@@ -930,7 +930,7 @@ var list_jamo_fin = [
   jamo_fin_m_n_n,
   jamo_fin_m_m,
   jamo_fin_m_b_s,
-  jamo_fin_m_s,
+  jamo_fin_m_j,
   jamo_fin_b_d,
   jamo_fin_b_r_p,
   jamo_fin_b_m,
