@@ -188,6 +188,7 @@ function jamoTest() {
 var jamo_nil = undefined;
 
 // INITIALS
+var jamo_init_filler   = new Jamo(jamo_nil, "Y", JAMO_INITIAL, 'ᅟ', undefined);
 var jamo_init_g        = new Jamo(jamo_nil, "r", JAMO_INITIAL, 'ᄀ', undefined);
 var jamo_init_gg       = new Jamo(jamo_nil, "R", JAMO_INITIAL, 'ᄁ', undefined);
 var jamo_init_n        = new Jamo(jamo_nil, "s", JAMO_INITIAL, 'ᄂ', undefined);
@@ -322,6 +323,7 @@ var jamo_init_h_t   = new Jamo(jamo_init_h,   "gt",  JAMO_INITIAL, 'ꥻ', undefi
 var jamo_init_q_q   = new Jamo(jamo_init_q,   "GG",  JAMO_INITIAL, 'ꥼ', undefined);
 
 // MEDIALS
+var jamo_med_filler = new Jamo(jamo_nil, "U", JAMO_MEDIAL, 'ᅠ', undefined);
 var jamo_med_a   = new Jamo(jamo_nil, "k", JAMO_MEDIAL, 'ᅡ', undefined);
 var jamo_med_ae  = new Jamo(jamo_nil, "o", JAMO_MEDIAL, 'ᅢ', undefined);
 var jamo_med_ya  = new Jamo(jamo_nil, "i", JAMO_MEDIAL, 'ᅣ', undefined);
@@ -574,6 +576,7 @@ var jamo_fin_p_t   = new Jamo(jamo_fin_p,   "vx",  JAMO_FINAL, 'ퟻ', "ᇁᄐ");
 
 var list_jamo_init = [
   // INITIALS
+  jamo_init_filler,
   jamo_init_g,
   jamo_init_gg,
   jamo_init_n,
@@ -710,6 +713,7 @@ var list_jamo_init = [
 
 var list_jamo_med = [
   // MEDIALS
+  jamo_med_filler,
   jamo_med_a,
   jamo_med_ae,
   jamo_med_ya,
