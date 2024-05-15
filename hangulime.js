@@ -1011,6 +1011,9 @@ var num = 4;
 var stackPressedKeys = new FixedStack(num);
 var stackValidJamos = new FixedStack(num);
 
+// Controls whether or not "command" has been pressed for copying, pasting, or cutting (MacOS)
+var blnCmdPressed = false;
+
 // The current selection positions
 var selStart = 0;
 var selEnd = 0;
@@ -1329,10 +1332,18 @@ function receiveKeydown(e, context) {
   selStart = context.selectionStart;
   selEnd = context.selectionEnd;
 
+  console.log(e.key);
+  if (e.key == "Meta") {
+    blnCmdPressed = true
+    var hangulInput = document.getElementById("hangulime");
+    hangulInput.removeEventListener("keypress", keypressFunction, true);
+    console.log(keypressFunction)
+  }
+
   if (e.key == "ArrowLeft" || 
-      e.key == "ArrowRight" || 
-      e.key == "ArrowUp" || 
-      e.key == "ArrowDown") {
+    e.key == "ArrowRight" || 
+    e.key == "ArrowUp" || 
+    e.key == "ArrowDown") {
     clearStacks();
     //console.log("KEYDOWN: State changed to Default");
   }
@@ -1352,16 +1363,34 @@ function receiveKeydown(e, context) {
   }
 }
 
+// Get all released keys including non-character keys (e.g. backspace, arrow keys)
+function receiveKeyup(e, context) {
+  console.log(e.key);
+  if (e.key == "Meta") {
+    blnCmdPressed = false
+    var hangulInput = document.getElementById("hangulime");
+    console.log(keypressFunction)
+    hangulInput.addEventListener("keypress", keypressFunction, true);
+  }
+}
+
 function init() {
   var hangulInput = document.getElementById("hangulime");
 
   // Add event listeners to Old Hangul IME textarea
-  hangulInput.addEventListener("keypress", function(event) {
+  keypressFunction = function(event) {
     receiveKeypress(event, this);
-  }, true);
-  hangulInput.addEventListener("keydown", function(event) {
+  }
+  keydownFunction = function(event) {
     receiveKeydown(event, this);
-  }, true);
+  }
+  keyupFunction = function(event) {
+    receiveKeyup(event, this);
+  }
+
+  hangulInput.addEventListener("keypress", keypressFunction, true);
+  hangulInput.addEventListener("keydown", keydownFunction, true);
+  hangulInput.addEventListener("keyup", keyupFunction, true);
 
   console.log("map_char_jamo_init =");
   console.log(map_char_jamo_init);
