@@ -376,9 +376,9 @@ var jamo_med_u_ae   = new Jamo(jamo_med_u,   "no", JAMO_MEDIAL, 'ᆊ', undefined
 var jamo_med_u_ye   = new Jamo(jamo_med_u,   "nP", JAMO_MEDIAL, 'ᆌ', undefined);
 var jamo_med_u_u    = new Jamo(jamo_med_u,   "nn", JAMO_MEDIAL, 'ᆍ', undefined);
 var jamo_med_yu_a   = new Jamo(jamo_med_yu,  "bk", JAMO_MEDIAL, 'ᆎ', undefined);
-var jamo_med_yu_eo  = new Jamo(jamo_med_yu,  "bj", JAMO_MEDIAL, 'ᆏ', undefined);
+var jamo_med_yu_eo  = new Jamo(jamo_med_yu,  "bu", JAMO_MEDIAL, 'ᆏ', undefined);
 var jamo_med_yu_e   = new Jamo(jamo_med_yu,  "bp", JAMO_MEDIAL, 'ᆐ', undefined);
-var jamo_med_yu_eo  = new Jamo(jamo_med_yu,  "bj", JAMO_MEDIAL, 'ᆑ', undefined);
+var jamo_med_yu_eo  = new Jamo(jamo_med_yu,  "bu", JAMO_MEDIAL, 'ᆑ', undefined);
 var jamo_med_yu_ye  = new Jamo(jamo_med_yu,  "bP", JAMO_MEDIAL, 'ᆒ', undefined);
 var jamo_med_yu_u   = new Jamo(jamo_med_yu,  "bn", JAMO_MEDIAL, 'ᆓ', undefined);
 var jamo_med_yu_i   = new Jamo(jamo_med_yu,  "bl", JAMO_MEDIAL, 'ᆔ', undefined);
@@ -1012,7 +1012,7 @@ var stackPressedKeys = new FixedStack(num);
 var stackValidJamos = new FixedStack(num);
 
 // Controls whether or not "command" has been pressed for copying, pasting, or cutting (MacOS)
-var blnCmdPressed = false;
+var isCmdPressed = false;
 
 // The current selection positions
 var selStart = 0;
@@ -1334,10 +1334,10 @@ function receiveKeydown(e, context) {
 
   console.log(e.key);
   if (e.key == "Meta") {
-    blnCmdPressed = true
+    isCmdPressed = true;
     var hangulInput = document.getElementById("hangulime");
     hangulInput.removeEventListener("keypress", keypressFunction, true);
-    console.log(keypressFunction)
+    console.log(keypressFunction);
   }
 
   if (e.key == "ArrowLeft" || 
@@ -1367,9 +1367,9 @@ function receiveKeydown(e, context) {
 function receiveKeyup(e, context) {
   console.log(e.key);
   if (e.key == "Meta") {
-    blnCmdPressed = false
+    isCmdPressed = false;
     var hangulInput = document.getElementById("hangulime");
-    console.log(keypressFunction)
+    console.log(keypressFunction);
     hangulInput.addEventListener("keypress", keypressFunction, true);
   }
 }
