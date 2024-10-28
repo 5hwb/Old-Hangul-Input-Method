@@ -768,7 +768,7 @@ var list_jamo_med = [
   jamo_med_yu_a,
   jamo_med_yu_eo,
   jamo_med_yu_e,
-  jamo_med_yu_eo,
+  jamo_med_yu_yeo,
   jamo_med_yu_ye,
   jamo_med_yu_u,
   jamo_med_yu_i,
