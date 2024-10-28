@@ -41,12 +41,12 @@ FixedStack.prototype.push = function(item) {
   this.top = (this.top + 1) % this.size;
   this.stack[this.top] = item;
   return false;
-}
+};
 
 // Get the 1st element (top) in the stack
 FixedStack.prototype.getTop = function() {
   return this.stack[this.top];
-}
+};
 
 // Get the nth added element in the stack
 FixedStack.prototype.nthTop = function(n) {
@@ -55,13 +55,13 @@ FixedStack.prototype.nthTop = function(n) {
     return this.stack[(nIndex % this.size + this.size) % this.size];
   }
   return undefined;
-}
+};
 
 // Clear all elements in the stack
 FixedStack.prototype.clear = function() {
   this.top = -1;
   this.stack = new Array(this.size);
-}
+};
 
 
 // Print the contents of the stack, starting with the oldest elements and ending with the last
@@ -74,7 +74,7 @@ FixedStack.prototype.toString = function() {
   }
   //res += "]";
   return res;
-}
+};
 
 // DEBUGGING ONLY: Print the contents of the stack starting with the most recently pushed one
 FixedStack.prototype.showContents = function() {
@@ -86,7 +86,7 @@ FixedStack.prototype.showContents = function() {
   }
   res += "]";
   return res;
-}
+};
 
 /*======================================
 ==========JAMO IMPLEMENTATION===========
@@ -111,7 +111,7 @@ function Jamo(parent, keypress, type, letter, decomposed) {
 // Check if this Jamo is composed of multiple Jamos
 Jamo.prototype.hasMultipleJamo = function() {
   return (this.parent != undefined);
-}
+};
 
 // (DEBUGGING ONLY) Display the contents of this Jamo
 Jamo.prototype.toString = function() {
@@ -124,7 +124,7 @@ Jamo.prototype.toString = function() {
     " }"
   );
   return result.join("");
-}
+};
 
 /*======================================
 ========TESTING THE PROTOTYPES==========
@@ -1078,7 +1078,10 @@ function insertInput(input, pressedKey) {
   
   // Get current char, scanning for trigraphs first before narrowing down the search
   for (var c = pressedKeys.length; c > 0; c--) {
-    var lastCPressedKeys = pressedKeys.substring(pressedKeys.length-c, pressedKeys.length);
+    var lastCPressedKeys = pressedKeys.substring(
+      pressedKeys.length - c,
+      pressedKeys.length
+    );
     var chosenJamo = undefined;
     
     // Update the IME state given the current state and the most recently pressed keys
@@ -1094,8 +1097,7 @@ function insertInput(input, pressedKey) {
           currState = STATE_INSERT_INIT;
           chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
           console.log("* Changed state to Insert Initial");
-        }
-        else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
+        } else if (map_keypress_jamo_med.has(lastCPressedKeys)) {
           currState = STATE_INSERT_MED;
           chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
           console.log("* Changed state to Insert Medial");
@@ -1109,8 +1111,7 @@ function insertInput(input, pressedKey) {
           currState = STATE_INSERT_MED;
           chosenJamo = map_keypress_jamo_med.get(lastCPressedKeys);
           console.log("* Changed state to Insert Medial");
-        }
-        else if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
+        } else if (map_keypress_jamo_fin.has(lastCPressedKeys)) {
           currState = STATE_INSERT_FIN;
           chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
           console.log("* Changed state to Insert Final");
@@ -1130,8 +1131,7 @@ function insertInput(input, pressedKey) {
           currState = STATE_INSERT_FIN;
           chosenJamo = map_keypress_jamo_fin.get(lastCPressedKeys);
           console.log("* Changed state to Insert Final");
-        }
-        else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
+        } else if (map_keypress_jamo_init.has(lastCPressedKeys)) {
           currState = STATE_INSERT_INIT;
           chosenJamo = map_keypress_jamo_init.get(lastCPressedKeys);
           console.log("* Changed state to Insert Initial");
@@ -1157,7 +1157,7 @@ function insertInput(input, pressedKey) {
       // If the selected Jamo cluster is not directly descended from the current Jamo,
       // the detected cluster is NOT valid, so it can be ignored
       if (chosenJamo.parent !== undefined) {
-        if (chosenJamo.parent.letter != input.charAt(selStart-1)) {
+        if (chosenJamo.parent.letter != input.charAt(selStart - 1)) {
           console.log(" OVERRIDE cancelled since jamo has diff parent");
           continue;
         }
@@ -1187,7 +1187,7 @@ function insertInput(input, pressedKey) {
   // replace the final jamos with their decomposed final+initial forms
   if (overridePrevChar) {
     var lastJamo = stackValidJamos.nthTop(1).decomposed;
-    input = input.slice(0, selStart-1) + lastJamo + input.slice(selStart);
+    input = input.slice(0, selStart - 1) + lastJamo + input.slice(selStart);
     
     // Adjust cursor position to accomodate the decomposed final+initial jamos
     selStart += (lastJamo.length - 1);
@@ -1223,7 +1223,7 @@ function deleteInput(input) {
   output = "";
   
   // The previous character before the cursor
-  var prevChar = (selStart >= 1) ? input[selStart-1] : undefined;
+  var prevChar = (selStart >= 1) ? input[selStart - 1] : undefined;
   var chosenPrevJamo = undefined;
   console.log("prevChar = " + prevChar);
   console.log("selStart = " + selStart + " selEnd = " + selEnd);
@@ -1242,18 +1242,15 @@ function deleteInput(input) {
     currState = STATE_INSERT_INIT;
     chosenPrevJamo = map_char_jamo_init.get(prevChar);
     console.log("* Changed state to Insert Initial");
-  }
-  else if (map_char_jamo_med.has(prevChar)) {
+  } else if (map_char_jamo_med.has(prevChar)) {
     currState = STATE_INSERT_MED;
     chosenPrevJamo = map_char_jamo_med.get(prevChar);
     console.log("* Changed state to Insert Medial");
-  }
-  else if (map_char_jamo_fin.has(prevChar)) {
+  } else if (map_char_jamo_fin.has(prevChar)) {
     currState = STATE_INSERT_FIN;
     chosenPrevJamo = map_char_jamo_fin.get(prevChar);
     console.log("* Changed state to Insert Final");
-  }
-  else {
+  } else {
     console.log("* State was left unchanged");
   }
 
@@ -1271,12 +1268,11 @@ function deleteInput(input) {
   }
   // Adjust the cursor position if char was deleted (assuming jamo size is 1)
   else if (!overridePrevChar) { 
-    output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
+    output = input.slice(0, selStart - 1) + replChar + input.slice(selStart);
     selStart -= 1;
     selEnd -= 1;
     console.log("DELETED: !overridePrevChar");
-  }
-  else {
+  } else {
     output = input.slice(0, selStart-1) + replChar + input.slice(selStart);
     console.log("DELETED: default");
   }
